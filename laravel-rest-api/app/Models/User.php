@@ -34,6 +34,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         'password'          => 'hashed',
     ];
 
+    protected $appends = ['permissions'];
     public function getJWTIdentifier(): mixed
     {
         return $this->getKey();
@@ -42,5 +43,11 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     public function getJWTCustomClaims(): array
     {
         return [];
+    }
+    public function getPermissionsAttribute()
+    {
+        return $this->roles->map(function ($role) {
+            return $role->permissions;
+        })->collapse()->pluck('name')->unique();
     }
 }

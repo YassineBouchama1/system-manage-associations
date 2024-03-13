@@ -47,20 +47,20 @@ class RolesSeeder extends Seeder
 
         // ]);
 
-        $addNewPermissions = Role::findByName('restaurant owner');
+        // $addNewPermissions = Role::findByName('restaurant owner');
 
-        $addNewPermissions->syncPermissions([
-            'create categories',
-            'edit categories',
-            'delete categories',
-            'create menu',
-            'edit menu',
-            'delete menu',
-            'select subscription plan',
-            'manage restaurant information',
-            'manage operators'
+        // $addNewPermissions->syncPermissions([
+        //     'create categories',
+        //     'edit categories',
+        //     'delete categories',
+        //     'create menu',
+        //     'edit menu',
+        //     'delete menu',
+        //     'select subscription plan',
+        //     'manage restaurant information',
+        //     'manage operators'
 
-        ]);
+        // ]);
 
         // Create operator role and assign permissions for managing menus
         // $operatorRole = Role::create(['name' => 'operator']);

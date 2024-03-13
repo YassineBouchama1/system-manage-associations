@@ -38,10 +38,15 @@ class AuthController extends Controller
             ], 401);
         }
 
+        $user = Auth::user();
+
         return response()->json([
-            'user'         => new UserResource(Auth::user()),
+            'user'         => new UserResource($user),
             'access_token' => $token,
+            'role' => $user->roles->pluck('name'),
+            'permissions' => $user->permissions
         ]);
+        //   'permissions' => $user->getAllPermissions()->pluck('name')
     }
 
     public function logout(): Response
