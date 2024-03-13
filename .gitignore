@@ -1,0 +1,21 @@
+/.phpunit.cache
+laravel-rest-api/node_modules
+laravel-rest-api/public/build
+laravel-rest-api/public/hot
+laravel-rest-api/public/storage
+laravel-rest-api/storage/*.key
+laravel-rest-api/vendor
+laravel-rest-api/laravel-rest-api/# .env
+.env.backup
+.env.production
+.phpunit.result.cache
+Homestead.json
+laravel-rest-api/Homestead.yaml
+laravel-rest-api/auth.json
+laravel-rest-api/npm-debug.log
+laravel-rest-api/yarn-error.log
+/.fleet
+/.idea
+/.vscode
+.DS_Store
+phpunit.xml
