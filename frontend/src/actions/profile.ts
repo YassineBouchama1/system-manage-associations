@@ -2,6 +2,7 @@
   "use server";
 import { getSession } from "@/lib/getSessions";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 //call it after change it in backend
 export const changeName = async (formData: FormData) => {
@@ -22,4 +23,11 @@ export const changeRole = async () => {
   session.role = "user";
   await session.save();
   revalidatePath("/profile");
+};
+
+
+export const logout = async () => {
+  const session = await getSession();
+  session.destroy();
+  redirect("/");
 };
