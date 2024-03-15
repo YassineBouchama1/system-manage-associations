@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject, MustVerifyEmail
@@ -15,8 +14,6 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     use HasApiTokens;
     use HasFactory;
     use Notifiable;
-    use HasRoles;
-
 
     protected $fillable = [
         'name',
@@ -34,7 +31,6 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         'password'          => 'hashed',
     ];
 
-    protected $appends = ['permissions'];
     public function getJWTIdentifier(): mixed
     {
         return $this->getKey();
@@ -43,11 +39,5 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     public function getJWTCustomClaims(): array
     {
         return [];
-    }
-    public function getPermissionsAttribute()
-    {
-        return $this->roles->map(function ($role) {
-            return $role->permissions;
-        })->collapse()->pluck('name')->unique();
     }
 }

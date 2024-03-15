@@ -32,21 +32,16 @@ class AuthController extends Controller
 
         $token = Auth::attempt($credentials);
 
-        if (!$token) {
+        if (! $token) {
             return response()->json([
                 'status' => 'invalid-credentials',
             ], 401);
         }
 
-        $user = Auth::user();
-
         return response()->json([
-            'user'         => new UserResource($user),
+            'user'         => new UserResource(Auth::user()),
             'access_token' => $token,
-            'role' => $user->roles->pluck('name'),
-            'permissions' => $user->permissions
         ]);
-        //   'permissions' => $user->getAllPermissions()->pluck('name')
     }
 
     public function logout(): Response
