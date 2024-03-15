@@ -1,0 +1,9 @@
+import React from "react";
+
+export default function Loading() {
+  return (
+    <div className="h-60 flex-1 animate-pulse rounded-xl bg-red-800/85 p-10 text-white">
+      Loading transaction
+    </div>
+  );
+}

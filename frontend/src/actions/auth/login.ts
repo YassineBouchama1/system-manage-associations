@@ -1,4 +1,4 @@
-import { getSession } from "@/lib/sessionsOptions";
+import { getSession } from "@/lib/getSessions";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 
