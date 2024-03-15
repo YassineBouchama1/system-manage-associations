@@ -1,3 +1,4 @@
+import { logout } from "@/actions/profile";
 
 interface fetchClientProps {
   method?: string;
@@ -29,9 +30,9 @@ async function fetchClient({ method = "GET", url, body = "", token }: fetchClien
   } catch (error) {
     if (error instanceof Response) {
       if (error.status === 401) {
-        // signOut();
+       logout();
       }
-
+ 
       if (error.status === 409) {
         window.location.href = "/request-email-verification";
       }

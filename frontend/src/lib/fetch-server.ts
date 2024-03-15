@@ -1,7 +1,7 @@
 
 import { redirect } from "next/navigation";
 import "server-only";
-
+import { getSession } from "@/lib/getSessions";
 interface fetchServerProps {
   method?: string;
   url: string;
@@ -10,14 +10,14 @@ interface fetchServerProps {
 
 async function fetchServer({ method = "GET", url, body = "" }: fetchServerProps) {
   try {
-    const session = 'token';
+    const session = await getSession();
 
     const response = await fetch(url.toString(), {
       method: method,
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: "Bearer" + session?.accessToken,
+        Authorization: "Bearer" + session?.token,
       },
       body: body || undefined,
     });
@@ -28,6 +28,7 @@ async function fetchServer({ method = "GET", url, body = "" }: fetchServerProps)
 
     return response;
   } catch (error) {
+    //get instant from Response to error
     if (error instanceof Response) {
       if (error.status === 401) {
         return redirect("/login");

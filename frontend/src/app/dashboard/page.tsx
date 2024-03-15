@@ -1,9 +1,9 @@
 import { redirect } from "next/navigation";
 import { changeName, changeRole } from "@/actions/profile";
-import { getSession } from "@/lib/getSessions";
 import { delay } from "@/lib/delay";
+import { getSession } from "@/lib/getSessions";
 
-const ProfilePage = async ({ chart }: { chart: React.ReactNode }) => {
+const ProfilePage = async () => {
   await delay(1000);
 
   const session = await getSession();
@@ -15,7 +15,6 @@ const ProfilePage = async ({ chart }: { chart: React.ReactNode }) => {
   return (
     <div className="profile">
       <h1>Welcome to the ProfilePage</h1>
-      {chart}
       <p>
         Welcome, <b>{session.name}</b>
       </p>

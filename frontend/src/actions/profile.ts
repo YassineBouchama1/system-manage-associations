@@ -15,7 +15,11 @@ export const changeName = async (formData: FormData) => {
   revalidatePath("/profile");
 };
 
+export const getSessionClient = async () => {
+  const session = await getSession();
 
+return session.token;
+};
 
 export const changeRole = async () => {
   const session = await getSession();

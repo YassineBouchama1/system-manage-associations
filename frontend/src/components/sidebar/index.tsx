@@ -8,6 +8,8 @@ import {
   WalletCards,
 } from "lucide-react";
 import SidebarItem from "./item";
+import { useEffect, useState } from "react";
+import { getSession } from "@/lib/getSessions";
 
 interface ISidebarItem {
   name: string;
@@ -54,11 +56,22 @@ const items: ISidebarItem[] = [
 ];
 
 const Sidebar = () => {
+const [name, setName] = useState<string | undefined>("");
+
+useEffect(()=>{
+const fetchSessions = async ()=>{
+  const session = await getSession()
+  console.log(session)
+  setName(session?.name);
+}
+fetchSessions()
+},[])
+
   return (
     <div className="fixed top-0 left-0 h-screen w-64 bg-white shadow-lg z-10 p-4">
       <div className="flex flex-col space-y-10 w-full">
         {/* <img className="h-10 w-fit" src="/logo-expanded.png" alt="Logo" /> */}
-        <h2>logo</h2>
+        <h2>{name ? name :'loading'}</h2>
         <div className="flex flex-col space-y-2">
           {items.map((item, index) => (
             <SidebarItem key={index} item={item} />

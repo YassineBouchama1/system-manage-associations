@@ -1,5 +1,5 @@
 
-import { getSession } from "@/lib/getSessions";
+import { getSession } from "@/lib/optionsSessions";
 import { redirect } from "next/navigation";
 
 
