@@ -1,4 +1,5 @@
 import { delay } from "@/lib/delay";
+import { setTimeout } from "timers";
 
 export default async function Home() {
   await delay(5000);

@@ -18,7 +18,7 @@ export const changeName = async (formData: FormData) => {
 export const getSessionClient = async () => {
   const session = await getSession();
 
-return session.token;
+return session;
 };
 
 export const changeRole = async () => {

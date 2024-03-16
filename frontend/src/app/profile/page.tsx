@@ -1,6 +1,5 @@
+import { getSession } from "@/lib/getSessions";
 
-import { getSession } from "@/lib/optionsSessions";
-import { redirect } from "next/navigation";
 
 
 const ProfilePage = async () => {
@@ -9,8 +8,7 @@ const ProfilePage = async () => {
 
   return (
     <div className="profile">
-      <h1>Welcome to the ProfilePage</h1>
-     
+      <h1>Welcome to the ProfilePage - {session?.name && session.name}</h1>
     </div>
   );
 };
