@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { redirect } from "next/navigation";
+import { getSession } from "./getSessions";
 
 export default function isAuth(Component: any, requiredRole: any) {
   return function AuthChecker(props: any) {
@@ -10,13 +11,22 @@ export default function isAuth(Component: any, requiredRole: any) {
     // Bring data user from local storage
     const auth = true; // Change this to your authentication logic
 
+
+
+const isAuthed = async () => {
+  const session = await getSession();
+  if (!session.token) {
+    setLoading(false);
+    redirect("/"); // Redirect to home if not authenticated
+  } else {
+    setLoading(false);
+  }
+};
+
     useEffect(() => {
-      if (!auth) {
-        setLoading(false);
-        redirect("/"); // Redirect to home if not authenticated
-      } else {
-        setLoading(false);
-      }
+
+isAuthed()
+    
     }, [auth]); 
 
     if (isLoading) {

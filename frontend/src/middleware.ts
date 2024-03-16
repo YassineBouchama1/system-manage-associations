@@ -15,12 +15,12 @@ export default async function middleware(req: any) {
   );
 
   const session = await getSession();
-
-  if (session?.token) {
     if (!session?.token && (isAuthRoute || isVerifyRoute)) {
       const redirectUrl = new URL("/", req.nextUrl.origin);
       return NextResponse.redirect(redirectUrl);
     }
+  if (session?.token) {
+ 
 
     if ( isGuestRoute || isVerifyRoute) {
       return NextResponse.redirect(new URL("/dashboard", req.nextUrl.origin));
