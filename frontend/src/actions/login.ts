@@ -3,6 +3,7 @@ import fetchClient from "@/lib/fetch-client";
 import { getSession } from "@/lib/getSessions";
 import { z } from "zod";
 import { redirect } from "next/navigation";
+import fetchServer from "@/lib/fetch-server";
 
 
 export const login = async (prevState: any, formData: FormData) => {
@@ -24,7 +25,7 @@ export const login = async (prevState: any, formData: FormData) => {
   if (!validatedFields.success) {
     return {
       message: "error in zod",
-      errors: {},
+      errors: validatedFields.error.flatten().fieldErrors,
       type: "error",
     };
   }
@@ -34,7 +35,7 @@ export const login = async (prevState: any, formData: FormData) => {
 
   // fetch data
   try {
-    const response = await fetchClient({
+    const response = await fetchServer({
       method: "POST",
       url: process.env.NEXT_PUBLIC_BACKEND_API_URL + "/api/login",
       body: JSON.stringify(validatedFields.data),
@@ -60,7 +61,7 @@ export const login = async (prevState: any, formData: FormData) => {
  
 
     //after successfully 
-    // redirect("/dashboard");
+
     
            return {
              message: "fetching successfully",
@@ -71,10 +72,13 @@ export const login = async (prevState: any, formData: FormData) => {
     
 
   } catch (error) {
+    console.log(error);
     if (error instanceof Response) {
+    console.log(error);
+
       if (error.status === 401) {
         return {
-          message: "invalid-credentials",
+          message: `invalid credentials ${error}`,
           errors: {},
           type: "error",
         };

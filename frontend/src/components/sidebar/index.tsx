@@ -45,6 +45,8 @@ const items: ISidebarItem[] = [
     name: "Settings",
     path: "/dashboard/settings",
     icon: Settings,
+    role: "admin",
+
     items: [
       {
         name: "General",
@@ -87,7 +89,7 @@ const Sidebar = () => {
         </h2>
         <div className="flex flex-col space-y-2">
           {items
-            .filter((item) => item.role === session?.role)
+            .filter((item) => item.role === 'admin')
             .map((item, index) => (
               <SidebarItem key={index} item={item} />
             ))}

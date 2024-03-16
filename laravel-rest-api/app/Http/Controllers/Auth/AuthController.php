@@ -32,9 +32,10 @@ class AuthController extends Controller
 
         $token = Auth::attempt($credentials);
 
-        if (! $token) {
+        if (!$token) {
             return response()->json([
                 'status' => 'invalid-credentials',
+                'message' => 'invalid credentials',
             ], 401);
         }
 
