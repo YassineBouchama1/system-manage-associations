@@ -1,46 +1,103 @@
-'use client'
-import React, { createContext, useState, useContext, useEffect } from "react";
+"use client";
+import {
+  LucideIcon,
+  LayoutDashboard,
+  BadgeDollarSign,
+  CircleUserRound,
+  Settings,
+  WalletCards,
+} from "lucide-react";
+import SidebarItem from "./item";
+import { useEffect, useState } from "react";
 import { getSession } from "@/lib/getSessions";
-import { SessionData } from "@/lib/optionsSessions";
+import { useAuthContext } from "@/hooks/useAuthProvider";
+import { logout } from "@/actions/profile";
+import { SubmitButton } from "../ui/SubmitButton";
 
-type Session = SessionData | any;
-type GlobalContext = {
-  session: Session;
-  setSession: React.Dispatch<React.SetStateAction<Session>>;
-};
+interface ISidebarItem {
+  name: string;
+  path: string;
+  icon: LucideIcon;
+  role?: string;
+  items?: ISubItem[];
+}
 
-export const GlobalContext = createContext<GlobalContext | null>(null);
+interface ISubItem {
+  name: string;
+  path: string;
+  role?: string;
+}
 
-type AuthProviderProps = {
-  children: React.ReactNode;
-};
+const items: ISidebarItem[] = [
+  {
+    name: "Dashboard",
+    path: "/dashboard",
+    icon: LayoutDashboard,
+    role: "admin",
+  },
+  {
+    name: "transaction",
+    path: "/dashboard/transaction",
+    icon: LayoutDashboard,
+    role: "admin",
+  },
+  {
+    name: "Settings",
+    path: "/dashboard/settings",
+    icon: Settings,
+    items: [
+      {
+        name: "General",
+        path: "/dashboard/settings",
+        role: "admin",
+      },
+      {
+        name: "Security",
+        path: "/dashboard/settings/security",
+      },
+      {
+        name: "Notifications",
+        path: "/dashboard/settings/notifications",
+      },
+    ],
+  },
+];
 
-export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [session, setSession] = useState<Session>(null);
+const Sidebar = () => {
+  const [name, setName] = useState<string | undefined>("");
+  const { session, setSession, loading } = useAuthContext();
 
+  //bring session
   useEffect(() => {
     const fetchSessions = async () => {
       const session = await getSession();
       console.log(session);
-      setSession(session);
+      setName(session?.name);
     };
     fetchSessions();
   }, []);
 
+
   return (
-    <GlobalContext.Provider value={{ session, setSession }}>
-      {children}
-    </GlobalContext.Provider>
+    <div className="fixed top-0 left-0 h-screen w-64 bg-white shadow-lg z-10 p-4">
+      <div className="flex flex-col space-y-10 w-full">
+        {/* <img className="h-10 w-fit" src="/logo-expanded.png" alt="Logo" /> */}
+        <h2>
+          {name ? name : "loading"} {session ? session.name : "loading"}
+        </h2>
+        <div className="flex flex-col space-y-2">
+          {items
+            .filter((item) => item.role === session?.role)
+            .map((item, index) => (
+              <SidebarItem key={index} item={item} />
+            ))}
+        </div>
+        <form action={logout}>
+          <SubmitButton title="logout" />
+        </form>
+      </div>
+    </div>
   );
 };
 
-export function useAuthContext() {
-  const context = useContext(GlobalContext);
-  if (!context) {
-    throw new Error("useAuthContext must be used within an AuthProvider");
-  }
-  return context;
-}
-
-// //usage
-// const { session, setSession } = useAuthContext();
+export default Sidebar;

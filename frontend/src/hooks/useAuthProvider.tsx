@@ -1,37 +1,44 @@
 'use client'
+import React, {
+  createContext,
+  useState,
+  useContext,
+  useEffect,
+  useCallback,
+} from "react";
 import { getSession } from "@/lib/getSessions";
 import { SessionData } from "@/lib/optionsSessions";
-import React, { createContext, useState, useContext, useEffect } from "react";
 
-type Session = SessionData | any;
+type Session = SessionData | null;
 type GlobalContext = {
   session: Session;
   setSession: React.Dispatch<React.SetStateAction<Session>>;
+  loading: boolean;
 };
 
 export const GlobalContext = createContext<GlobalContext | null>(null);
 
-type GlobalContextProviderProps = {
+type AuthProviderProps = {
   children: React.ReactNode;
 };
 
-export const AuthProvider: React.FC<GlobalContextProviderProps> = ({
-  children,
-}) => {
+export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [session, setSession] = useState<Session>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
+  const fetchSessions = useCallback(async () => {
+    setLoading(true);
+    const sessionData = await getSession();
+    setSession(sessionData);
+    setLoading(false);
+  }, []);
 
-useEffect(() => {
-  const fetchSessions = async () => {
-    const session = await getSession();
-    console.log(session);
-    setSession(session?.name);
-  };
-  fetchSessions();
-}, []);
+  useEffect(() => {
+    fetchSessions();
+  }, [fetchSessions]);
 
   return (
-    <GlobalContext.Provider value={{ session, setSession }}>
+    <GlobalContext.Provider value={{ session, setSession, loading }}>
       {children}
     </GlobalContext.Provider>
   );
@@ -40,12 +47,10 @@ useEffect(() => {
 export function useAuthContext() {
   const context = useContext(GlobalContext);
   if (!context) {
-    throw new Error(
-      "useGlobalContext must be used within a GlobalContextProvider"
-    );
+    throw new Error("useAuthContext must be used within an AuthProvider");
   }
   return context;
 }
 
 // //usage
-// const { theme, setSession } = useGlobalContext();
+// const { session, setSession, loading } = useAuthContext();
