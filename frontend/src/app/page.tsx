@@ -1,7 +1,6 @@
+import { redirect } from "next/navigation";
 
-const DashboardPage = () => {
-
-  return <div>Dashboard Page</div>;
-};
-
-export default DashboardPage;
+// This page only renders when the app is built statically (output: 'export')
+export default function RootPage() {
+  redirect("/ar");
+}

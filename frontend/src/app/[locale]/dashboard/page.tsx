@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { changeName, changeRole } from "@/actions/profile";
 import { delay } from "@/lib/delay";
 import { getSession } from "@/lib/getSessions";
+import LocaleSwitcher from "@/components/LocaleSwitcher";
 
 const ProfilePage = async () => {
   await delay(1000);
@@ -14,6 +15,8 @@ const ProfilePage = async () => {
 
   return (
     <div className="profile">
+      <LocaleSwitcher />
+
       <h1>Welcome to the ProfilePage</h1>
       <p>
         Welcome, <b>{session.name}</b>

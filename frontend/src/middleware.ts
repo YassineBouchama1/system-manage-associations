@@ -1,8 +1,13 @@
 import { usePathname } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "./lib/getSessions";
+import { pathnames, locales, localePrefix } from "./config";
+
+import createMiddleware from "next-intl/middleware";
 
 export default async function middleware(req: any) {
+
+
   const isIndexpage = req.nextUrl.pathname === "/";
   const isAuthRoute = authRoutes.some((route) =>
     req.nextUrl.pathname.startsWith(route)
@@ -26,13 +31,31 @@ export default async function middleware(req: any) {
       return NextResponse.redirect(new URL("/dashboard", req.nextUrl.origin));
     }
   }
+
+  return NextIntlMiddleware(req);
 }
 
-const authRoutes = ["/dashboard"];
-const verifyRoutes = ["/request-email-verification", "/verify-email"];
-const guestRoutes = [
-  "/forgot-password",
-  "/login",
-  "/password-reset",
-  "/register",
+const authRoutes = ["/(ar|en)/dashboard"];
+const verifyRoutes = [
+  "/(ar|en)/request-email-verification",
+  "/(ar|en)/verify-email",
 ];
+const guestRoutes = [
+  "/(ar|en)/forgot-password",
+  "*/login",
+  "/(ar|en)/password-reset",
+  "/(ar|en)/register",
+];
+
+
+ const NextIntlMiddleware = createMiddleware({
+   defaultLocale: "ar",
+   locales,
+   pathnames,
+   localePrefix,
+ });
+
+ export const config = {
+   // Match only internationalized pathnames
+   matcher: ["/", "/(ar|en)/:path*"],
+ };
