@@ -30,13 +30,8 @@ async function fetchServer({ method = "GET", url, body = "" }: fetchServerProps)
   } catch (error) {
     //get instant from Response to error
     if (error instanceof Response) {
-      if (error.status === 401) {
-        return redirect("/login");
-      }
-
-      if (error.status === 409) {
-        return redirect("/request-email-verification");
-      }
+        return error;
+          
     }
 
     throw new Error("Failed to fetch data from the server", { cause: error });

@@ -41,13 +41,11 @@ export const login = async (prevState: any, formData: FormData) => {
       body: JSON.stringify(validatedFields.data),
     });
 
-    if (!response.ok) {
-      throw response;
-    }
-    const data = await response.json();
+    // if (!response.ok) {
+    //   throw response;
+    // }
 
-    console.log(data);
-    console.log("good");
+    const data = await response.json();
 
     //assign data user to session
     session.userId = "1";
@@ -58,31 +56,31 @@ export const login = async (prevState: any, formData: FormData) => {
     session.permissions = ["create", "delete"];
     session.token = data?.access_token;
     await session.save();
- 
 
-    //after successfully 
+    //after successfully
+    return {
+      message: "fetching successfully",
+      errors: {},
+      type: "success",
+    };
 
-    
-           return {
-             message: "fetching successfully",
-             errors: {},
-             type: "success",
-           };
-    
-    
+
 
   } catch (error) {
-    console.log(error);
-    if (error instanceof Response) {
-    console.log(error);
 
+    if (error instanceof Response) {
       if (error.status === 401) {
+        const responseBody = await error.text(); 
+        const errorObject: any = JSON.parse(responseBody); 
         return {
-          message: `invalid credentials ${error}`,
+          message: errorObject.message,
           errors: {},
           type: "error",
         };
       }
     }
   }
+
+
+
 };

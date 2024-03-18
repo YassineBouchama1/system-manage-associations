@@ -1,4 +1,8 @@
 {
+  "LocaleSwitcher": {
+    "label": "Change language",
+    "locale": "{locale, select, de {🇩🇪 Deutsch} en {🇺🇸 English} other {Unknown}}"
+  },
   "Index": {
     "title": "salam world!"
   },
@@ -9,7 +13,8 @@
     "password": "كلمة المرور",
     "forgetPassword": "هل نسيت كلمة السر؟",
     "dontHaveAccount": "لا تملك حسابا حتى الآن؟",
-    "signUp": "لاشتراك"
+    "signUp": "لاشتراك",
+    "rememberMe": "تذكرنى"
   },
   "IndexPage": {
     "title": "next-intl example",

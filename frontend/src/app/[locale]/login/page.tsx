@@ -1,4 +1,4 @@
-import LocaleSwitcher from "@/components/LocaleSwitcher";
+import LocaleSwitcher from "@/components/next-intl/LocaleSwitcher";
 import LoginForm from "@/components/auth/login-form";
 import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";

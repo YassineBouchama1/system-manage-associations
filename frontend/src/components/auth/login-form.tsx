@@ -78,7 +78,7 @@ console.log(state);
               htmlFor="remember"
               className="text-gray-500 dark:text-gray-300"
             >
-              {t("RememberMe")}
+              remamber me
             </label>
           </div>
         </div>

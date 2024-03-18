@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import { changeName, changeRole } from "@/actions/profile";
 import { delay } from "@/lib/delay";
 import { getSession } from "@/lib/getSessions";
-import LocaleSwitcher from "@/components/LocaleSwitcher";
+import LocaleSwitcher from "@/components/next-intl/LocaleSwitcher";
 
 const ProfilePage = async () => {
   await delay(1000);

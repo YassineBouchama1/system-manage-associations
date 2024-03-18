@@ -1,6 +1,6 @@
 'use client'
-import LocaleSwitcher from "@/components/LocaleSwitcher";
-import NavigationLink from "@/components/NavigationLink";
+import LocaleSwitcher from "@/components/next-intl/LocaleSwitcher";
+import NavigationLink from "@/components/next-intl/NavigationLink";
 import { useTranslations } from "next-intl";
 
 const DashboardPage = () => {
