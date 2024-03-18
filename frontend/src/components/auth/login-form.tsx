@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { useEffect } from "react";
 import Link from "next/link";
 import { useFormState } from "react-dom";
+import { useTranslations } from "next-intl";
 
 const initialState: any = {
   message: null,
@@ -13,6 +14,8 @@ const initialState: any = {
 };
 
 export default function LoginForm() {
+
+  const t = useTranslations('login')
   const [state, formAction] = useFormState(login, initialState);
 console.log(state);
   useEffect(() => {
@@ -33,7 +36,7 @@ console.log(state);
           htmlFor="email"
           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
         >
-          Your email
+          {t("email")}
         </label>
         <input
           type="email"
@@ -49,7 +52,7 @@ console.log(state);
           htmlFor="password"
           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
         >
-          Password
+          {t("password")}
         </label>
         <input
           type="password"
@@ -75,7 +78,7 @@ console.log(state);
               htmlFor="remember"
               className="text-gray-500 dark:text-gray-300"
             >
-              Remember me
+              {t("RememberMe")}
             </label>
           </div>
         </div>
@@ -83,7 +86,7 @@ console.log(state);
           href="#"
           className="text-sm font-medium text-green-500 hover:underline dark:text-primary-500"
         >
-          Forgot password?
+          {t("forgetPassword")}
         </a>
       </div>
       <SubmitButton
@@ -92,12 +95,12 @@ console.log(state);
       />
 
       <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-        Don’t have an account yet?{" "}
+        {t("dontHaveAccount")}{" "}
         <Link
           href="/register"
           className="font-medium text-green-500 hover:underline dark:text-primary-500"
         >
-          Sign up
+          {t("signUp")}
         </Link>
       </p>
     </form>

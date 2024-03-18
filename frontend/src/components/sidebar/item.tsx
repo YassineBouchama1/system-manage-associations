@@ -32,6 +32,7 @@ const SidebarItem = ({ item }: { item: ISidebarItem }) => {
   };
   const isActive = useMemo(() => {
     if (items && items.length > 0) {
+        //check if itemPath has same path url 
       if (items.find((item) => item.path === pathname)) {
         setExpanded(true);
         return true;

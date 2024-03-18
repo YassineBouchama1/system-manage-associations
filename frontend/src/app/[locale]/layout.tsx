@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/hooks/useAuthProvider";
-import { NextIntlClientProvider, useMessages } from "next-intl";
+import { NextIntlClientProvider, useLocale, useMessages } from "next-intl";
 import { locales } from "../../config";
 import { ReactNode } from "react";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
+import { notFound } from "next/navigation";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,6 +33,12 @@ type Props = {
 export default function RootLayout({ children, params: { locale } }: Props) {
   unstable_setRequestLocale(locale);
   const messages = useMessages();
+
+const correntlocale = useLocale()
+
+if(locale !== correntlocale){
+  notFound()
+}
 
   return (
     <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>

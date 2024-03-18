@@ -5,6 +5,15 @@ import { pathnames, locales, localePrefix } from "./config";
 
 import createMiddleware from "next-intl/middleware";
 
+
+//middleware for multi languages <ar-en>
+ const NextIntlMiddleware = createMiddleware({
+   locales,
+   pathnames,
+   localePrefix,
+   defaultLocale: "ar",
+ });
+
 export default async function middleware(req: any) {
 
 
@@ -19,7 +28,9 @@ export default async function middleware(req: any) {
     req.nextUrl.pathname.startsWith(route)
   );
 
+//get session <data user auth>
   const session = await getSession();
+
     if (!session?.token && (isAuthRoute || isVerifyRoute)) {
       const redirectUrl = new URL("/", req.nextUrl.origin);
       return NextResponse.redirect(redirectUrl);
@@ -31,11 +42,11 @@ export default async function middleware(req: any) {
       return NextResponse.redirect(new URL("/dashboard", req.nextUrl.origin));
     }
   }
-
   return NextIntlMiddleware(req);
+
 }
 
-const authRoutes = ["/(ar|en)/dashboard"];
+const authRoutes = ["/dashboard"];
 const verifyRoutes = [
   "/(ar|en)/request-email-verification",
   "/(ar|en)/verify-email",
@@ -48,14 +59,8 @@ const guestRoutes = [
 ];
 
 
- const NextIntlMiddleware = createMiddleware({
-   defaultLocale: "ar",
-   locales,
-   pathnames,
-   localePrefix,
- });
 
  export const config = {
    // Match only internationalized pathnames
-   matcher: ["/", "/(ar|en)/:path*"],
+   matcher: "/((?!api|static|.*\\..*|_next).*)",
  };
