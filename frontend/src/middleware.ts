@@ -53,7 +53,8 @@ const verifyRoutes = [
 ];
 const guestRoutes = [
   "/(ar|en)/forgot-password",
-  "*/login",
+  "/(ar|en)/login",
+  "/login",
   "/(ar|en)/password-reset",
   "/(ar|en)/register",
 ];

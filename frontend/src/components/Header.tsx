@@ -4,8 +4,10 @@ import type { FC } from 'react';
 interface HeaderProps {}
 
 const Header: FC<HeaderProps> = ({}) => {
-        return (<header className=' bg-slate-500 h-20 text-white'>
-                <form action={logout}><input className='text-white' type='submit' value='logout'></input></form>
-                 </header>);
+        return (
+          <header className='bg-white border-gray-200 px-4 min-h-16 lg:px-6 py-2.5 dark:bg-gray-800'>
+            <nav></nav>
+          </header>
+        );
 }
 export default Header;

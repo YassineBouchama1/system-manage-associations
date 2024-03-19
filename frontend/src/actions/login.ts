@@ -41,9 +41,9 @@ export const login = async (prevState: any, formData: FormData) => {
       body: JSON.stringify(validatedFields.data),
     });
 
-    // if (!response.ok) {
-    //   throw response;
-    // }
+    if (!response.ok) {
+      throw response;
+    }
 
     const data = await response.json();
 
@@ -66,19 +66,18 @@ export const login = async (prevState: any, formData: FormData) => {
 
 
 
-  } catch (error) {
+  } catch (error: any) {
 
-    if (error instanceof Response) {
-      if (error.status === 401) {
-        const responseBody = await error.text(); 
-        const errorObject: any = JSON.parse(responseBody); 
-        return {
-          message: errorObject.message,
-          errors: {},
-          type: "error",
-        };
-      }
-    }
+    console.log(error.status);
+         if (error.status === 401) {
+           const responseBody = await error.text();
+           const errorObject: any = JSON.parse(responseBody);
+           return {
+             message: errorObject.message,
+             errors: {},
+             type: "error",
+           };
+         }
   }
 
 
