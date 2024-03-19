@@ -37,13 +37,13 @@ export default function LocaleSwitcherSelect({
   return (
     <label
       className={clsx(
-        'relative text-gray-400',
-        isPending && 'transition-opacity [&:disabled]:opacity-30'
+        "relative text-gray-400",
+        isPending && "transition-opacity [&:disabled]:opacity-30"
       )}
     >
       <p className="sr-only">{label}</p>
       <select
-        className="inline-flex appearance-none bg-transparent py-3 pl-2 pr-6"
+        className="inline-flex items-center justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         defaultValue={defaultValue}
         disabled={isPending}
         onChange={onSelectChange}

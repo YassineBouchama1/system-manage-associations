@@ -1,4 +1,11 @@
 {
+  "LocaleSwitcher": {
+    "label": "Change language",
+    "locale": "{locale, select, de {🇩🇪 Deutsch} en {🇺🇸 English} other {Unknown}}",
+    "ar": "العربية",
+    "en": "English"
+  },
+
   "Index": {
     "title": "Hello world!"
   },

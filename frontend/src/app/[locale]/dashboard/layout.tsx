@@ -1,4 +1,4 @@
-import Header from "@/components/Header";
+import Header from "@/components/header/Header";
 import Sidebar from "@/components/sidebar";
 import { getSession } from "@/lib/getSessions";
 
