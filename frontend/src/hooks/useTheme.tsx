@@ -1,9 +1,12 @@
+'use client'
 import React, { createContext, useState, useContext } from "react";
 
 type Theme = "dark" | "light";
 
 type GlobalContext = {
   theme: Theme;
+  toggleSIdeBar: boolean;
+  setToggleSIdeBar: React.Dispatch<React.SetStateAction<boolean>>;
   setTheme: React.Dispatch<React.SetStateAction<Theme>>;
 };
 
@@ -17,9 +20,11 @@ export function GlobalThemeProvider({
   children,
 }: GlobalContextProviderProps) {
   const [theme, setTheme] = useState<Theme>("light");
-
+const [toggleSIdeBar, setToggleSIdeBar] = useState<boolean>(false);
   return (
-    <GlobalContext.Provider value={{ theme, setTheme }}>
+    <GlobalContext.Provider
+      value={{ theme, setTheme, setToggleSIdeBar, toggleSIdeBar }}
+    >
       {children}
     </GlobalContext.Provider>
   );

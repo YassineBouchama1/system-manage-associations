@@ -9,6 +9,9 @@
   "Index": {
     "title": "Hello world!"
   },
+  "header": {
+    "search": "search"
+  },
   "login": {
     "title": "login",
     "title_form": "تسجيل الدخول إلى حسابك",

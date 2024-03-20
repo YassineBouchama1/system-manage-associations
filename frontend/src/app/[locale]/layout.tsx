@@ -7,6 +7,7 @@ import { locales } from "../../config";
 import { ReactNode } from "react";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
+import { GlobalThemeProvider } from "@/hooks/useTheme";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -44,7 +45,12 @@ if(locale !== correntlocale){
     <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
       <body className={inter.className}>
         <NextIntlClientProvider locale={locale} messages={messages}>
-          <AuthProvider>{children}</AuthProvider>
+          <AuthProvider>
+            <GlobalThemeProvider>
+
+            {children}
+            </GlobalThemeProvider>
+            </AuthProvider>
         </NextIntlClientProvider>
       </body>
     </html>

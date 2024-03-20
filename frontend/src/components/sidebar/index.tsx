@@ -6,6 +6,8 @@ import {
   CircleUserRound,
   Settings,
   WalletCards,
+  LogOut,
+  AlignJustify,
 } from "lucide-react";
 import SidebarItem from "./item";
 import { useEffect, useState } from "react";
@@ -15,6 +17,7 @@ import { logout } from "@/actions/profile";
 import { SubmitButton } from "../ui/SubmitButton";
 import { useTranslations } from "next-intl";
 import LocaleSwitcher from "../next-intl/LocaleSwitcher";
+import { useGlobalTheme } from "@/hooks/useTheme";
 
 interface ISidebarItem {
   name: string;
@@ -72,6 +75,8 @@ const Sidebar = () => {
   ];
   const [name, setName] = useState<string | undefined>("");
   const { session, setSession, loading } = useAuthContext();
+  const { toggleSIdeBar, setToggleSIdeBar } = useGlobalTheme();
+
 
   //bring session
   useEffect(() => {
@@ -85,10 +90,17 @@ const Sidebar = () => {
 
 
   return (
-    <div className="h-screen w-64 bg-white shadow-lg z-10 p-4">
+    <div
+      className={`${
+        !toggleSIdeBar && "hidden"
+      } md:flex  fixed  right-0 md:static  h-screen w-64 bg-white shadow-lg z-10 p-4`}
+    >
       <div className="flex flex-col space-y-10 w-full h-full ">
         {/* <img className="h-10 w-fit" src="/logo-expanded.png" alt="Logo" /> */}
         <h2>{session ? session.name : "loading"}</h2>
+        <button onClick={() => setToggleSIdeBar(!toggleSIdeBar)}>
+          <AlignJustify />
+        </button>
         <div className="flex flex-col space-y-2">
           {items
             .filter((item) => item.role === "admin")
@@ -99,7 +111,7 @@ const Sidebar = () => {
 
         <div className="flex h-full   justify-end  flex-col space-y-10 w-full">
           <hr></hr>
-          
+
           <form action={logout}>
             <SubmitButton title={t("logout")} />
           </form>
