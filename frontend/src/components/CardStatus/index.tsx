@@ -7,7 +7,7 @@ const CardStatus = () => {
 
     const items: ItemType[] = [
       {
-        title: "Casese",
+        title: "Total Cases",
         data: "252,252",
         icon: Users,
         color: "#8280FF",
@@ -37,9 +37,9 @@ const CardStatus = () => {
     ];
 
     return (
-      <section className=" flex gap-3">
+      <section className=" grid  grid-cols-4 grid-rows-1  gap-6 ">
         {items.map((item) => (
-          <ItemsStatus  key={item.title} item={item}/>
+          <ItemsStatus key={item.title} item={item} />
         ))}
       </section>
     );

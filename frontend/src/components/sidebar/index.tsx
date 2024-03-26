@@ -8,6 +8,7 @@ import {
   WalletCards,
   LogOut,
   AlignJustify,
+  X,
 } from "lucide-react";
 import SidebarItem from "./item";
 import { useEffect, useState } from "react";
@@ -15,10 +16,11 @@ import { getSession } from "@/lib/getSessions";
 import { useAuthContext } from "@/hooks/useAuthProvider";
 import { logout } from "@/actions/profile";
 import { SubmitButton } from "../ui/SubmitButton";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import LocaleSwitcher from "../next-intl/LocaleSwitcher";
 import { useGlobalTheme } from "@/hooks/useTheme";
 import Image from "next/image";
+import { motion, useCycle } from "framer-motion";
 
 interface ISidebarItem {
   name: string;
@@ -86,13 +88,24 @@ const Sidebar = () => {
     fetchSessions();
   }, []);
 
+  const location  = useLocale()
   return (
-    <div
-      className={`${
-        !toggleSIdeBar && "hidden"
-      } md:flex  min-h-screen fixed top-0 bottom-0  right-0 md:static  w-64 bg-white shadow-lg z-10 p-4`}
+    <motion.div
+      initial={false}
+      animate={toggleSIdeBar ? "open" : "closed"}
+      className={`
+      ${!toggleSIdeBar && "hidden"} ${
+        location == "ar" ? "right-0" : "left-0"
+      } md:flex  min-h-screen fixed top-0 bottom-0   md:static  w-64 bg-white shadow-lg z-10 p-4`}
     >
       <div className="   flex flex-col space-y-10 w-full  h-full">
+        <div className="flex gap-1">
+          <button
+            className="md:hidden opacity-75"
+            onClick={() => setToggleSIdeBar(!toggleSIdeBar)}
+          >
+            <X />
+          </button>
           <Image
             className=" h-10 w-fit "
             src="/logo.png"
@@ -100,11 +113,7 @@ const Sidebar = () => {
             width="100"
             height="100"
           />
-        
-     
-        {/* <button onClick={() => setToggleSIdeBar(!toggleSIdeBar)}>
-          <AlignJustify />
-        </button> */}
+        </div>
 
         <div className="flex flex-col space-y-2">
           {items
@@ -122,7 +131,7 @@ const Sidebar = () => {
           </form>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
