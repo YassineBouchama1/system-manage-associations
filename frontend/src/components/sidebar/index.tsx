@@ -89,10 +89,27 @@ const Sidebar = () => {
   }, []);
 
   const location  = useLocale()
+
+ const variants = {
+   open: {
+ 
+     
+     opacity: 1,
+     transition: { duration: 0.3 }, // Customize animation duration as needed
+   },
+   closed: {
+ 
+     opacity: 1,
+     transition: { duration: 0.3 }, // Customize animation duration as needed
+   },
+ };
+
+ 
   return (
     <motion.div
       initial={false}
       animate={toggleSIdeBar ? "open" : "closed"}
+      variants={variants}
       className={`
       ${!toggleSIdeBar && "hidden"} ${
         location == "ar" ? "right-0" : "left-0"
@@ -117,8 +134,7 @@ const Sidebar = () => {
 
         <div className="flex flex-col space-y-2">
           {items
-            .filter((item) => item.role === "admin")
-            .map((item, index) => (
+           .map((item, index) => (
               <SidebarItem key={index} item={item} />
             ))}
         </div>

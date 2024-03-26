@@ -1,10 +1,15 @@
-"use client";
+'use client'
 import { useMemo, useState } from "react";
 import { ChevronDown, LucideIcon } from "lucide-react";
-import { usePathname, useRouter, useSelectedLayoutSegment } from "next/navigation";
+import {
+  usePathname,
+  useRouter,
+  useSelectedLayoutSegment,
+} from "next/navigation";
 
 import SubMenuItem from "./sub-item";
 
+// Interface for SidebarItem data
 interface ISidebarItem {
   name: string;
   path: string;
@@ -12,16 +17,21 @@ interface ISidebarItem {
   items?: ISubItem[];
 }
 
+// Interface for SubMenuItem data
 interface ISubItem {
   name: string;
   path: string;
 }
 
-const SidebarItem = ({ item }: { item: ISidebarItem }) => {
+// SidebarItem component with TypeScript types
+const SidebarItem: React.FC<{ item: ISidebarItem }> = ({ item }) => {
   const { name, icon: Icon, items, path } = item;
   const [expanded, setExpanded] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
+    const segment = useSelectedLayoutSegment();
+
+
   const onClick = () => {
     if (items && items.length > 0) {
       return setExpanded(!expanded);
@@ -29,25 +39,21 @@ const SidebarItem = ({ item }: { item: ISidebarItem }) => {
 
     return router.push(path);
   };
-  const segment :any = useSelectedLayoutSegment();
-console.log(name === segment);
-console.log(name);
-console.log(segment);
+
+
   const isActive = useMemo(() => {
-    if (items && items.length > 0) {
     
-      console.log(segment);
-        //check if itemPath has same path url 
+    if (items && items.length > 0) {
+      //check if itemPath has same path url
       if (items.find((item) => item.path === pathname)) {
         setExpanded(true);
         return true;
       }
     }
 
-    return path === pathname;
-  }, [items, path, pathname]);
 
-
+    return pathname.endsWith(path);
+  }, [path, pathname]);
 
   return (
     <>

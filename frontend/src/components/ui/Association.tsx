@@ -7,7 +7,7 @@ interface AssociationProps {}
 
 const Association: FC<AssociationProps> = ({}) => {
         return (
-          <div className="bg-white gap-y-1 py-3 w-[262px] h-[270px] rounded-md flex flex-col justify-start items-center">
+          <div className="bg-white gap-y-1 py-3 w-[260px] h-[270px] rounded-md flex flex-col justify-start items-center">
             <Image
               src={`/Bitmap.png`}
               alt="assostaion"
