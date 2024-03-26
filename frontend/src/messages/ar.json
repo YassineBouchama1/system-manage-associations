@@ -18,6 +18,9 @@
     "signUp": "لاشتراك",
     "rememberMe": "تذكرنى"
   },
+  "header":{
+"search":"بحث"
+  },
   "sideBar": {
     "logo": "LOGO",
     "dashboard": "الرئيسية",

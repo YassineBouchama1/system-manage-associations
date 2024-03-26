@@ -1,7 +1,8 @@
 import { delay } from "@/lib/delay";
 import React from "react";
 
-const Transaction =async () => {
+const Transaction = () => {
+ 
 
   return (
     <div className="h-96 flex-1  rounded-xl bg-red-800 p-10 text-white">

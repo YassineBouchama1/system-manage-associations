@@ -18,6 +18,7 @@ import { SubmitButton } from "../ui/SubmitButton";
 import { useTranslations } from "next-intl";
 import LocaleSwitcher from "../next-intl/LocaleSwitcher";
 import { useGlobalTheme } from "@/hooks/useTheme";
+import Image from "next/image";
 
 interface ISidebarItem {
   name: string;
@@ -32,8 +33,6 @@ interface ISubItem {
   path: string;
   role?: string;
 }
-
-
 
 const Sidebar = () => {
   const t = useTranslations("sideBar");
@@ -77,7 +76,6 @@ const Sidebar = () => {
   const { session, setSession, loading } = useAuthContext();
   const { toggleSIdeBar, setToggleSIdeBar } = useGlobalTheme();
 
-
   //bring session
   useEffect(() => {
     const fetchSessions = async () => {
@@ -88,19 +86,26 @@ const Sidebar = () => {
     fetchSessions();
   }, []);
 
-
   return (
     <div
       className={`${
         !toggleSIdeBar && "hidden"
-      } md:flex  fixed  right-0 md:static  h-screen w-64 bg-white shadow-lg z-10 p-4`}
+      } md:flex  min-h-screen fixed top-0 bottom-0  right-0 md:static  w-64 bg-white shadow-lg z-10 p-4`}
     >
-      <div className="flex flex-col space-y-10 w-full h-full ">
-        {/* <img className="h-10 w-fit" src="/logo-expanded.png" alt="Logo" /> */}
-        <h2>{session ? session.name : "loading"}</h2>
-        <button onClick={() => setToggleSIdeBar(!toggleSIdeBar)}>
+      <div className="   flex flex-col space-y-10 w-full  h-full">
+          <Image
+            className=" h-10 w-fit "
+            src="/logo.png"
+            alt="Logo"
+            width="100"
+            height="100"
+          />
+        
+     
+        {/* <button onClick={() => setToggleSIdeBar(!toggleSIdeBar)}>
           <AlignJustify />
-        </button>
+        </button> */}
+
         <div className="flex flex-col space-y-2">
           {items
             .filter((item) => item.role === "admin")

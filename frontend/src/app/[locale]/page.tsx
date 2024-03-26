@@ -10,7 +10,7 @@ const DashboardPage = () => {
     <div>
       <LocaleSwitcher />
       Dashboard Page<h1>{t("title")}</h1>
-      <NavigationLink href="/login">login</NavigationLink>
+      {/* <NavigationLink href="/login">login</NavigationLink> */}
     </div>
   );
 };

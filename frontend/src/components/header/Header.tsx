@@ -17,7 +17,9 @@ const Header: FC<HeaderProps> =   ({}) => {
           <header className="bg-white shadow-lg border-gray-200 px-4 min-h-16 lg:px-6 py-2.5 dark:bg-gray-800 ">
             <nav className="flex  items-center justify-between ">
               <div className="flex items-center justify-start gap-4">
-                <button onClick={() => setToggleSIdeBar(!toggleSIdeBar)}>
+                <button 
+                className='md:hidden'
+                onClick={() => setToggleSIdeBar(!toggleSIdeBar)}>
                   <AlignJustify />
                 </button>
                 <div className="hidden md:flex px-4 py-2 rounded-full  items-center justify-start gap-x-3 bg-[#F5F6FA] border-2 border-gray-500/20">
@@ -32,7 +34,7 @@ const Header: FC<HeaderProps> =   ({}) => {
 
               <div className="flex gap-x-4 items-center">
                 <Bell color="#4880FF" />
-                {/* <LocaleSwitcher /> */}
+                <LocaleSwitcher />
                 <ProfileIcon />
               </div>
             </nav>

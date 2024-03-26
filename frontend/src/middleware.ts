@@ -31,10 +31,10 @@ export default async function middleware(req: any) {
 //get session <data user auth>
   const session = await getSession();
 
-    if (!session?.token && (isAuthRoute || isVerifyRoute)) {
-      const redirectUrl = new URL("/", req.nextUrl.origin);
-      return NextResponse.redirect(redirectUrl);
-    }
+    // if (!session?.token && (isAuthRoute || isVerifyRoute)) {
+    //   const redirectUrl = new URL("/", req.nextUrl.origin);
+    //   return NextResponse.redirect(redirectUrl);
+    // }
   if (session?.token) {
  
 

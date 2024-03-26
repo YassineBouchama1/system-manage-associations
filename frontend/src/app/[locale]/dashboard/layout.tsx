@@ -1,8 +1,10 @@
 import Header from "@/components/header/Header";
+import MarginWidthWrapper from "@/components/margin-width-wrapper";
+import PageWrapper from "@/components/page-wrapper";
 import Sidebar from "@/components/sidebar";
-import { getSession } from "@/lib/getSessions";
+import TitlePage from "@/components/ui/TitlePage";
 
-export default  function DashboardLayout({
+export default function DashboardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -10,13 +12,13 @@ export default  function DashboardLayout({
   return (
     <div className="flex h-full w-full bg-gray-100">
       <Sidebar />
-
-      <div className="flex flex-col w-full h-full  ">
+      <main className="flex-1">
         <Header />
-        <div className="bg-[#F5F6FA] flex flex-col w-full h-full  p-4">
+        <PageWrapper>
+          <TitlePage title="Dashboard"/>
           {children}
-        </div>
-      </div>
+          </PageWrapper>
+      </main>
     </div>
   );
 }
