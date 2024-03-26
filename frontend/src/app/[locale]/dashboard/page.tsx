@@ -4,6 +4,7 @@ import { delay } from "@/lib/delay";
 import { getSession } from "@/lib/getSessions";
 import LocaleSwitcher from "@/components/next-intl/LocaleSwitcher";
 import CardStatus from "@/components/CardStatus";
+import Association from "@/components/ui/Association";
 
 const ProfilePage = async () => {
   // await delay(1000);
@@ -15,13 +16,10 @@ const ProfilePage = async () => {
   // }
 
   return (
-    <main className="h-full w-full " >
+    <main className="h-full w-full ">
+      <CardStatus />
+
    
-
-   <CardStatus/>
-
-      <h1>Welcome to the ProfilePage</h1>
-      
     </main>
   );
 };

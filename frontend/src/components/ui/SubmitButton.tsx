@@ -5,15 +5,17 @@ import { useFormStatus } from 'react-dom'
 export function SubmitButton({
   title = "submit",
   style,
+  loadingForm = 'loading...',
 }: {
-  title?: string;
+  title?: any;
   style?: string;
+  loadingForm?:any;
 }) {
-  const { pending } = useFormStatus();
+  // const { pending } = useFormStatus();
 
   return (
-    <button type="submit" aria-disabled={pending} className={style}>
-      {pending ? "loading.." : title}
+    <button type="submit" aria-disabled={true} className={style}>
+      {true ? loadingForm : title}
     </button>
   );
 }
