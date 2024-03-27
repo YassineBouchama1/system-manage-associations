@@ -22,7 +22,7 @@ const Header: FC<HeaderProps> =   ({}) => {
                 onClick={() => setToggleSIdeBar(!toggleSIdeBar)}>
                   <AlignJustify />
                 </button>
-                <div className="hidden md:flex px-4 py-2 rounded-full  items-center justify-start gap-x-3 bg-[#F5F6FA] border-2 border-gray-500/20">
+                <div className="hidden lg:flex px-4 py-2 rounded-full  items-center justify-start gap-x-3 bg-[#F5F6FA] border-2 border-gray-500/20">
                   <Search className="rotate-90 text-gray-500" />
                   <input
                     className="bg-transparent focus:border-none focus:outline-none "

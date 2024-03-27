@@ -28,7 +28,8 @@
     "associations": "جمعيات",
     "createAssociation": "إنشاء جمعية",
     "logout": "تسجيل خروج",
-    "create": "إنشاء"
+    "create": "إنشاء",
+    "illnesses": "الأمراض"
   },
   "IndexPage": {
     "title": "next-intl example",
@@ -51,6 +52,7 @@
     "specialization": "التخصص",
     "upload_ThPhoto": "رفع الصورة ",
     "select": "رفع الصورة ",
-    "illnesses":"أمراض "
+    "illnesses": "أمراض ",
+    "createAssociation": "إنشاء جمعية"
   }
 }

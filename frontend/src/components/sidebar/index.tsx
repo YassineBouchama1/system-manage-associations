@@ -53,6 +53,12 @@ const Sidebar = () => {
       role: "admin",
     },
     {
+      name: t("illnesses"),
+      path: "/dashboard/illnesses",
+      icon: Building2,
+      role: "admin",
+    },
+    {
       name: t("settings"),
       path: "/dashboard/settings",
       icon: Settings,
