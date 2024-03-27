@@ -8,7 +8,7 @@ export default function Loading() {
       <div className="w-full flex justify-center md:justify-end">
         <Link
           href="/dashboard/associations/create"
-          className=" bg-theme-color px-2 py-3 rounded-md text-white text-end"
+          className=" bg-gray-300 min-w-24 animate-pulse px-2 py-3 rounded-md text-gray-300 text-end"
         >
           Add New association
         </Link>

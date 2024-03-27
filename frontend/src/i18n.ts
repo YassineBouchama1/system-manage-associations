@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { getRequestConfig } from "next-intl/server";
 
 // Can be imported from a shared config
-const locales = ["ar", "en"];
+const locales = ["ar", "fr"];
 
 export default getRequestConfig(async ({ locale }) => {
     const basLocal = new Intl.Locale(locale).baseName;

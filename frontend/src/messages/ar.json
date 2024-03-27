@@ -3,7 +3,7 @@
     "label": "Change language",
     "locale": "{locale, select, de {🇩🇪 Deutsch} en {🇺🇸 English} other {Unknown}}",
     "ar": "العربية",
-    "en": "English"
+    "fr": "الفرنسية"
   },
   "Index": {
     "title": "salam world!"
@@ -49,6 +49,8 @@
     "phone_Number": "رقم الهاتف",
     "city": "مدينة",
     "specialization": "التخصص",
-    "upload_ThPhoto": "رفع الصورة "
+    "upload_ThPhoto": "رفع الصورة ",
+    "select": "رفع الصورة ",
+    "illnesses":"أمراض "
   }
 }

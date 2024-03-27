@@ -3,8 +3,12 @@ import { useTranslations } from 'next-intl';
 import { useState, type FC } from 'react';
 
 import FormHeader from './FormHeader';
-import { FormField } from '../ui/FormField';
+import { FormField } from './FormField';
 import Image from 'next/image';
+import { cn } from '@/lib/utils';
+import FormFieldSelect from './FormFieldSelect';
+import { Option } from '@/types/generale';
+import { SubmitButton } from '../ui/SubmitButton';
 
 interface AssociationsFormProps {}
 
@@ -30,13 +34,20 @@ const AssociationsForm: FC<AssociationsFormProps> = ({}) => {
 
 
 
+  // dumy data of cities
+const cities: Option[] = [
+  { value: "safi", label: "Safi" },
+  { value: "marrakech", label: "Marrakech" },
+  { value: "casablanca", label: "Casablanca" },
+];
+
         return (
           <section className="bg-white rounded-md w-full min-h-screen px-2 md:px-20 py-6">
             <form className="w-auto flex-col items-start    ">
               <FormHeader title={t("admin_Account")} />
 
               {/* start form  */}
-              <div className="flex justify-between gap-8 mb-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-6">
                 {/*  form item  */}
 
                 <FormField
@@ -70,8 +81,8 @@ const AssociationsForm: FC<AssociationsFormProps> = ({}) => {
               <FormHeader title={t("association_Informations")} />
               <div>
                 {/* img upload  */}
-                <div className="w-full flex flex-col items-center">
-                  <label htmlFor="img" className='cursor-pointer text-center'>
+                <div className="w-full flex flex-wrap flex-col items-center">
+                  <label htmlFor="img" className="cursor-pointer text-center">
                     <Image
                       className="size-24 rounded-full"
                       src={imageUrl}
@@ -79,7 +90,7 @@ const AssociationsForm: FC<AssociationsFormProps> = ({}) => {
                       width="200"
                       height="200"
                     />
-                    <p className='text-theme-color'>{t("upload_ThPhoto")}</p>
+                    <p className="text-theme-color">{t("upload_ThPhoto")}</p>
                   </label>
 
                   <input
@@ -91,8 +102,36 @@ const AssociationsForm: FC<AssociationsFormProps> = ({}) => {
                   ></input>
                 </div>
                 {/* img upload  */}
+                {/* forms PERSONAL INFORMATION  */}
+
+                <div className="grid grid-cols-1  md:grid-cols-2 gap-10 mt-10">
+                  <FormField
+                    id="name"
+                    name="name"
+                    type="text"
+                    placeholder={t("name")}
+                    title={t("name")}
+                  />
+                  <FormField
+                    id="phone"
+                    name="phone"
+                    type="number"
+                    placeholder={t("phone_Number")}
+                    title={t("phone_Number")}
+                  />
+
+                  <FormFieldSelect title={t("city")} options={cities} />
+                  <FormFieldSelect title={t("illnesses")} options={cities} />
+                </div>
+                {/* forms PERSONAL INFORMATION  */}
               </div>
               {/* end forms  */}
+              <div className="w-full my-6 flex justify-center">
+                <SubmitButton
+                  title={t("create")}
+                  style='bg-theme-color w-52 px-2 py-3 rounded-md text-white text-end"'
+                />
+              </div>
             </form>
           </section>
         );

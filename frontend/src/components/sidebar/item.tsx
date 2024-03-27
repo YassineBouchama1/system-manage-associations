@@ -43,6 +43,7 @@ const SidebarItem: React.FC<{ item: ISidebarItem }> = ({ item }) => {
 
   const isActive = useMemo(() => {
     
+
     if (items && items.length > 0) {
       //check if itemPath has same path url
       if (items.find((item) => item.path === pathname)) {
@@ -51,7 +52,7 @@ const SidebarItem: React.FC<{ item: ISidebarItem }> = ({ item }) => {
       }
     }
 
-
+    
     return pathname.endsWith(path);
   }, [path, pathname]);
 

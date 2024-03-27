@@ -1,5 +1,6 @@
 'use client'
  
+import { useTranslations } from 'next-intl';
 import { useFormStatus } from 'react-dom'
  
 export function SubmitButton({
@@ -12,10 +13,10 @@ export function SubmitButton({
   loadingForm?:any;
 }) {
   const { pending } = useFormStatus();
-
+ const t = useTranslations()
   return (
     <button type="submit" aria-disabled={pending} className={style}>
-      {pending ? loadingForm : title}
+      {pending ? loadingForm : (t(title) ? t(title) : 'button')}
     </button>
   );
 }

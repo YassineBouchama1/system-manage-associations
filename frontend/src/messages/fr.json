@@ -1,0 +1,57 @@
+{
+  "LocaleSwitcher": {
+    "label": "Changer la langue",
+    "locale": "{locale, select, de {🇩🇪 Allemand} en {🇺🇸 Anglais} other {Inconnu}}",
+    "ar": "Arabic",
+    "fr": "Franch"
+  },
+  "Index": {
+    "title": "Bonjour le monde !"
+  },
+  "header": {
+    "search": "recherche"
+  },
+  "login": {
+    "title": "Connexion",
+    "title_form": "Connectez-vous à votre compte",
+    "email": "Adresse e-mail",
+    "password": "Mot de passe",
+    "forgetPassword": "Mot de passe oublié ?",
+    "dontHaveAccount": "Vous n'avez pas encore de compte ?",
+    "signUp": "Inscrivez-vous",
+    "rememberMe": "Se souvenir de moi"
+  },
+  "sideBar": {
+    "logo": "LOGO",
+    "dashboard": "Tableau de bord",
+    "settings": "Paramètres",
+    "associations": "Associations",
+    "createAssociation": "Créer une association",
+    "logout": "Déconnexion",
+    "create": "Créer"
+  },
+  "IndexPage": {
+    "title": "Exemple next-intl",
+    "description": "Ceci est un exemple de base qui montre l'utilisation de <code>next-intl</code> avec Next.js App Router. Essayez de changer la langue en haut à droite et voyez comment le contenu change."
+  },
+  "PathnamesPage": {
+    "title": "Chemins d'accès",
+    "description": "<p>Les chemins d'accès sont également internationalisés.</p><p>Si vous utilisez la langue par défaut, l'anglais, vous verrez <code>/fr/chemins-d-accès</code> dans la barre d'adresse du navigateur sur cette page.</p><p>Si vous changez la langue en anglais, l'URL est localisée en conséquence (<code>/en/pathnames</code>).</p>"
+  },
+  "ui": {
+    "create": "Créer",
+    "role": "Rôle",
+    "email": "Adresse e-mail",
+    "password": "Mot de passe",
+    "admin_Account": "Compte administrateur",
+    "association_Informations": "Informations sur l'association",
+    "name": "Nom",
+    "phone_Number": "Numéro de téléphone",
+    "city": "Ville",
+    "specialization": "Spécialisation",
+    "upload_ThPhoto": "Téléverser la photo",
+    "select": "Sélectionner",
+    "illnesses": "Maladies",
+    "createAssociation": "create Association"
+  }
+}

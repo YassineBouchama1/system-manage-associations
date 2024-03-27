@@ -7,7 +7,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 export function FormField({ ...props }: InputProps) {
   return (
     <div className="flex flex-col">
-      <label htmlFor={props.id}>{props.title}</label>
+      <label className="mr-1" htmlFor={props.id}>{props.title}</label>
       <input
         onChange={(e) => e.currentTarget.setCustomValidity("")}
         {...props}

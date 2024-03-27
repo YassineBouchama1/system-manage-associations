@@ -48,15 +48,15 @@ export default async function middleware(req: any) {
 
 const authRoutes = ["/dashboard"];
 const verifyRoutes = [
-  "/(ar|en)/request-email-verification",
-  "/(ar|en)/verify-email",
+  "/(ar|fr)/request-email-verification",
+  "/(ar|fr)/verify-email",
 ];
 const guestRoutes = [
-  "/(ar|en)/forgot-password",
-  "/(ar|en)/login",
+  "/(ar|fr)/forgot-password",
+  "/(ar|fr)/login",
   "/login",
-  "/(ar|en)/password-reset",
-  "/(ar|en)/register",
+  "/(ar|fr)/password-reset",
+  "/(ar|fr)/register",
 ];
 
 
