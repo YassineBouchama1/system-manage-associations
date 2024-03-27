@@ -58,8 +58,8 @@ const SidebarItem: React.FC<{ item: ISidebarItem }> = ({ item }) => {
   return (
     <>
       <div
-        className={`flex items-center  p-3 rounded-lg hover:bg-sidebar-background cursor-pointer hover:text-sidebar-active justify-between
-     ${isActive && "text-sidebar-active bg-sidebar-background"}
+        className={`flex items-center  p-3 rounded-lg hover:text-sidebar-background cursor-pointer hover:bg-sidebar-active justify-between
+     ${isActive && "bg-sidebar-active text-sidebar-background"}
     `}
         onClick={onClick}
       >

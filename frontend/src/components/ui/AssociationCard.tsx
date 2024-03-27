@@ -3,11 +3,11 @@ import Image from 'next/image';
 import type { FC } from 'react';
 import { SubmitButton } from './SubmitButton';
 
-interface AssociationProps {}
+interface AssociationCardProps {}
 
-const Association: FC<AssociationProps> = ({}) => {
+const AssociationCard: FC<AssociationCardProps> = ({}) => {
         return (
-          <div className="bg-white gap-y-1 py-3 w-[260px] h-[270px] rounded-md flex flex-col justify-start items-center">
+          <div className="bg-white gap-y-1 py-3 w-[260px] h-[260px] rounded-xl flex flex-col justify-start items-center">
             <Image
               src={`/Bitmap.png`}
               alt="assostaion"
@@ -15,7 +15,7 @@ const Association: FC<AssociationProps> = ({}) => {
               height="200"
               className="size-24 rounded-full mb-3"
             />
-            <h4>Name..</h4>
+            <h4 className='font-semibold'>Name</h4>
             <div className="flex gap-x-2 items-center">
               <MapPin size={14} color="black" absoluteStrokeWidth />
               <p>Safi</p>
@@ -33,4 +33,4 @@ const Association: FC<AssociationProps> = ({}) => {
           </div>
         );
 }
-export default Association;
+export default AssociationCard;

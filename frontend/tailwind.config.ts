@@ -19,6 +19,9 @@ const config: Config = {
           background: "#f5f5ff",
           iconColor: "#636c80",
         },
+        theme: {
+          color: "#4880FF",
+        },
       },
     },
   },

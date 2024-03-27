@@ -9,7 +9,7 @@ export default async function TransactionLayout({
   return (
     <div className="flex flex-col gap-8">
       <div> {children}</div>
-      <div>{cities}</div>
+ 
     </div>
   );
 }

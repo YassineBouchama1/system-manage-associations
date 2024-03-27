@@ -11,11 +11,11 @@ export function SubmitButton({
   style?: string;
   loadingForm?:any;
 }) {
-  // const { pending } = useFormStatus();
+  const { pending } = useFormStatus();
 
   return (
-    <button type="submit" aria-disabled={true} className={style}>
-      {true ? loadingForm : title}
+    <button type="submit" aria-disabled={pending} className={style}>
+      {pending ? loadingForm : title}
     </button>
   );
 }

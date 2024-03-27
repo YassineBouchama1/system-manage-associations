@@ -27,6 +27,7 @@
     "dashboard": "dashboard",
     "settings": "settings",
     "associations": "associations",
+    "createAssociation": "Create Association",
     "logout": "logout"
   },
   "IndexPage": {
@@ -36,5 +37,8 @@
   "PathnamesPage": {
     "title": "Pathnames",
     "description": "<p>The pathnames are internationalized too.</p><p>If you're using the default language English, you'll see <code>/en/pathnames</code> in the browser address bar on this page.</p><p>If you change the locale to German, the URL is localized accordingly (<code>/de/pfadnamen</code>).</p>"
+  },
+  "ui": {
+    "create": "Create"
   }
 }

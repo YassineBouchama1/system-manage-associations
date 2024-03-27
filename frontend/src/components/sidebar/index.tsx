@@ -9,6 +9,7 @@ import {
   LogOut,
   AlignJustify,
   X,
+  Building2,
 } from "lucide-react";
 import SidebarItem from "./item";
 import { useEffect, useState } from "react";
@@ -48,7 +49,7 @@ const Sidebar = () => {
     {
       name: t("associations"),
       path: "/dashboard/associations",
-      icon: LayoutDashboard,
+      icon: Building2,
       role: "admin",
     },
     {

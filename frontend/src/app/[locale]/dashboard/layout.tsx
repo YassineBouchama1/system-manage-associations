@@ -15,7 +15,7 @@ export default function DashboardLayout({
       <main className="flex-1">
         <Header />
         <PageWrapper>
-          <TitlePage title="Dashboard"/>
+          <TitlePage />
           {children}
           </PageWrapper>
       </main>

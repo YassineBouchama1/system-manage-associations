@@ -1,7 +1,8 @@
+import { CardStatusSkeleton } from "@/components/skeletons/CardStatusSkeleton";
 import React from "react";
 
 const Laoding = () => {
-  return <div>Loading.. dashboard</div>;
+  return <CardStatusSkeleton />;
 };
 
 export default Laoding;
