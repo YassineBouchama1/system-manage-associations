@@ -1,14 +1,13 @@
-import TitlePage from '@/components/ui/TitlePage';
+import AssociationsForm from '@/components/Forms/AssociationsForm';
 import type { FC } from 'react';
 
 interface pageProps {}
 
 const page: FC<pageProps> = ({}) => {
         return (
-          <>
-
-            <div>edit</div>
-          </>
+          <div className="mt-4">
+            <AssociationsForm />
+          </div>
         );
 }
 export default page;

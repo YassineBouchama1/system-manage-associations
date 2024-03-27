@@ -21,6 +21,7 @@ const config: Config = {
         },
         theme: {
           color: "#4880FF",
+          bodyInputs: "#F5F6FA",
         },
       },
     },

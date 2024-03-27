@@ -89,23 +89,19 @@ const Sidebar = () => {
     fetchSessions();
   }, []);
 
-  const location  = useLocale()
+  const location = useLocale();
 
- const variants = {
-   open: {
- 
-     
-     opacity: 1,
-     transition: { duration: 0.3 }, // Customize animation duration as needed
-   },
-   closed: {
- 
-     opacity: 1,
-     transition: { duration: 0.3 }, // Customize animation duration as needed
-   },
- };
+  const variants = {
+    open: {
+      opacity: 1,
+      transition: { duration: 0.3 }, // Customize animation duration as needed
+    },
+    closed: {
+      opacity: 1,
+      transition: { duration: 0.3 }, // Customize animation duration as needed
+    },
+  };
 
- 
   return (
     <motion.div
       initial={false}
@@ -134,15 +130,14 @@ const Sidebar = () => {
         </div>
 
         <div className="flex flex-col space-y-2">
-          {items
-           .map((item, index) => (
-              <SidebarItem key={index} item={item} />
-            ))}
+          {items.map((item, index) => (
+            <SidebarItem key={index} item={item} />
+          ))}
         </div>
 
         <div className="flex h-full   justify-end  flex-col space-y-10 w-full">
           <hr></hr>
-
+       
           <form action={logout}>
             <SubmitButton title={t("logout")} />
           </form>
