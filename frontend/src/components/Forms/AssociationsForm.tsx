@@ -1,57 +1,98 @@
 'use client'
 import { useTranslations } from 'next-intl';
-import type { FC } from 'react';
-import { Input } from '../ui/input';
+import { useState, type FC } from 'react';
+
 import FormHeader from './FormHeader';
+import { FormField } from '../ui/FormField';
+import Image from 'next/image';
 
 interface AssociationsFormProps {}
 
 const AssociationsForm: FC<AssociationsFormProps> = ({}) => {
     const t = useTranslations('ui')
+  const [imageUrl, setImageUrl] = useState<string>("/imgUploader.png");
+
+
+
+  //onchange logo of assostaion
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const uploadedFile = event.target.files?.[0];
+    if (uploadedFile) {
+      // Check if uploaded file is an image
+      if (!uploadedFile.type.startsWith("image/")) {
+        alert("Please select an image file.");
+        return;
+      }
+      const newImageUrl = URL.createObjectURL(uploadedFile);
+      setImageUrl(newImageUrl);
+    }
+  };
+
+
+
         return (
           <section className="bg-white rounded-md w-full min-h-screen px-2 md:px-20 py-6">
-            <form className="w-auto">
-           
+            <form className="w-auto flex-col items-start    ">
               <FormHeader title={t("admin_Account")} />
 
               {/* start form  */}
-              <div className="flex justify-start gap-8 mb-6">
-                {/*  form item  */}
-                <div className="flex flex-col">
-                  <label htmlFor="role">{t("role")}</label>
-                  <Input
-                    id="role"
-                    name="role"
-                    type="text"
-                    placeholder={t("role")}
-                  />
-                </div>
-                {/*  form item  */}
-                <div className="flex flex-col">
-                  <label htmlFor="email">{t("email")}</label>
-                  <Input
-                    id="email"
-                    name="email"
-                    type="email"
-                    placeholder={t("email")}
-                  />
-                </div>
+              <div className="flex justify-between gap-8 mb-6">
                 {/*  form item  */}
 
-                <div className="flex flex-col">
-                  <label htmlFor="password">{t("password")}</label>
-                  <Input
-                    id="password"
-                    name="password"
-                    type="password"
-                    placeholder="************"
-                  />
-                </div>
+                <FormField
+                  id="role"
+                  name="role"
+                  type="text"
+                  placeholder={t("role")}
+                  title={t("role")}
+                />
+                {/*  form item  */}
+
+                <FormField
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder={t("email")}
+                  title={t("email")}
+                />
+                {/*  form item  */}
+
+                <FormField
+                  id="password"
+                  name="password"
+                  type="password"
+                  placeholder="************"
+                  title={t("password")}
+                />
                 {/*  form item  */}
               </div>
-              {/* end forms  */}
-       
+
               <FormHeader title={t("association_Informations")} />
+              <div>
+                {/* img upload  */}
+                <div className="w-full flex flex-col items-center">
+                  <label htmlFor="img" className='cursor-pointer text-center'>
+                    <Image
+                      className="size-24 rounded-full"
+                      src={imageUrl}
+                      alt="upload img"
+                      width="200"
+                      height="200"
+                    />
+                    <p className='text-theme-color'>{t("upload_ThPhoto")}</p>
+                  </label>
+
+                  <input
+                    className="hidden"
+                    id="img"
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageChange}
+                  ></input>
+                </div>
+                {/* img upload  */}
+              </div>
+              {/* end forms  */}
             </form>
           </section>
         );
