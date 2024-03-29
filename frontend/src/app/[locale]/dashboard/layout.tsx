@@ -1,8 +1,8 @@
 import Header from "@/components/header/Header";
-import MarginWidthWrapper from "@/components/margin-width-wrapper";
-import PageWrapper from "@/components/page-wrapper";
+import MarginWidthWrapper from "@/components/Wrappers/margin-width-wrapper";
 import Sidebar from "@/components/sidebar";
 import TitlePage from "@/components/ui/TitlePage";
+import PageWrapper from "@/components/Wrappers/page-wrapper";
 
 export default function DashboardLayout({
   children,

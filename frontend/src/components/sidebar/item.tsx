@@ -32,6 +32,7 @@ const SidebarItem: React.FC<{ item: ISidebarItem }> = ({ item }) => {
     const segment = useSelectedLayoutSegment();
 
 
+    // fun for display submenus
   const onClick = () => {
     if (items && items.length > 0) {
       return setExpanded(!expanded);
@@ -41,9 +42,8 @@ const SidebarItem: React.FC<{ item: ISidebarItem }> = ({ item }) => {
   };
 
 
+  //when path changed 
   const isActive = useMemo(() => {
-    
-
     if (items && items.length > 0) {
       //check if itemPath has same path url
       if (items.find((item) => item.path === pathname)) {
@@ -51,8 +51,7 @@ const SidebarItem: React.FC<{ item: ISidebarItem }> = ({ item }) => {
         return true;
       }
     }
-
-    
+// if pathname has same path  make it active
     return pathname.endsWith(path);
   }, [path, pathname]);
 

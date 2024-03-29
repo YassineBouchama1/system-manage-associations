@@ -16,6 +16,7 @@ const SubMenuItem = ({ item }: { item: ISubItem }) => {
     router.push(path);
   };
 
+  //chekc active link
   const isActive = useMemo(() => path === pathname, [path, pathname]);
 
   return (

@@ -12,7 +12,7 @@ import {
   Building2,
 } from "lucide-react";
 import SidebarItem from "./item";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { getSession } from "@/lib/getSessions";
 import { useAuthContext } from "@/hooks/useAuthProvider";
 import { logout } from "@/actions/profile";
@@ -22,24 +22,15 @@ import LocaleSwitcher from "../next-intl/LocaleSwitcher";
 import { useGlobalTheme } from "@/hooks/useTheme";
 import Image from "next/image";
 import { motion, useCycle } from "framer-motion";
+import { ISidebarItem } from "@/types/sideBar";
 
-interface ISidebarItem {
-  name: string;
-  path: string;
-  icon: LucideIcon;
-  role?: string;
-  items?: ISubItem[];
-}
 
-interface ISubItem {
-  name: string;
-  path: string;
-  role?: string;
-}
 
 const Sidebar = () => {
   const t = useTranslations("sideBar");
-  const items: ISidebarItem[] = [
+
+  //list of 
+  const items: ISidebarItem[] = useMemo(()=> [
     {
       name: t("dashboard"),
       path: "/dashboard",
@@ -80,7 +71,7 @@ const Sidebar = () => {
         },
       ],
     },
-  ];
+  ],[])
   const [name, setName] = useState<string | undefined>("");
   const { session, setSession, loading } = useAuthContext();
   const { toggleSIdeBar, setToggleSIdeBar } = useGlobalTheme();

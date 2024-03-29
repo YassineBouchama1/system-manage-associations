@@ -1,5 +1,6 @@
+import SectionWrapper from "@/components/Wrappers/SectionWrapper";
 
-export default async function TransactionLayout({
+export default  function TransactionLayout({
   children,
   table,
 }: Readonly<{
@@ -7,9 +8,11 @@ export default async function TransactionLayout({
   table: React.ReactNode;
 }>) {
   return (
-    <div className="flex flex-col gap-8">
-      <div> {children}</div>
-      <div> {table}</div>
-    </div>
+    <main className="grid grid-cols-3 gap-4 min-h-full">
+      <SectionWrapper styles="col-span-3 lg:col-span-1 md:px-20">
+        {children}
+      </SectionWrapper>
+      <SectionWrapper styles="col-span-3 lg:col-span-2">{table}</SectionWrapper>
+    </main>
   );
 } 

@@ -4,16 +4,13 @@ import { getSession } from "@/lib/getSessions";
 import { z } from "zod";
 import { redirect } from "next/navigation";
 import fetchServer from "@/lib/fetch-server";
+import { schemaLogin } from "@/lib/validations";
 
 
 export const login = async (prevState: any, formData: FormData) => {
   const session = await getSession();
 
-  //1-create schema
-  const schemaLogin = z.object({
-    email: z.string().email(),
-    password: z.string().min(6),
-  });
+
 
   //2-validation
   const validatedFields = schemaLogin.safeParse({

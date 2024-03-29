@@ -1,7 +1,5 @@
 
-export function CardStatusSkeleton() {
-
-
+export function TableSkeleton() {
   return (
     <section className=" grid  grid-cols-4 grid-rows-1  gap-6 ">
       <div className="animate-pulse h-24 col-span-4 md:col-span-2 lg:col-span-1 bg-white flex flex-row items-start justify-between w-full    rounded-xl py-2 px-4">
