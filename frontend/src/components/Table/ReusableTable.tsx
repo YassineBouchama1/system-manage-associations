@@ -26,6 +26,7 @@ export default function ReusableTable({
           </tbody>
         </table>
       </div>
+      <PaginationTable data={data} />
     </div>
   );
 }
@@ -75,11 +76,11 @@ function RenderTableBody({
 
   return (
     <>
-      {data.map((item: any, index:number) => (
+      {data.map((item: any, index: number) => (
         <tr
           key={index}
-          tabIndex={0}
-          className="focus:outline-none h-16 border border-gray-100 rounded pr-2"
+          tabIndex={index}
+          className=" focus:outline-none h-16 border border-gray-100 rounded mr-2"
         >
           {columns.map((col, colIndex) => (
             <td key={colIndex}>
@@ -90,13 +91,94 @@ function RenderTableBody({
               </div>
             </td>
           ))}
-          <td>
+          <td className="flex gap-2 items-center">
             <div className="flex items-center">
-              <p className="text-sm leading-none text-gray-600 ml-2">Actions</p>
+              <button className="focus:ring-2 focus:ring-offset-2  focus:ring-red-300 text-sm leading-none text-gray-600 py-3 px-5 bg-gray-100 rounded hover:bg-gray-200 focus:outline-none">
+                View
+              </button>
+            </div>
+
+            <div className="relative px-5 pt-2">
+              <button
+                className="focus:ring-2 rounded-md focus:outline-none"
+                role="button"
+                aria-label="option"
+              >
+                ...
+              </button>
+
+              {/* btns */}
+              <div className="dropdown-content bg-white shadow w-24 absolute z-30 right-0 mr-6 hidden">
+                <div
+                  tabIndex={0}
+                  className="focus:outline-none focus:text-indigo-600 text-xs w-full hover:bg-indigo-700 py-4 px-4 cursor-pointer hover:text-white"
+                >
+                  <p>Edit</p>
+                </div>
+                <div
+                  tabIndex={0}
+                  className="focus:outline-none focus:text-indigo-600 text-xs w-full hover:bg-indigo-700 py-4 px-4 cursor-pointer hover:text-white"
+                >
+                  <p>Delete</p>
+                </div>
+              </div>
+              {/* btns */}
             </div>
           </td>
         </tr>
       ))}
     </>
+  );
+}
+
+// HeaderTable component
+function PaginationTable({ data }: { data: TableData[] }) {
+  console.log(data);
+  return (
+    <div className="flex items-center mt-4 gap-x-4 sm:mt-0">
+      <a
+        href="#"
+        className="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          className="w-5 h-5 rtl:-scale-x-100"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
+          />
+        </svg>
+
+        <span>previous</span>
+      </a>
+
+      <a
+        href="#"
+        className="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800"
+      >
+        <span>Next</span>
+
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          className="w-5 h-5 rtl:-scale-x-100"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
+          />
+        </svg>
+      </a>
+    </div>
   );
 }
