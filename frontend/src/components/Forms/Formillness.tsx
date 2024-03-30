@@ -17,7 +17,7 @@ const Formillness: FC<FormillnessProps> = ({}) => {
             <FormField
               id="name"
               name="name"
-              type="text"
+              type="text"   
               placeholder={t("name")}
               title={t("name")}
             />

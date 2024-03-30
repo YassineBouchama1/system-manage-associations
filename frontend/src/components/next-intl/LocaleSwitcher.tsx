@@ -6,7 +6,7 @@ import Image from 'next/image';
 export default function LocaleSwitcher() {
   const t = useTranslations('LocaleSwitcher');
   const locale = useLocale();
-//this is a seletor for change language
+//this is a selector for change language
   return (
     <LocaleSwitcherSelect defaultValue={locale} label={t("label")}>
       {locales.map((lang) => (

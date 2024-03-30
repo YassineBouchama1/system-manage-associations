@@ -28,7 +28,8 @@
     "associations": "Associations",
     "createAssociation": "Créer une association",
     "logout": "Déconnexion",
-    "create": "Créer"
+    "create": "Créer",
+    "illnesses": "les maladies"
   },
   "IndexPage": {
     "title": "Exemple next-intl",

@@ -21,6 +21,7 @@ export default function LocaleSwitcherSelect({
   const pathname = usePathname();
   const params = useParams();
 
+  // this fun when change value of selector redirect to new language
   function onSelectChange(event: ChangeEvent<HTMLSelectElement>) {
     const nextLocale = event.target.value;
     startTransition(() => {
