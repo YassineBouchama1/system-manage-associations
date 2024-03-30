@@ -80,7 +80,7 @@ function RenderTableBody({
         <tr
           key={index}
           tabIndex={index}
-          className=" focus:outline-none h-16 border border-gray-100 rounded mr-2"
+          className=" focus:outline-none h-16 border border-gray-100 rounded "
         >
           {columns.map((col, colIndex) => (
             <td key={colIndex}>
@@ -91,7 +91,7 @@ function RenderTableBody({
               </div>
             </td>
           ))}
-          <td className="flex gap-2 items-center">
+          <td className="flex gap-2 items-center ">
             <div className="flex items-center">
               <button className="focus:ring-2 focus:ring-offset-2  focus:ring-red-300 text-sm leading-none text-gray-600 py-3 px-5 bg-gray-100 rounded hover:bg-gray-200 focus:outline-none">
                 View
@@ -109,18 +109,7 @@ function RenderTableBody({
 
               {/* btns */}
               <div className="dropdown-content bg-white shadow w-24 absolute z-30 right-0 mr-6 hidden">
-                <div
-                  tabIndex={0}
-                  className="focus:outline-none focus:text-indigo-600 text-xs w-full hover:bg-indigo-700 py-4 px-4 cursor-pointer hover:text-white"
-                >
-                  <p>Edit</p>
-                </div>
-                <div
-                  tabIndex={0}
-                  className="focus:outline-none focus:text-indigo-600 text-xs w-full hover:bg-indigo-700 py-4 px-4 cursor-pointer hover:text-white"
-                >
-                  <p>Delete</p>
-                </div>
+           btns
               </div>
               {/* btns */}
             </div>
