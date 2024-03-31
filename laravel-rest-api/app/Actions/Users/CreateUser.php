@@ -12,11 +12,21 @@ class CreateUser
         string $name,
         string $email,
         string $password,
+        string $phone,
+        string $role_id,
+        ?string $association_id,
+        string $status = 'active'
+
     ): User {
         $user = User::create([
             'name'     => $name,
             'email'    => $email,
             'password' => Hash::make($password),
+            'phone'    => $phone,
+            'role_id'    => $role_id,
+            'association_id'    => $association_id,
+            'status' => $status,
+
         ]);
 
         event(new Registered($user));
