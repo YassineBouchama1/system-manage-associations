@@ -18,6 +18,7 @@ class UserController extends Controller
         return new UserResource(Auth::user());
     }
 
+
     public function update(UpdateUserRequest $request, UpdateUser $updateUser): UserResource
     {
         $updateUser(
@@ -28,6 +29,7 @@ class UserController extends Controller
 
         return new UserResource(Auth::user()->fresh());
     }
+
 
     public function changePassword(ChangePasswordRequest $request, ChangePassword $changePassword): JsonResponse
     {
@@ -40,4 +42,5 @@ class UserController extends Controller
             'status' => 'password-changed',
         ]);
     }
+    
 }

@@ -9,11 +9,14 @@ use App\Http\Requests\Associations\CreateAssociationRequest;
 use App\Http\Resources\AssociationResource;
 use Illuminate\Http\JsonResponse;
 
+
+
+
 class AssociationController extends Controller
 {
     public function store(CreateAssociationRequest $request, CreateAssociation $createAssociation, CreateUser $createUser): JsonResponse
     {
-        // Creating the association
+        // creating the association
         $association = $createAssociation(
             $request->input('name'),
             $request->input('address'),
@@ -23,7 +26,12 @@ class AssociationController extends Controller
             $request->input('status', 'active') // default status is 'active' if not provided
         );
 
-        // Check if email is provided
+        //chekc if association created
+
+
+
+        // chheck if email is provided
+        //create admin association for association
         if ($request->has('email') & $association) {
             // Creating the user
             $user = $createUser(
@@ -31,11 +39,11 @@ class AssociationController extends Controller
                 $request->input('email'),
                 $request->input('password'),
                 $request->input('phone'),
-                $role_id = 'operator',
+                'admin association',
                 $association->id
             );
 
-            // Additional logic if needed
+            //chekc if user created
         }
 
         return response()->json(['association' => new AssociationResource($association)], 201);
