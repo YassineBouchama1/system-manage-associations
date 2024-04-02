@@ -60,9 +60,6 @@ export const login = async (prevState: any, formData: FormData) => {
       errors: {},
       type: "success",
     };
-
-
-
   } catch (error: any) {
 
     console.log(error.status);
@@ -76,7 +73,5 @@ export const login = async (prevState: any, formData: FormData) => {
            };
          }
   }
-
-
-
 };
+
