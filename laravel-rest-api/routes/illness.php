@@ -7,11 +7,15 @@ use App\Http\Controllers\IllnessController;
 
 
 
-// Public routes (no role check)
-Route::get('/illnesses', [IllnessController::class, 'index'])->name('illnesses.index');
-Route::get('/illnesses/{illness}', [IllnessController::class, 'show'])->name('illnesses.show');
+Route::group(['prefix' => 'illnesses', 'middleware' => 'auth:api'], function () {
+    // Public routes (no role check)
+    Route::get('/', [IllnessController::class, 'index']);
+    Route::get('/{id}', [IllnessController::class, 'show']);
 
-// Admin routes (require admin role)
-Route::apiResource('illnesses', IllnessController::class)
-    ->middleware('auth:api') // Authentication only
-    ->except(['index', 'show']); // Exclude index and show methods from admin group
+    // Admin routes (require admin role)
+    Route::group(['middleware' => 'role:1'], function () {
+        Route::put('/{id}', [IllnessController::class, 'update']);
+        Route::post('/', [IllnessController::class, 'store']);
+        Route::delete('/{id}', [IllnessController::class, 'destroy']); // Added delete route
+    });
+});

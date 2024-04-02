@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\IllnessRequest;
+use App\Http\Requests\Illness\IllnessRequest;
 use App\Http\Resources\Illness\IllnessResource;
 use App\Models\Illness;
 
@@ -13,38 +13,48 @@ class IllnessController extends Controller
     public function index()
     {
 
-        // $this->authorize('viewAny', Illness::class); // Check authorization
+
+
 
         $illnesses = Illness::all();
 
         // Filter by search query
 
 
-        if ($illnesses->isEmpty()) {
-            return response()->json(['message' => 'No illnesses found'], 204); // No content
+        if (isEmpty($illnesses)) {
+            return response()->json([], 200); // No content
         }
-
 
         return response()->json(new IllnessResource($illnesses), 200);;
     }
 
 
-    public function store(IllnessRequest $request) // Use validated request
+    public function store(IllnessRequest $request)
     {
-        $this->authorize('create', Illness::class); // Check authorization
+        // $this->authorize('create', Illness::class); // Check authorization
 
         $illness = Illness::create($request->validated());
+
+
 
         return response()->json(new IllnessResource($illness), 201);
     }
 
 
-    public function update(IllnessRequest $request, Illness $illness) // Use validated request
+    public function update(IllnessRequest $request, $id) // Use validated request
     {
+
+        if (!$id) {
+            return response()->json(['message' => 'id not found'], 404);
+        }
+
+        //check if illness exist
+        $illness = Illness::find($id);
+
         $this->authorize('update', $illness); // Check authorization
 
         //check if illness exist
-        if (!$illness->exists()) {
+        if (!$illness) {
             return response()->json(['message' => 'Illness not found'], 404);
         }
 
@@ -54,13 +64,15 @@ class IllnessController extends Controller
     }
 
 
-    public function destroy(Illness $illness)
+    public function destroy($id)
     {
-        $this->authorize('delete', $illness); // Check authorization
+        // $this->authorize('delete', $illness); // Check authorization
 
+
+        $illness = Illness::find($id);
 
         //check if illness exist
-        if (!$illness->exists()) {
+        if (!$illness) {
             return response()->json(['message' => 'Illness not found'], 404);
         }
 
