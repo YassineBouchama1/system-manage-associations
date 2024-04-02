@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Illness\IllnessRequest;
+use App\Http\Requests\Associations\CreateIllnessRequest;
+
+use App\Http\Requests\Illnesses\UpdateIllnessRequest;
 use App\Http\Resources\Illness\IllnessResource;
 use App\Models\Illness;
 
@@ -25,11 +27,13 @@ class IllnessController extends Controller
             return response()->json([], 200); // No content
         }
 
+
+
         return response()->json(new IllnessResource($illnesses), 200);;
     }
 
 
-    public function store(IllnessRequest $request)
+    public function store(CreateIllnessRequest $request)
     {
         // $this->authorize('create', Illness::class); // Check authorization
 
@@ -41,7 +45,7 @@ class IllnessController extends Controller
     }
 
 
-    public function update(IllnessRequest $request, $id) // Use validated request
+    public function update(UpdateIllnessRequest $request, $id) // Use validated request
     {
 
         if (!$id) {

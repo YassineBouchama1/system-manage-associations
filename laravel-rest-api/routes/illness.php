@@ -14,7 +14,7 @@ Route::group(['prefix' => 'illnesses', 'middleware' => 'auth:api'], function () 
 
     // Admin routes (require admin role)
     Route::group(['middleware' => 'role:1'], function () {
-        Route::put('/{id}', [IllnessController::class, 'update']);
+        Route::put('/{illness}', [IllnessController::class, 'update']);
         Route::post('/', [IllnessController::class, 'store']);
         Route::delete('/{illness}', [IllnessController::class, 'destroy']); // Added delete route
     });

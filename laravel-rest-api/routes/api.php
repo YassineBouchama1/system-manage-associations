@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/illness.php';
+require __DIR__ . '/association.php';
 
 //@descRoles ids
 //  : 1- super admin
