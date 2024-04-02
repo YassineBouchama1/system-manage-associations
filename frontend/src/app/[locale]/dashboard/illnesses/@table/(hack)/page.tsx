@@ -7,6 +7,10 @@ import { setTimeout } from "timers";
 export default async function Home() {
     await delay(4000);
 
+if (true) {
+  throw new Error(error);
+}
+
 const columns: string[] = ["id", "customer", "purchaseDate", "title"];
 interface TableData {
   id?: number;

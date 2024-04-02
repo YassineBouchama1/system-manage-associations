@@ -3,6 +3,7 @@ import MarginWidthWrapper from "@/components/Wrappers/margin-width-wrapper";
 import Sidebar from "@/components/sidebar";
 import TitlePage from "@/components/ui/TitlePage";
 import PageWrapper from "@/components/Wrappers/page-wrapper";
+import MotionWrapper from "@/components/MotionWrapper";
 
 export default function DashboardLayout({
   children,
@@ -16,7 +17,9 @@ export default function DashboardLayout({
         <Header />
         <PageWrapper>
           <TitlePage />
+           <MotionWrapper>
           {children}
+           </MotionWrapper>
           </PageWrapper>
       </main>
     </div>

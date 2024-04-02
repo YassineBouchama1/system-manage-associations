@@ -27,8 +27,7 @@ export const login = async (prevState: any, formData: FormData) => {
     };
   }
 
-  console.log("done");
-  console.log(validatedFields.data);
+
 
   // fetch data
   try {
@@ -60,10 +59,11 @@ export const login = async (prevState: any, formData: FormData) => {
       errors: {},
       type: "success",
     };
+    
   } catch (error: any) {
-
     console.log(error.status);
          if (error.status === 401) {
+
            const responseBody = await error.text();
            const errorObject: any = JSON.parse(responseBody);
            return {

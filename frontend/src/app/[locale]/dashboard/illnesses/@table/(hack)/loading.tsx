@@ -2,8 +2,12 @@ import React from "react";
 
 export default function Loading() {
   return (
-    <div className="h-96 flex-1 animate-pulse rounded-xl bg-sky-800 p-10 text-white">
-      Loading table
+    <div className="animate-pulse">
+      <div className="h-4 bg-gray-200 mt-3 mb-6 rounded"></div>
+      <div className="h-4 bg-gray-300 mb-6 rounded"></div>
+      <div className="h-4 bg-gray-200 mb-6 rounded"></div>
+      <div className="h-4 bg-gray-300 mb-6 rounded"></div>
+      <div className="h-4 bg-gray-200 mb-6 rounded"></div>
     </div>
   );
 }

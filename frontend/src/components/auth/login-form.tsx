@@ -17,13 +17,18 @@ export default function LoginForm() {
 
   const t = useTranslations('login')
   const [state, formAction] = useFormState(login, initialState);
-console.log(state);
+
+
+
+// console.log(state);
   useEffect(() => {
     if (state?.type === "success") {
       redirect("/dashboard");
     }
   }, [state]);
 
+
+  
   return (
     <form className="space-y-4 md:space-y-6" action={formAction}>
       {state?.type === "error" && (
