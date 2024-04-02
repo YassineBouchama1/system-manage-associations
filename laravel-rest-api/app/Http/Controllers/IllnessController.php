@@ -51,7 +51,7 @@ class IllnessController extends Controller
         //check if illness exist
         $illness = Illness::find($id);
 
-        $this->authorize('update', $illness); // Check authorization
+        // $this->authorize('update', $illness); // Check authorization
 
         //check if illness exist
         if (!$illness) {

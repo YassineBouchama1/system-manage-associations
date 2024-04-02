@@ -16,8 +16,9 @@ class IllnessRequest extends FormRequest
 
     public function rules()
     {
+        $illnessId = $this->input('id');
         return [
-            'name' => 'required|string|unique:illnesses,name' . ($this->method() === 'PUT' ? ',' . $this->illness->id : ''), // Unique rule with exception for update
+            'name' => 'required|string|unique:illnesses,name' . ($this->method() === 'PUT' ? ',' . $illnessId : ''), // Unique rule with exception for update
         ];
     }
 
