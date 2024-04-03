@@ -27,7 +27,7 @@ class OperatorController extends Controller
 
         //if user authed is admin bring all operators <users>
         if ($user->role_id == 1) {
-            $operators->where('id', '!=', $user->id);
+            $operators->where('role_id', '!=', $user->role_id);
         } else {
 
             //if user authd is admin assosiation bring all operators belong his assosiation
