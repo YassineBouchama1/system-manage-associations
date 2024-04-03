@@ -9,11 +9,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'patients', 'middleware' => 'auth:api'], function () {
     // Public routes (no role check)
-    Route::get('/', [PatientController::class, 'index']);
     Route::get('/{id}', [PatientController::class, 'show']);
 
     // Admin routes (require admin role)
     Route::group(['middleware' => 'role:2,1'], function () {
+        Route::get('/', [PatientController::class, 'index']);
+
         Route::put('/{id}', [PatientController::class, 'update']);
         Route::post('/', [PatientController::class, 'store']);
         Route::delete('/{id}', [PatientController::class, 'destroy']); // Added delete route

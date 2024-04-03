@@ -1,21 +1,24 @@
 <?php
 
-use App\Http\Controllers\AssociationController;
+use App\Http\Controllers\OperatorController;
 use Illuminate\Support\Facades\Route;
 
 
 
 
 
-Route::group(['prefix' => 'associations', 'middleware' => 'auth:api'], function () {
+
+
+Route::group(['prefix' => 'operators', 'middleware' => 'auth:api'], function () {
     // Public routes (no role check)
-    Route::get('/', [AssociationController::class, 'index']);
-    Route::get('/{association}', [AssociationController::class, 'show']);
+
 
     // Admin routes (require admin role)
-    Route::group(['middleware' => 'role:1'], function () {
-        Route::put('/{association}', [AssociationController::class, 'update']);
-        Route::post('/', [AssociationController::class, 'store']);
-        Route::delete('/{association}', [AssociationController::class, 'destroy']); // Added delete route
+    Route::group(['middleware' => 'role:1,2'], function () {
+        Route::get('/', [OperatorController::class, 'index']);
+        Route::get('/{operator}', [OperatorController::class, 'show']);
+        Route::put('/{operator}', [OperatorController::class, 'update']);
+        Route::post('/', [OperatorController::class, 'store']);
+        Route::delete('/{operator}', [OperatorController::class, 'destroy']); // Added delete route
     });
 });
