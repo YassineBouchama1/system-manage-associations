@@ -16,12 +16,13 @@ class CreateAssociationRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'name' => 'required|string|unique:associations,name', // Base rule for name
+            'name' => 'required|string|unique:associations,name',
             'address' => 'required|string',
-            'logo' => 'required|string', // Logo can be updated
-            'city' => 'required|string', // City remains required
-            'status' => 'in:active,inactive,suspended,deleted', // Status can be updated
-            'illness_id' => 'required|exists:illnesses,id', // Illness ID can be updated
+            'logo' => 'required|string',
+            'city' => 'required|string',
+            'status' => 'in:active,inactive,suspended,deleted',
+            'illness_id' => 'required|exists:illnesses,id',
+            'role_id' => 'required|exists:roles,id',
         ];
 
 
@@ -40,6 +41,7 @@ class CreateAssociationRequest extends FormRequest
             'city.string' => 'The city must be a string.',
             'status.in' => 'The association status must be one of active, inactive, suspended, or deleted.',
             'illness_id.exists' => 'The selected illness does not exist.',
+            'role_id.exists' => 'The selected role does not exist.',
         ];
     }
 }

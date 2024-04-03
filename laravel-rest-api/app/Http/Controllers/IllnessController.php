@@ -2,40 +2,51 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Associations\CreateIllnessRequest;
+use App\Http\Requests\Illnesses\CreateIllnessRequest;
 
 use App\Http\Requests\Illnesses\UpdateIllnessRequest;
 use App\Http\Resources\Illness\IllnessResource;
 use App\Models\Illness;
+use Illuminate\Http\Request;
 
-use function PHPUnit\Framework\isEmpty;
 
 class IllnessController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        // Default to 10 per page
+        $perPage = $request->query('per_page', 10);
 
+        // Limit maximum per page
+        $perPage = min($perPage, 50);
 
+        $illnesses = Illness::paginate($perPage);
+        $totalPages = $illnesses->lastPage();
+        $currentPage = $illnesses->currentPage();
 
+        // Filter by search query (if applicable)
+        // ... (your filtering logic here)
 
-        $illnesses = Illness::all();
-
-        // Filter by search query
-
-
-        if (isEmpty($illnesses)) {
-            return response()->json([], 200); // No content
-        }
-
-
-
-        return response()->json(new IllnessResource($illnesses), 200);;
+        return response()->json([
+            'data' => IllnessResource::collection($illnesses),
+            'total_pages' => $totalPages,
+            'current_page' => $currentPage,
+        ], 200);
     }
 
 
     public function store(CreateIllnessRequest $request)
     {
         // $this->authorize('create', Illness::class); // Check authorization
+
+
+        //chekc if name already exist in trached
+        // $isExistInDeleted = Illness::where('name', $request->name)->withTrashed()->first();
+
+        // if ($isExistInDeleted) {
+        //     return response()->json(['message' => 'name should be uniqe'], 404);
+        // }
+
 
         $illness = Illness::create($request->validated());
 
@@ -48,6 +59,7 @@ class IllnessController extends Controller
     public function update(UpdateIllnessRequest $request, $id) // Use validated request
     {
 
+        //check if this illness exist
         if (!$id) {
             return response()->json(['message' => 'id not found'], 404);
         }
@@ -72,7 +84,7 @@ class IllnessController extends Controller
     {
         // $this->authorize('delete', $illness); // Check authorization
 
-
+        //check if this illness exist
         $illness = Illness::find($id);
 
         //check if illness exist
@@ -80,7 +92,7 @@ class IllnessController extends Controller
             return response()->json(['message' => 'Illness not found'], 404);
         }
 
-
+        //soft delete
         $illness->delete();
 
         return response()->json(null, 204); // No content on successful deletion

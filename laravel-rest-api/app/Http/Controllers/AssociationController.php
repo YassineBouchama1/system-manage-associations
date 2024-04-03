@@ -33,20 +33,37 @@ class AssociationController extends Controller
             $associations->where('name', 'like', "%{$searchTerm}%");
         }
 
+        // Pagination
         $associations = $associations->paginate($perPage);
+        $totalPages = $associations->lastPage();
+        $currentPage = $associations->currentPage();
 
+
+        //Chekc if there is no data send empty array
         if ($associations->isEmpty()) {
             return response()->json([], 200); // No content
         }
 
 
-
-        return response()->json(AssociationResource::collection($associations), 200);
+        return response()->json([
+            'data' => AssociationResource::collection($associations),
+            'total_pages' => $totalPages,
+            'current_page' => $currentPage,
+        ], 200);
     }
 
 
     public function store(CreateAssociationRequest $request, CreateUser $createUser): JsonResponse
     {
+
+        // //chekc if name already exist in trached
+        // $isExistInDeleted = Association::where('name', $request->name)->withTrashed()->first();
+
+        // if ($isExistInDeleted) {
+        //     return response()->json(['message' => 'name should be uniqe'], 404);
+        // }
+
+
 
         // $this->authorize('create', Association::class); // Check authorization
 

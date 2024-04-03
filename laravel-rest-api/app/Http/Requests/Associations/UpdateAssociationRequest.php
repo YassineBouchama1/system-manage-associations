@@ -17,11 +17,14 @@ class UpdateAssociationRequest extends FormRequest
     }
     public function rules()
     {
+        $associationsId = $this->route('association');
+
         $rules = [
-            'name' => 'nullable|string|unique:associations,name', // Optional name with unique check
+            'name' => 'nullable|string|unique:associations,name,' . $associationsId . ',id,deleted_at,NULL',
+            // 'name' => 'nullable|string|unique:associations,name', // Optional name with unique check
             'address' => 'nullable|string',  // Address can be updated
             'logo' => 'nullable|string', // Logo can be updated
-            'city' => 'required_if:method,PUT|string', // Required only on PUT (update)
+            'city' => 'nullable:method,PUT|string', // Required only on PUT (update)
             'status' => 'nullable|in:active,inactive,suspended,deleted', // Status can be updated
             'illness_id' => 'nullable|exists:illnesses,id', // Illness ID can be updated
         ];

@@ -15,14 +15,15 @@ class UpdateIllnessRequest extends FormRequest
 
     public function rules()
     {
-        $rules = [
-            'name' => 'nullable|string|unique:associations,name',
-        ];
+        $illnessId = $this->route('illness');
 
+        $rules = [
+            // Exclude the soft-deleted record for uniqueness check
+            'name' => 'nullable|string|unique:associations,name,' . $illnessId . ',id,deleted_at,NULL',
+        ];
 
         return $rules;
     }
-
     public function messages()
     {
         return [

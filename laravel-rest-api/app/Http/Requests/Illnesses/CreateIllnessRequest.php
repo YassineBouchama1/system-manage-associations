@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Associations;
+namespace App\Http\Requests\Illnesses;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +16,7 @@ class CreateIllnessRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'name' => 'required|string|unique:associations,name', // Base rule for name
+            'name' => 'required|string|unique:illnesses,name', // Base rule for name
         ];
 
 
