@@ -25,7 +25,7 @@ class PatientResource extends JsonResource
             'phone' => $this->phone,
             'status' => $this->status,
             'date_of_birth' => $this->date_of_birth,
-            'created_at' => $this->deleted_at,
+            'deleted_at' => $this->deleted_at,
             'created_at' => (string) $this->created_at->format('Y-m-d H:i:s'),
             'updated_at' => (string) $this->updated_at->format('Y-m-d H:i:s'),
         ];

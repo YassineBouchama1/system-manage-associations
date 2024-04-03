@@ -37,7 +37,7 @@ class PatientController extends Controller
             });
         }
 
-        
+
 
         //pagination
         $patients = $patients->paginate($perPage);
@@ -94,17 +94,16 @@ class PatientController extends Controller
     public function update(UpdatePatientRequest $request,  $id)
     {
 
-
         if (!$id) {
             return response()->json(['message' => 'id not found'], 404);
         }
 
-        $patient = Patient::find($id);
-        // $this->authorize('update', $illness); // Check authorization
+        $patient = Patient::withTrashed()->find($id);
 
         if (!$patient) {
             return response()->json(['message' => 'patient not found'], 404);
         }
+
 
         $validatedData = $request->validated();
 
