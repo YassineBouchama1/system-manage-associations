@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Users\CreateUser;
+use App\Http\Requests\Operators\CreateOperatorRequest;
 use App\Http\Requests\Operators\UpdateOperatorRequest;
 use Illuminate\Http\Request;
 
 use App\Http\Resources\Operators\OperatorResource;
+use App\Models\Association;
 use App\Models\User;
 
 use Illuminate\Support\Facades\Auth;
@@ -55,8 +58,51 @@ class OperatorController extends Controller
 
 
 
-    public function store()
+    public function store(CreateOperatorRequest $request, CreateUser $createUser)
     {
+        $user = Auth::user();
+
+        // role_od : 1 mean super admin
+        if ($user->role_id === 1) {
+
+
+
+
+            //send data to action to create user
+            $createUser(
+                name: $request->input('name'),
+                email: $request->input('email'),
+                password: $request->input('password'),
+                phone: $request->input('phone'),
+                role_id: $request->input('role_id'),
+                association_id: $request->input('association_id'),
+            );
+        }
+
+
+        // role_od : 2 mean admin assostaion
+        else if ($user->role_id === 2) {
+
+
+            //check if admin assoation tried to create op with role super admin
+            if ($request->input('role_id') !== 2) {
+                return response()->json(['message' => 'unautorized create opertor with this role'], 404);
+            }
+
+            //send data to action to create user
+            $createUser(
+                name: $request->input('name'),
+                email: $request->input('email'),
+                password: $request->input('password'),
+                phone: $request->input('phone'),
+                role_id: $request->input('role_id'),
+                association_id: $user->association_id,
+            );
+        }
+
+        return response()->json([
+            'status' => 'user-created',
+        ]);
     }
 
     public function show($id)

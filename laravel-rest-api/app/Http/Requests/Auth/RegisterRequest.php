@@ -13,6 +13,10 @@ class RegisterRequest extends FormRequest
             'name'     => ['required', 'string', 'max:255'],
             'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'phone' => 'required', 'phone',
+            'role_id' => 'required|exists:roles,id',
+            'association_id' => 'nullable|exists:associations,id',
+            'status' => 'in:active,inactive,suspended,deleted',
         ];
     }
 }

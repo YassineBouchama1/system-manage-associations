@@ -15,6 +15,10 @@ class AuthController extends Controller
 {
     public function register(RegisterRequest $request, CreateUser $createUser): JsonResponse
     {
+
+
+        
+
         //send data to action to create user
         $createUser(
             name: $request->input('name'),
