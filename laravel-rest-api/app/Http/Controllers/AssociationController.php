@@ -11,6 +11,7 @@ use App\Http\Requests\Associations\UpdateAssociationRequest;
 use App\Http\Resources\Association\AssociationResource;
 
 use App\Models\Association;
+use App\Models\Illness;
 use Illuminate\Http\JsonResponse;
 
 use Illuminate\Http\Request;
@@ -55,23 +56,18 @@ class AssociationController extends Controller
 
     public function store(CreateAssociationRequest $request, CreateUser $createUser): JsonResponse
     {
-        // Validate email format if provided (optional)
-        $validator = Validator::make($request->only('email', 'role_id', 'phone', 'password', 'nameAdmin'), [
-            'email' => 'required|email|unique:users,email',
-            'role_id' => 'required|exists:roles,id',
-            'phone' => 'required|string',
-            'password' => 'required|string',
-            'nameAdmin' => 'required|string',
 
 
-        ]);
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 422); // Unprocessable Entity
-        }
 
 
         // Check authorization (assuming authorization logic is elsewhere)
         // $this->authorize('create', Association::class);
+
+        $illnessIsDeleted = Illness::find($request->illness_id);
+
+        if (!$illnessIsDeleted) {
+            return response()->json(['message' => 'illness is deleted '], 500);
+        }
 
         $association = Association::create($request->validated());
 
@@ -82,6 +78,22 @@ class AssociationController extends Controller
 
         // If email provided, create user
         if ($request->filled('email')) {
+
+            // Validate email format if provided (optional)
+            $validator = Validator::make($request->only('email', 'role_id', 'phone', 'password', 'nameAdmin'), [
+                'email' => 'required|email|unique:users,email',
+                'role_id' => 'required|exists:roles,id',
+                'phone' => 'required|string',
+                'password' => 'required|string',
+                'nameAdmin' => 'required|string',
+
+
+            ]);
+            if ($validator->fails()) {
+                return response()->json($validator->errors(), 422); // Unprocessable Entity
+            }
+
+
             $user = $createUser(
                 $request->input('nameAdmin'),
                 $request->input('email'),
