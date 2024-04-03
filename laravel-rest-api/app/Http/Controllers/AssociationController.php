@@ -21,7 +21,8 @@ class AssociationController extends Controller
 
     public function index(Request $request) // Use Request for potential filtering
     {
-        $associations = Association::query();
+        // $associations = Association::query();
+        $associations = Association::withTrashed();
 
         // Filter by search query (if applicable)
         $searchTerm = $request->query('q');
@@ -39,9 +40,9 @@ class AssociationController extends Controller
 
 
         //Chekc if there is no data send empty array
-        if ($associations->isEmpty()) {
-            return response()->json([], 200); // No content
-        }
+        // if ($associations->isEmpty()) {
+        //     return response()->json([], 200); // No content
+        // }
 
 
         return response()->json([

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Association extends Model
 {
-    use HasFactory ,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
 
     protected $fillable = ['name', 'address', 'logo', 'status', 'city', 'illness_id'];
@@ -20,5 +20,9 @@ class Association extends Model
     public function illnesse()
     {
         return $this->belongsTo(Illness::class);
+    }
+    public function patients()
+    {
+        return $this->hasMany(Patient::class,);
     }
 }

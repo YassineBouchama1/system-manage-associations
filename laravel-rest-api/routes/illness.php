@@ -16,6 +16,6 @@ Route::group(['prefix' => 'illnesses', 'middleware' => 'auth:api'], function () 
     Route::group(['middleware' => 'role:1'], function () {
         Route::put('/{illness}', [IllnessController::class, 'update']);
         Route::post('/', [IllnessController::class, 'store']);
-        Route::delete('/{illness}', [IllnessController::class, 'destroy']); // Added delete route
+        Route::delete('/{illness}', [IllnessController::class, 'destroy']); 
     });
 });
