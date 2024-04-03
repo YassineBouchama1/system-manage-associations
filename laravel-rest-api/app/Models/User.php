@@ -44,12 +44,19 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         return [];
     }
 
-    public function role() // Optional, if using a Role model
+    public function role()
     {
         return $this->belongsTo(Role::class);
     }
     public function association()
     {
         return $this->belongsTo(Association::class, 'association_id');
+    }
+
+
+    //add attrubute role_name to user
+    public function getRoleNameAttribute()
+    {
+        return optional($this->role)->name;
     }
 }

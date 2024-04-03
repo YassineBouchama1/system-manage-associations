@@ -14,7 +14,7 @@ Route::group(['prefix' => 'patients', 'middleware' => 'auth:api'], function () {
     Route::get('/{patient}', [PatientController::class, 'show']);
 
     // Admin routes (require admin role)
-    Route::group(['middleware' => 'role:1'], function () {
+    Route::group(['middleware' => 'role:2'], function () {
         Route::put('/{patient}', [PatientController::class, 'update']);
         Route::post('/', [PatientController::class, 'store']);
         Route::delete('/{patient}', [PatientController::class, 'destroy']); // Added delete route

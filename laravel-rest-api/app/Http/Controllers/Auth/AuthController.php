@@ -46,8 +46,10 @@ class AuthController extends Controller
         return response()->json([
             'user'         => new UserResource(Auth::user()),
             'access_token' => $token,
+
         ]);
     }
+
 
     public function logout(): Response
     {
