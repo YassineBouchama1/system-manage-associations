@@ -14,8 +14,7 @@ use App\Models\Association;
 use Illuminate\Http\JsonResponse;
 
 use Illuminate\Http\Request;
-
-
+use Illuminate\Support\Facades\Validator;
 
 class AssociationController extends Controller
 {
@@ -55,41 +54,52 @@ class AssociationController extends Controller
 
     public function store(CreateAssociationRequest $request, CreateUser $createUser): JsonResponse
     {
+        // Validate email format if provided (optional)
+        $validator = Validator::make($request->only('email', 'role_id', 'phone', 'password', 'nameAdmin'), [
+            'email' => 'required|email|unique:users,email',
+            'role_id' => 'required|exists:roles,id',
+            'phone' => 'required|string',
+            'password' => 'required|string',
+            'nameAdmin' => 'required|string',
 
-        // //chekc if name already exist in trached
-        // $isExistInDeleted = Association::where('name', $request->name)->withTrashed()->first();
 
-        // if ($isExistInDeleted) {
-        //     return response()->json(['message' => 'name should be uniqe'], 404);
-        // }
-
+        ]);
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422); // Unprocessable Entity
+        }
 
 
-        // $this->authorize('create', Association::class); // Check authorization
+        // Check authorization (assuming authorization logic is elsewhere)
+        // $this->authorize('create', Association::class);
 
         $association = Association::create($request->validated());
-        //chekc if association created
 
+        // Check if association creation was successful
+        if (!$association) {
+            return response()->json(['message' => 'Failed to create association'], 500);
+        }
 
-
-        // chheck if email is provided
-        //create admin association for association
-        if ($request->has('email') && $association) {
-            // Creating the user
+        // If email provided, create user
+        if ($request->filled('email')) {
             $user = $createUser(
-                $request->input('name'),
+                $request->input('nameAdmin'),
                 $request->input('email'),
                 $request->input('password'),
                 $request->input('phone'),
-                'admin association',
+                $request->input('role_id'),
                 $association->id
             );
 
-            //chekc if user created
+            // if user not created delete assosication
+            if (!$user) {
+                $association->forceDelete(); // Permanent deletion
+                return response()->json(['message' => 'Association created but user not provided. Association permanently deleted.'], 201);
+            }
         }
 
-        return response()->json(['message' =>  'Created Successfully'], 201);
+        return response()->json(['message' => 'Created Successfully'], 201); // Created
     }
+
 
 
     public function update(UpdateAssociationRequest $request, $id)
@@ -139,6 +149,8 @@ class AssociationController extends Controller
             return response()->json(['message' => 'Association not found'], 404);
         }
 
+        //change status all users belong assosition
+        $association->users()->update(['status' => 'inactive']);
         $association->delete();
 
         return response()->json(null, 204); // No content on successful deletion

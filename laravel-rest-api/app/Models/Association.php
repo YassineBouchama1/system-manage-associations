@@ -13,7 +13,7 @@ class Association extends Model
 
     protected $fillable = ['name', 'address', 'logo', 'status', 'city', 'illness_id'];
 
-    public function user()
+    public function users()
     {
         return $this->hasMany(User::class,);
     }
