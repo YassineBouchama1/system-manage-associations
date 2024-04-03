@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Patients\UpdateOperatorRequest;
+use App\Http\Requests\Operators\UpdateOperatorRequest;
 use Illuminate\Http\Request;
 
 use App\Http\Resources\Operators\OperatorResource;
@@ -93,6 +93,7 @@ class OperatorController extends Controller
 
     public function update(UpdateOperatorRequest $request, $id) // Use validated request
     {
+        $user = Auth::user();
 
         //check if this illness exist
         if (!$id) {
@@ -104,11 +105,27 @@ class OperatorController extends Controller
 
         // $this->authorize('update', $operator); // Check authorization
 
-        //check if illness exist
+
+        // i will change it to policy
+
+
         if (!$operator) {
             return response()->json(['message' => 'operator not found'], 404);
         }
 
+        // $this->authorize('create', Illness::class); // Check authorization
+
+
+
+        // if try Access super admin return error
+        if ($operator->role_id === 1) {
+            return response()->json(['message' => 'Unauthorized to show super admin'], 404);
+        }
+
+        // if try access operator not same assosiation id return error
+        if (!$user->role_id === 2 && $operator->association_id !== $user->association_id) {
+            return response()->json(['message' => 'Unauthorized to show this operator'], 404);
+        }
         $operator->update($request->validated());
 
         return response()->json(new operatorResource($operator), 200);

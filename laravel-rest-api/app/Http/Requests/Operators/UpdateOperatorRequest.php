@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Patients;
+namespace App\Http\Requests\Operators;
 
 use App\Models\Patient;
 use Illuminate\Foundation\Http\FormRequest;
@@ -21,6 +21,7 @@ class UpdateOperatorRequest extends FormRequest
         // 'name' => 'nullable|string|unique:Patients,name,' . $PatientsId . ',id,deleted_at,NULL',
 
         $rules = [
+            'name' => 'nullable|string',
             'role_id' => 'nullable|exists:roles,id',
             'status' => 'in:active,inactive,suspended,deleted',
 
@@ -34,6 +35,7 @@ class UpdateOperatorRequest extends FormRequest
         return [
             'role_id.exists' => 'The selected association does not exist.',
             'status.in' => 'The patient status must be one of active, inactive, suspended, or deleted.',
+            'name.string' => 'The association name must be a string.',
         ];
     }
 }
