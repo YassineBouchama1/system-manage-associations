@@ -1,6 +1,5 @@
 'use client'
 import { useState, type FC } from 'react';
-import FormHeader from './FormHeader';
 import { useTranslations } from 'next-intl';
 import UploaderImg from '../ui/UploaderImg';
 import { FormField } from './FormField';
@@ -12,11 +11,16 @@ interface FormillnessProps {}
 const Formillness: FC<FormillnessProps> = ({}) => {
   const [isOpen, setIsOpen] = useState(false);
     const t = useTranslations('ui')
+
+
+
+
+    
         return (
           <form className="flex w-auto  flex-col items-start  gap-2   ">
             <Modal isOpen={isOpen} setIsOpen={setIsOpen}>holdodl</Modal>
 
-            <UploaderImg name="logo" text={t("upload_ThPhoto")} />
+            {/* <UploaderImg name="logo" text={t("upload_ThPhoto")} /> */}
             <FormField
               id="name"
               name="name"

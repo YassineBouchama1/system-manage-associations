@@ -4,6 +4,7 @@ import Sidebar from "@/components/sidebar";
 import TitlePage from "@/components/ui/TitlePage";
 import PageWrapper from "@/components/Wrappers/page-wrapper";
 import MotionWrapper from "@/components/MotionWrapper";
+import { Toaster } from "react-hot-toast";
 
 export default function DashboardLayout({
   children,
@@ -17,11 +18,10 @@ export default function DashboardLayout({
         <Header />
         <PageWrapper>
           <TitlePage />
-           <MotionWrapper>
-          {children}
-           </MotionWrapper>
-          </PageWrapper>
+          <MotionWrapper>{children}</MotionWrapper>
+        </PageWrapper>
       </main>
+      
     </div>
   );
 }

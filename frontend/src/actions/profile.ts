@@ -1,5 +1,4 @@
-
-  "use server";
+"use server";
 import { getSession } from "@/lib/getSessions";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -33,5 +32,5 @@ export const changeRole = async () => {
 export const logout = async () => {
   const session = await getSession();
   session.destroy();
-  redirect("/");
+  redirect("/login");
 };

@@ -7,10 +7,8 @@ import fetchServer from "@/lib/fetch-server";
 import { schemaLogin } from "@/lib/validations";
 
 
-export const login = async (prevState: any, formData: FormData) => {
+export const login = async (formData: FormData) => {
   const session = await getSession();
-
-
 
   //2-validation
   const validatedFields = schemaLogin.safeParse({
@@ -21,13 +19,9 @@ export const login = async (prevState: any, formData: FormData) => {
   //check validation
   if (!validatedFields.success) {
     return {
-      message: "error in zod",
-      errors: validatedFields.error.flatten().fieldErrors,
-      type: "error",
+      errorZod: validatedFields.error.flatten().fieldErrors,
     };
   }
-
-
 
   // fetch data
   try {
@@ -54,24 +48,20 @@ export const login = async (prevState: any, formData: FormData) => {
     await session.save();
 
     //after successfully
-    return {
-      message: "fetching successfully",
-      errors: {},
-      type: "success",
-    };
-    
+    return { success: "Created" };
   } catch (error: any) {
-    console.log(error.status);
-         if (error.status === 401) {
-
-           const responseBody = await error.text();
-           const errorObject: any = JSON.parse(responseBody);
-           return {
-             message: errorObject.message,
-             errors: {},
-             type: "error",
-           };
-         }
+    // Error caught during execution
+    if (error.status) {
+      const responseBody = await error.text();
+      const errorObject: any = JSON.parse(responseBody);
+      return {
+        error: errorObject.message,
+      };
+    } else {
+      return {
+        error: "pb in server",
+      };
+    }
   }
 };
 

@@ -1,12 +1,13 @@
 "use client";
-import { login } from "@/actions/login";
+import {  login } from "@/actions/login";
 import { logout } from "@/actions/profile";
 import { SubmitButton } from "@/components/ui/SubmitButton";
 import { redirect } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useTransition } from "react";
 import Link from "next/link";
 import { useFormState } from "react-dom";
 import { useTranslations } from "next-intl";
+import toast from "react-hot-toast";
 
 const initialState: any = {
   message: null,
@@ -16,26 +17,54 @@ const initialState: any = {
 export default function LoginForm() {
 
   const t = useTranslations('login')
-  const [state, formAction] = useFormState(login, initialState);
+    const [isPending, startTransition] = useTransition();
 
 
+    
+    //send request to api useing server action
+  async function onLogin(formData: FormData) {
+    const { errorZod ,error,success} :any = await login(formData);
+  
+    // handle erros from api
+    if (error) {
+   
 
-// console.log(state);
-  useEffect(() => {
-    if (state?.type === "success") {
-      redirect("/dashboard");
+      toast.error(error);
     }
-  }, [state]);
+
+    //handle zod errors
+    else if (errorZod) {
+     
+      Object.keys(errorZod).forEach((key: string) => {
+        toast.error(`${key} ${errorZod[key]}`);
+      });
+    } else {
+     
+      toast.success("Logined Successfully ");
+    redirect("/dashboard");
+    }
+  }
+
+//   const [state, formAction] = useFormState(login, initialState);
+
+
+
+// // console.log(state);
+//   useEffect(() => {
+//     if (state?.type === "success") {
+//       redirect("/dashboard");
+//     }
+//   }, [state]);
 
 
   
   return (
-    <form className="space-y-4 md:space-y-6" action={formAction}>
-      {state?.type === "error" && (
+    <form action={onLogin} className="space-y-4 md:space-y-6">
+      {/* {state?.type === "error" && (
         <p aria-live="polite" className=" text-red-500 ">
           {state.message}
         </p>
-      )}
+      )} */}
       <div>
         <label
           htmlFor="email"
@@ -50,7 +79,7 @@ export default function LoginForm() {
           className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="name@email.com"
           required
-        />
+        ></input>
       </div>
       <div>
         <label
@@ -66,7 +95,7 @@ export default function LoginForm() {
           placeholder="••••••••"
           className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           required
-        />
+        ></input>
       </div>
       <div className="flex items-center justify-between">
         <div className="flex items-start">
@@ -95,7 +124,7 @@ export default function LoginForm() {
         </a>
       </div>
       <SubmitButton
-        title="Sign in"
+        title={t("SignIn")}
         style=" w-full text-white bg-green-500 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-500 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
       />
 

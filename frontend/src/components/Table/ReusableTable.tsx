@@ -13,7 +13,7 @@ export default function ReusableTable({
   data,
   columns,
 }: {
-  data: TableData[];
+  data: unknown ;
   columns: string[];
 }) {
   return (
@@ -58,7 +58,7 @@ function RenderTableBody({
   data,
   columns,
 }: {
-  data: TableData[];
+  data: any[];
   columns: string[];
 }) {
   if (!data || data.length === 0) {
@@ -121,7 +121,7 @@ function RenderTableBody({
 }
 
 // HeaderTable component
-function PaginationTable({ data }: { data: TableData[] }) {
+function PaginationTable({ data }: { data: any[] }) {
   console.log(data);
   return (
     <div className="flex items-center mt-4 gap-x-4 sm:mt-0">

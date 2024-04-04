@@ -16,6 +16,7 @@
     "forgetPassword": "هل نسيت كلمة السر؟",
     "dontHaveAccount": "لا تملك حسابا حتى الآن؟",
     "signUp": "لاشتراك",
+    "SignIn": "تسجيل الدخول",
     "rememberMe": "تذكرنى"
   },
   "header":{
@@ -41,6 +42,7 @@
   },
   "ui":{
     "create": "إنشاء",
+    "loaidng": "loading...",
     "role": "وظيفة",
     "email": "البريد الإلكتروني",
     "password": "كلمة السر",
@@ -55,6 +57,6 @@
     "illnesses": "أمراض ",
     "createAssociation": "إنشاء جمعية",
     "illnessForm": "إنشاء جمعية",
-    "createAssociation": "إنشاء جمعية"
+    "SignIn": "تسجيل الدخول"
   }
 }

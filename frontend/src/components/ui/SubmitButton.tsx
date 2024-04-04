@@ -8,15 +8,15 @@ export function SubmitButton({
   style,
   loadingForm = 'loading...',
 }: {
-  title?: any;
+  title?: string;
   style?: string;
   loadingForm?:any;
 }) {
   const { pending } = useFormStatus();
- const t = useTranslations()
+//  const t = useTranslations("ui");
   return (
     <button type="submit" aria-disabled={pending} className={style}>
-      {pending ? loadingForm : (t(title) ? t(title) : 'button')}
+      {pending ? loadingForm : (title ? title : 'button')}
     </button>
   );
 }
