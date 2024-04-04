@@ -1,4 +1,4 @@
-import { CardStatusSkeleton } from "@/components/skeletons/CardStatusSkeleton";
+import { CardStatusSkeleton } from "@/components/skeletons/TableSkeleton";
 import React from "react";
 
 const Laoding = () => {

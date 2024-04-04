@@ -6,3 +6,11 @@ export  interface IllnessType {
   created_at: string;
   updated_at: string;
 }
+
+
+
+export interface ResponseIllnessType {
+  data: IllnessType[];
+  total_pages: number;
+  current_page: number;
+}

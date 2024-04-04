@@ -1,34 +1,31 @@
 import { illnessAction } from "@/actions/illnesses";
-import HeaderTable from "@/components/Table/HeaderTable";
-import ReusableTable from "@/components/Table/ReusableTable";
-import SectionWrapper from "@/components/Wrappers/SectionWrapper";
-import { delay } from "@/lib/delay";
+import IllnessTable from "@/components/Table/IllnessTable";
 import { ResponseIllnessType } from "@/types/illness";
-import { setTimeout } from "timers";
 
-export default async function Home() {
-    // await delay(4000);
+export default async function Home({
+  searchParams,
+}: {
+  searchParams?: {
+    query?: string;
+    page?: string;
+  };
+}) {
+ 
+  // const query = "?q&page=1&per_page=1";
 
-  const { success, error }: { success?: ResponseIllnessType ,error?: string } =
-    await illnessAction();
+    const query = searchParams?.query || "";
+    const currentPage = Number(searchParams?.page) || 1;
 
-  // if(error)return Error(error)
+
+  const { success, error }: { success?: ResponseIllnessType; error?: string } =
+    await illnessAction(currentPage.toString());
+
+  console.log(error);
+
   if (error) {
-    throw new Error(error);
+    throw Error(error);
   }
 
-const columns: string[] = [
-  "id",
-  "name",
-  "associations",
-  "deleted_at",
-  "created_at",
-  "updated_at",
-];
-
-
-
-
-  return <ReusableTable columns={columns} data={success?.data} />;
+  return <IllnessTable data={success} />;
 }
   

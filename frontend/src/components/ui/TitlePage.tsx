@@ -9,9 +9,9 @@ const TitlePage: FC<TitlePageProps> = ({title}) => {
       const t = useTranslations("sideBar");
 
  const sugment = useSelectedLayoutSegment()
- console.log(sugment)
+
 const pathname =usePathname()
-console.log();
+
  if (pathname.includes("create")) {
    return (
      <h2 className="uppercase font-medium text-xl py-2">

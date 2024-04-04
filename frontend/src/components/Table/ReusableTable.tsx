@@ -1,19 +1,18 @@
 import React from "react";
 
-interface TableData {
-  id?: number;
-  customer?: string;
-  purchaseDate?: string;
-  title?: string;
-}
 
+export interface ResponseIllnessType {
+  data: any[];
+  total_pages: number;
+  current_page: number;
+}
 
 // ReusableTable component
 export default function ReusableTable({
   data,
   columns,
 }: {
-  data: unknown ;
+  data: any ;
   columns: string[];
 }) {
   return (
@@ -22,7 +21,7 @@ export default function ReusableTable({
         <table className="w-full whitespace-nowrap">
           <HeaderTable columns={columns} />
           <tbody>
-            <RenderTableBody data={data} columns={columns} />
+            <RenderTableBody data={data.data} columns={columns} />
           </tbody>
         </table>
       </div>
@@ -58,7 +57,7 @@ function RenderTableBody({
   data,
   columns,
 }: {
-  data: any[];
+  data: any;
   columns: string[];
 }) {
   if (!data || data.length === 0) {
@@ -109,7 +108,7 @@ function RenderTableBody({
 
               {/* btns */}
               <div className="dropdown-content bg-white shadow w-24 absolute z-30 right-0 mr-6 hidden">
-           btns
+                btns
               </div>
               {/* btns */}
             </div>

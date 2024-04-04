@@ -45,16 +45,6 @@ export default function LoginForm() {
     }
   }
 
-//   const [state, formAction] = useFormState(login, initialState);
-
-
-
-// // console.log(state);
-//   useEffect(() => {
-//     if (state?.type === "success") {
-//       redirect("/dashboard");
-//     }
-//   }, [state]);
 
 
   

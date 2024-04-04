@@ -27,7 +27,7 @@ export const login = async (formData: FormData) => {
   try {
     const response = await fetchServer({
       method: "POST",
-      url: process.env.NEXT_PUBLIC_BACKEND_API_URL + "/api/login",
+      url: process.env.NEXT_PUBLIC_BACKEND_API_URL + "/login",
       body: JSON.stringify(validatedFields.data),
     });
 

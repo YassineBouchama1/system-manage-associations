@@ -12,7 +12,9 @@ export default  function TransactionLayout({
       <SectionWrapper styles="col-span-3 lg:col-span-1 md:px-20">
         {children}
       </SectionWrapper>
-      <SectionWrapper styles="col-span-3 lg:col-span-2">{table}</SectionWrapper>
+      <SectionWrapper styles="col-span-3 lg:col-span-2 py-2">
+        {table}
+      </SectionWrapper>
     </main>
   );
 } 
