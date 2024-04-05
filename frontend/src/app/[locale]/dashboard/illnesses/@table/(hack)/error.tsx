@@ -1,38 +1,44 @@
-"use client"; // Error components must be Client Components
+"use client";
 
-import { useEffect } from "react";
+import Link from "next/link";
 
-export default function Error({
-  error,
-  reset,
-}: {
-  error: Error & { digest?: string };
+interface ErrorProps {
+  error: Error;
   reset: () => void;
-}) {
-  useEffect(() => {
-    // Log the error to an error reporting service
-    console.error(error);
-  }, [error]);
+}
 
+function Error({ error, reset }: ErrorProps) {
   return (
-    <div>
-      <div
-        className="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4"
-        role="alert"
-      >
-        <p className="font-bold">Something went wrong!</p>
-        <p>{error?.message}</p>
-      </div>
- 
-  
-      <button
-        onClick={
-          // Attempt to recover by trying to re-render the segment
-          () => reset()
-        }
-      >
-        Try again
-      </button>
-    </div>
+    <>
+     
+        <div className="text-center">
+          <h1 className="text-9xl font-black text-gray-200">404</h1>
+
+          <p className="text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            Uh-oh!
+          </p>
+
+          <p className="mt-4 text-gray-500">
+            {error.message || "Something went wrong!"}
+          </p>
+
+          <button
+            className="mt-6 inline-block rounded bg-indigo-600 px-5 py-3 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring"
+            onClick={() => reset()}
+          >
+            Try again
+          </button>
+
+          <Link
+            href="/"
+            className="mt-6 inline-block rounded bg-indigo-600 px-5 py-3 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring"
+          >
+            Go Back Home
+          </Link>
+        </div>
+    
+    </>
   );
 }
+
+export default Error;

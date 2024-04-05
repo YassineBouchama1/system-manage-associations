@@ -1,6 +1,6 @@
 
-import { redirect } from "next/navigation";
 import "server-only";
+import { redirect } from "next/navigation";
 import { getSession } from "@/lib/getSessions";
 import { logout } from "@/actions/profile";
 interface fetchServerProps {
@@ -32,10 +32,14 @@ async function fetchServer({ method = "GET", url, body = "" }: fetchServerProps)
     //get instant from Response to error
     if (error instanceof Response) {
       //if  unauth logout user
-      if (error.status === 401) {
-        logout();
-        // return redirect("/login");
-      }
+    //   console.log('from fetch main')
+    //  if (error.status === 401) {
+    //    return redirect("/login");
+    //  }
+
+    //  if (error.status === 409) {
+    //    return redirect("/request-email-verification");
+    //  }
 
       //if  not email verefied
 

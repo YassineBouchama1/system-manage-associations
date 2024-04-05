@@ -1,31 +1,41 @@
-import { illnessAction } from "@/actions/illnesses";
+import { fetchIllness } from "@/actions/illnesses";
 import IllnessTable from "@/components/Table/IllnessTable";
-import { ResponseIllnessType } from "@/types/illness";
+import PaginationControls from "@/components/Table/PaginationControls";
+
+// default value for  query
+const DEFAULT_PAGE = 1;
+const DEFAULT_PER_PAGE = 2;
 
 export default async function Home({
   searchParams,
 }: {
-  searchParams?: {
-    query?: string;
-    page?: string;
-  };
+  searchParams: { [key: string]: string | string[] | undefined };
 }) {
- 
-  // const query = "?q&page=1&per_page=1";
-
-    const query = searchParams?.query || "";
-    const currentPage = Number(searchParams?.page) || 1;
 
 
-  const { success, error }: { success?: ResponseIllnessType; error?: string } =
-    await illnessAction(currentPage.toString());
+  // fetching illness  & passing query {page,per_page}
+  const combinedParams = {
+    ...searchParams,
+    page: searchParams.page?.toString() || DEFAULT_PAGE.toString(),
+    per_page: searchParams.per_page?.toString() || DEFAULT_PER_PAGE.toString(),
+  };
 
-  console.log(error);
+  const { success, error } = await fetchIllness(combinedParams);
 
   if (error) {
-    throw Error(error);
+    throw new Error(error.toString());
   }
 
-  return <IllnessTable data={success} />;
+  return (
+    <>
+      <IllnessTable data={success} />
+      <PaginationControls
+        hasNextPage={success.current_page < success.total_pages}
+        hasPrevPage={success.current_page > 1}
+        totalPages={success.total_pages}
+        currentPage={success.current_page}
+      />
+
+    </>
+  );
 }
-  

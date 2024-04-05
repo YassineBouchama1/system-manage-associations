@@ -1,7 +1,10 @@
+'use client'
 import type { FC } from "react";
 import { ResponseIllnessType } from "./ReusableTable";
 import { IllnessType } from "@/types/illness";
-import generatePaginationLinks from "./GeneratePaginationLinks";
+import generatePaginationLinks from "./PaginationControls";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 interface IllnessTableProps {
   data: ResponseIllnessType | undefined
@@ -13,9 +16,12 @@ const IllnessTable: FC<IllnessTableProps> = ({data}) => {
   const totalPages: number | undefined = data?.total_pages;
   const currentPage: number | undefined = data?.current_page;
 
+const searchParams = useSearchParams()
+
   //generate links pagination by passing number of pages avaibale
-const paginationLinks = generatePaginationLinks({ totalPages, currentPage });
-  console.log(items);
+// const paginationLinks = generatePaginationLinks({ totalPages, currentPage });
+//  const nextPage = currentPage < totalPages ? currentPage + 1 : null;
+//  const prevPage = currentPage > 1 ? currentPage - 1 : null;
   return (
     <div className="rounded-lg border border-gray-200">
       <div className="overflow-x-auto rounded-t-lg">
@@ -51,7 +57,7 @@ const paginationLinks = generatePaginationLinks({ totalPages, currentPage });
           </tbody>
         </table>
       </div>
-
+   
       <div className="rounded-b-lg border-t border-gray-200 px-4 py-2">
         <ol className="flex justify-end gap-1 text-xs font-medium">
           <li>
@@ -75,8 +81,7 @@ const paginationLinks = generatePaginationLinks({ totalPages, currentPage });
             </a>
           </li>
 
-          {paginationLinks}
-
+          {/* {paginationLinks} */}
 
           <li>
             <a
