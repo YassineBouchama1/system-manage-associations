@@ -17,7 +17,7 @@ const Formillness: FC<FormillnessProps> = ({}) => {
 
     
         return (
-          <form className="flex w-auto  flex-col items-start  gap-2   ">
+          <form className="flex w-auto  flex-col items-start  gap-2  items-center  ">
             <Modal isOpen={isOpen} setIsOpen={setIsOpen}>holdodl</Modal>
 
             {/* <UploaderImg name="logo" text={t("upload_ThPhoto")} /> */}
