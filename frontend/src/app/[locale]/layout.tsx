@@ -9,6 +9,7 @@ import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { GlobalThemeProvider } from "@/hooks/useTheme";
 import { Toaster } from "react-hot-toast";
+import ReduxProvider from "@/redux/ReduxProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -48,7 +49,9 @@ if(locale !== correntlocale){
         <NextIntlClientProvider locale={locale} messages={messages}>
           <AuthProvider>
             <GlobalThemeProvider>
+                <ReduxProvider>
               {children}
+                </ReduxProvider>
               <Toaster position="top-center" />
             </GlobalThemeProvider>
           </AuthProvider>

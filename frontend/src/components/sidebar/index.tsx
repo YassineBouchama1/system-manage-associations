@@ -23,6 +23,8 @@ import { useGlobalTheme } from "@/hooks/useTheme";
 import Image from "next/image";
 import { motion, useCycle } from "framer-motion";
 import { ISidebarItem } from "@/types/sideBar";
+import { useAppDispatch, useAppSelector } from "@/redux/Hook";
+import {  toggleSidebar } from "@/redux/ThemeSlice";
 
 
 
@@ -74,7 +76,10 @@ const Sidebar = () => {
   ],[])
   const [name, setName] = useState<string | undefined>("");
   const { session, setSession, loading } = useAuthContext();
-  const { toggleSIdeBar, setToggleSIdeBar } = useGlobalTheme();
+  // const { toggleSIdeBar, setToggleSIdeBar } = useGlobalTheme();
+
+
+  const toggleSIdeBar = useAppSelector((state)=>state.theme.sideBar)
 
   //bring session
   useEffect(() => {
@@ -86,6 +91,8 @@ const Sidebar = () => {
     fetchSessions();
   }, []);
 
+
+  const dispatch = useAppDispatch()
   const location = useLocale();
 
   const variants = {
@@ -113,7 +120,7 @@ const Sidebar = () => {
         <div className="flex gap-1">
           <button
             className="md:hidden opacity-75"
-            onClick={() => setToggleSIdeBar(!toggleSIdeBar)}
+            onClick={() =>  dispatch(toggleSidebar())}
           >
             <X />
           </button>

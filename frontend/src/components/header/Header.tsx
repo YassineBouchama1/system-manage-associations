@@ -6,11 +6,14 @@ import ProfileIcon from './ProfileIcon';
 import { getTranslations } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
 import { useGlobalTheme } from '@/hooks/useTheme';
+import { useAppDispatch } from '@/redux/Hook';
+import { toggleSidebar } from '@/redux/ThemeSlice';
 
 interface HeaderProps {}
 
 const Header: FC<HeaderProps> =   ({}) => {
-    const { toggleSIdeBar, setToggleSIdeBar } = useGlobalTheme();
+
+      const dispatch = useAppDispatch();
 
  const t =  useTranslations("header");
         return (
@@ -19,7 +22,7 @@ const Header: FC<HeaderProps> =   ({}) => {
               <div className="flex items-center justify-start gap-4">
                 <button 
                 className='md:hidden'
-                onClick={() => setToggleSIdeBar(!toggleSIdeBar)}>
+                onClick={() =>  dispatch(toggleSidebar())}>
                   <AlignJustify />
                 </button>
                 <div className="hidden lg:flex px-4 py-2 rounded-full  items-center justify-start gap-x-3 bg-[#F5F6FA] border-2 border-gray-500/20">
