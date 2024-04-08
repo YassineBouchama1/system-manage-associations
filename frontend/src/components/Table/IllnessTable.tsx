@@ -8,6 +8,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { SubmitButton } from "../ui/SubmitButton";
 import { deleteAction } from "@/actions/illnesses/delete";
 import toast from "react-hot-toast";
+import { restoreAction } from "@/actions/illnesses/restore";
 
 interface IllnessTableProps {
   data: ResponseIllnessType | undefined
@@ -30,6 +31,19 @@ const IllnessTable: FC<IllnessTableProps> = ({data}) => {
       toast.success("Deleted Successfully ");
     }
   }
+
+
+ async function onRestore(format: FormData) {
+   const result = await restoreAction(format);
+   if (result?.error) {
+     toast.error(result?.error);
+   } else {
+     toast.success("Restored Successfully ");
+   }
+ }
+
+
+
 
   // fill query url
   const updateIt = (item: any) => {
@@ -60,7 +74,12 @@ const IllnessTable: FC<IllnessTableProps> = ({data}) => {
 
           <tbody className="divide-y divide-gray-200 px-4">
             {items?.map((item: IllnessType) => (
-              <tr key={item.id} className={item.deleted_at?'bg-gray-500':''}>
+              <tr
+                key={item.id}
+                className={
+                  (item.deleted_at && "bg-gray-200/70 text-white") || ""
+                }
+              >
                 <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
                   {item.name}
                 </td>
@@ -72,22 +91,21 @@ const IllnessTable: FC<IllnessTableProps> = ({data}) => {
                 </td>
                 <td className="whitespace-nowrap px-4 py-2 flex items-center gap-2">
                   {item.deleted_at ? (
-                    <form action={onDelete}>
+                    <form action={onRestore}>
                       <input hidden type="number" name="id" value={item.id} />
 
                       <SubmitButton
                         style="inline-block rounded text-red-600  py-2 text-xs font-medium hover:text-red-700  duration-150"
-                        title="delete"
-                        loadingForm="deleting"
+                        title="Restore"
+                        loadingForm="Restoring"
                       />
                     </form>
                   ) : (
                     <form action={onDelete}>
                       <input hidden type="number" name="id" value={item.id} />
-
                       <SubmitButton
                         style="inline-block rounded text-blue-600  py-2 text-xs font-medium hover:text-blue-700  duration-150"
-                        title="Restore"
+                        title="delete"
                         loadingForm="deleting"
                       />
                     </form>

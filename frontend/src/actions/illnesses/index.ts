@@ -18,12 +18,12 @@ export const fetchIllness = async (params: any) => {
     params.per_page || DEFAULT_PER_PAGE
   }`;
 
-  if (Object.keys(params).length > 0) {
-    const queries = Object.keys(params)
-      .map((key) => `${key}=${params[key]}`)
-      .join("&");
-    url += `&${queries}`; // Append additional parameters without overwriting defaults
-  }
+  // if (Object.keys(params).length > 0) {
+  //   const queries = Object.keys(params)
+  //     .map((key) => `${key}=${params[key]}`)
+  //     .join("&");
+  //   url += `&${queries}`; // Append additional parameters without overwriting defaults
+  // }
 
   try {
     const illnesses: ResponseIllnessType | any = await fetchServer({
@@ -52,7 +52,6 @@ export const fetchIllness = async (params: any) => {
       // if there is no error comes from server
     } else {
       return {
-     
         error: "Error on server.",
       };
     }
