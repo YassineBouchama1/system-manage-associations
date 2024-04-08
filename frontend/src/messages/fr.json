@@ -42,6 +42,7 @@
   },
   "ui": {
     "create": "Créer",
+    "update": "update",
     "loaidng": "loading...",
     "role": "Rôle",
     "email": "Adresse e-mail",

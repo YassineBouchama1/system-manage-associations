@@ -9,7 +9,7 @@ export default function SectionWrapper({ children, styles }: { children: ReactNo
     <section
       className={cn(
         
-        styles && styles,"bg-white shadow-md rounded-md w-full min-h-full  px-3  py-6"
+        styles && styles,"bg-white shadow-md rounded-md w-full h-full  px-3  py-6"
       )}
     >
       {children}

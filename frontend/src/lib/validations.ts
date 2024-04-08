@@ -11,3 +11,8 @@ export const schemaIllness = z.object({
   name: z.string().min(5),
  
 });
+
+export const schemaIllnessUpdate = z.object({
+  name: z.string().min(5).optional(),
+});
+;

@@ -1,14 +1,14 @@
 'use client'
-import type { FC } from "react";
+import { useState, type FC } from "react";
 import { ResponseIllnessType } from "./ReusableTable";
 import { IllnessType } from "@/types/illness";
-import generatePaginationLinks from "./PaginationControls";
-import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+
 import { SubmitButton } from "../ui/SubmitButton";
 import { deleteAction } from "@/actions/illnesses/delete";
 import toast from "react-hot-toast";
 import { restoreAction } from "@/actions/illnesses/restore";
+import Modal from "../Modal";
+import FormIllnessUpdate from "../Forms/FormillnessUpdate";
 
 interface IllnessTableProps {
   data: ResponseIllnessType | undefined
@@ -16,14 +16,12 @@ interface IllnessTableProps {
 
 const IllnessTable: FC<IllnessTableProps> = ({data}) => {
   const items: IllnessType[] | undefined = data?.data;
+  const [isOpen, setIsOpen] = useState<number | null>(null); 
 
 
-  const router = useRouter();
-
-
-
+  // delete illness
   async function onDelete(format: FormData) {
-
+    //sending request to action <server action>
     const result = await deleteAction(format);
     if (result?.error) {
       toast.error(result?.error);
@@ -32,24 +30,15 @@ const IllnessTable: FC<IllnessTableProps> = ({data}) => {
     }
   }
 
-
- async function onRestore(format: FormData) {
-   const result = await restoreAction(format);
-   if (result?.error) {
-     toast.error(result?.error);
-   } else {
-     toast.success("Restored Successfully ");
-   }
- }
-
-
-
-
-  // fill query url
-  const updateIt = (item: any) => {
-    let url = `?&name=${item.name}&title=${item.title}&company=&title=${item.title}${item.company}&contact=${item.contact}&id=${item.id}`;
-    router.push(url);
-  };
+  // to restore illness by passing id in formdata
+  async function onRestore(format: FormData) {
+    const result = await restoreAction(format);
+    if (result?.error) {
+      toast.error(result?.error);
+    } else {
+      toast.success("Restored Successfully ");
+    }
+  }
 
   return (
     <div className="rounded-lg border border-gray-200 min-h-40">
@@ -111,12 +100,24 @@ const IllnessTable: FC<IllnessTableProps> = ({data}) => {
                     </form>
                   )}
 
-                  <a
-                    href="#"
-                    className="inline-block rounded text-green-600  py-2 text-xs font-medium  hover:text-green-700 duration-150"
+                  <button
+                    onClick={() => setIsOpen(item.id)}
+                    className="inline-block rounded text-green-600 py-2 text-xs font-medium hover:text-green-700 duration-150"
                   >
                     edit
-                  </a>
+                  </button>
+                  {isOpen === item.id && (
+                    <Modal
+                      isOpen={isOpen === item.id}
+                      onClose={() => setIsOpen(null)}
+                    >
+                      <FormIllnessUpdate
+                        id={item.id}
+                        name={item.name}
+                        // onClose={() => setIsOpen(null)}
+                      />
+                    </Modal>
+                  )}
                 </td>
               </tr>
             ))}

@@ -42,6 +42,7 @@
   },
   "ui":{
     "create": "إنشاء",
+    "update": "إنشاء",
     "loaidng": "loading...",
     "role": "وظيفة",
     "email": "البريد الإلكتروني",
