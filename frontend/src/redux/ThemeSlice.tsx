@@ -12,7 +12,6 @@ const ThemeSlice = createSlice({
   initialState,
   reducers: {
     toggleSidebar(state) {
-      console.count('time')
       state.sideBar = !state.sideBar;
     },
     

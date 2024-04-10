@@ -11,7 +11,6 @@ import toast from 'react-hot-toast';
 interface FormillnessProps {}
 
 const Formillness: FC<FormillnessProps> = ({}) => {
-  const [isOpen, setIsOpen] = useState(false);
   const t = useTranslations("ui");
 
   // ref linked with from
@@ -44,7 +43,6 @@ const Formillness: FC<FormillnessProps> = ({}) => {
     >
 
 
-      {/* <UploaderImg name="logo" text={t("upload_ThPhoto")} /> */}
       <FormField
         id="name"
         name="name"

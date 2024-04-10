@@ -8,7 +8,7 @@ import { deleteAction } from "@/actions/illnesses/delete";
 import toast from "react-hot-toast";
 import { restoreAction } from "@/actions/illnesses/restore";
 import Modal from "../Modal";
-import FormIllnessUpdate from "../Forms/FormillnessUpdate";
+import FormIllnessUpdate from "../Forms/FormIllnessUpdate";
 
 interface IllnessTableProps {
   data: ResponseIllnessType | undefined

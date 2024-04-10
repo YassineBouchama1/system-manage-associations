@@ -9,10 +9,10 @@ import { updateIllness } from '@/actions/illnesses/update';
 interface FormIllnessUpdateProps {
   id: number;
   name: string;
-  onClose: () => void; // after update remove model
+  // onClose: () => void; // after update remove model
 }
 
-const FormIllnessUpdate: FC<FormIllnessUpdateProps> = ({id,name}) => {
+const FormIllnessUpdate: FC<FormIllnessUpdateProps> = ({ id, name }) => {
   const t = useTranslations("ui");
 
   // ref linked with from
@@ -34,8 +34,6 @@ const FormIllnessUpdate: FC<FormIllnessUpdateProps> = ({id,name}) => {
       });
     } else {
       toast.success(" Illness Updated Successfully ");
-      onClose()
-     
     }
   }
 
@@ -61,5 +59,5 @@ const FormIllnessUpdate: FC<FormIllnessUpdateProps> = ({id,name}) => {
       </div>
     </form>
   );
-}
+};
 export default FormIllnessUpdate;
