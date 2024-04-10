@@ -6,6 +6,7 @@ import { SubmitButton } from './SubmitButton';
 import { AssociationType } from '@/types/association';
 import toast from 'react-hot-toast';
 import { deleteAction } from '@/actions/associations/delete';
+import Link from 'next/link';
 
 interface AssociationCardProps {
   association: AssociationType;
@@ -42,7 +43,9 @@ const AssociationCard: FC<AssociationCardProps> = ({ association }) => {
       </div>
       <p>hello@yassine.info</p>
       <div className="w-auto px-2  h-7 border-2 rounded-md flex items-center justify-center gap-x-2">
-        <FilePenLine size={20} />
+        <Link href={`/associations/${association.id}`}>
+          <FilePenLine size={20} />
+        </Link>
         <div className="h-full w-[1px] bg-black/30"></div>
 
         <form action={onDelete}>

@@ -18,7 +18,7 @@ export default async function Associations({
 
   return (
     <div className="mt-4">
-      <AssociationsFormUpdate />
+      <AssociationsFormUpdate association={success}/>
     </div>
   );
 };

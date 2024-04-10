@@ -11,96 +11,110 @@ import { Option } from '@/types/generale';
 import { SubmitButton } from '../ui/SubmitButton';
 import SectionWrapper from '../Wrappers/SectionWrapper';
 import UploaderImg from '../ui/UploaderImg';
+import { AssociationType } from '@/types/association';
 
-interface AssociationsFormUpdateProps {}
+interface AssociationsFormUpdateProps {
+  association:AssociationType;
+}
 
-const AssociationsFormUpdate: FC<AssociationsFormUpdateProps> = ({}) => {
-    const t = useTranslations('ui')
-
-
+const AssociationsFormUpdate: FC<AssociationsFormUpdateProps> = ({
+  association,
+}) => {
+  const t = useTranslations("ui");
 
   // dumy data of cities
-const cities: Option[] = [
-  { value: "safi", label: "Safi" },
-  { value: "marrakech", label: "Marrakech" },
-  { value: "casablanca", label: "Casablanca" },
-];
+  const cities: Option[] = [
+    { value: "safi", name: "Safi" },
+    { value: "marrakech", name: "Marrakech" },
+    { value: "casablanca", name: "Casablanca" },
+  ];
 
-        return (
-          <SectionWrapper styles="md:px-20">
-            <form className="w-auto flex-col items-start    ">
-              <FormHeader title={t("admin_Account")} />
 
-              {/* start form  */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-6">
-                {/*  form item  */}
+  const roles  = [
+    { value: "safi", name: "Safi" },
+    { value: "marrakech", name: "Marrakech" },
+    { value: "casablanca", name: "Casablanca" },
+  ];
 
-                <FormField
-                  id="role"
-                  name="role"
-                  type="text"
-                  placeholder={t("role")}
-                  title={t("role")}
-                />
-                {/*  form item  */}
+  return (
+    <SectionWrapper styles="md:px-20">
+      <form className="w-auto flex-col items-start    ">
+        <FormHeader title={t("admin_Account")} />
 
-                <FormField
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder={t("email")}
-                  title={t("email")}
-                />
-                {/*  form item  */}
+        {/* start form  */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-6">
+          {/*  form item  */}
 
-                <FormField
-                  id="password"
-                  name="password"
-                  type="password"
-                  placeholder="************"
-                  title={t("password")}
-                />
-                {/*  form item  */}
-              </div>
+          <FormField
+            id="role"
+            name="role"
+            type="text"
+            placeholder={t("role")}
+            title={t("role")}
+          />
+          {/*  form item  */}
 
-              <FormHeader title={t("association_Informations")} />
-              <div>
-                {/* img upload  */}
-                <UploaderImg name="logo" text={t("upload_ThPhoto")} />
+          <FormField
+            id="email"
+            name="email"
+            type="email"
+            placeholder={t("email")}
+            title={t("email")}
+          />
+          {/*  form item  */}
 
-                {/* img upload  */}
-                {/* forms PERSONAL INFORMATION  */}
+          <FormField
+            id="password"
+            name="password"
+            type="password"
+            placeholder="************"
+            title={t("password")}
+          />
+          {/*  form item  */}
+        </div>
 
-                <div className="grid grid-cols-1  md:grid-cols-2 gap-10 mt-10">
-                  <FormField
-                    id="name"
-                    name="name"
-                    type="text"
-                    placeholder={t("name")}
-                    title={t("name")}
-                  />
-                  <FormField
-                    id="phone"
-                    name="phone"
-                    type="number"
-                    placeholder={t("phone_Number")}
-                    title={t("phone_Number")}
-                  />
+        <FormHeader title={t("association_Informations")} />
+        <div>
+          {/* img upload  */}
+          <UploaderImg name="logo" text={t("upload_ThPhoto")} />
 
-                  <FormFieldSelect title={t("city")} options={cities} />
-                  <FormFieldSelect title={t("illnesses")} options={cities} />
-                </div>
-                {/* forms PERSONAL INFORMATION  */}
-              </div>
-              {/* end forms  */}
-              <div className="w-full my-6 flex justify-center">
-                <SubmitButton
-                  title={t("create")}
-                  style='bg-theme-color w-52 px-2 py-3 rounded-md text-white text-end"'
-                />
-              </div>
-            </form>
-          </SectionWrapper>
-        );
-}
+          {/* img upload  */}
+          {/* forms PERSONAL INFORMATION  */}
+
+          <div className="grid grid-cols-1  md:grid-cols-2 gap-10 mt-10">
+            <FormField
+              id="name"
+              name="name"
+              type="text"
+              placeholder={t("name")}
+              title={t("name")}
+            />
+            <FormField
+              id="phone"
+              name="phone"
+              type="number"
+              placeholder={t("phone_Number")}
+              title={t("phone_Number")}
+            />
+
+            <FormFieldSelect title={t("city")} options={cities} name="city" />
+            <FormFieldSelect
+              title={t("illnesses")}
+              options={cities}
+              name="illness_id"
+            />
+          </div>
+          {/* forms PERSONAL INFORMATION  */}
+        </div>
+        {/* end forms  */}
+        <div className="w-full my-6 flex justify-center">
+          <SubmitButton
+            title={t("create")}
+            style='bg-theme-color w-52 px-2 py-3 rounded-md text-white text-end"'
+          />
+        </div>
+      </form>
+    </SectionWrapper>
+  );
+};
 export default AssociationsFormUpdate;

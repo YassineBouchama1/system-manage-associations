@@ -6,9 +6,9 @@ import { revalidatePath } from "next/cache";
 export const deleteAction= async (formData: FormData) => {
   const id = formData.get("id");
 
-
-await delay(1000)
-  console.log(id);
+  if (!id) {
+    throw new Error("id is required");
+  }
   if(!id)return {error:'id required'}
 
   try {
@@ -32,11 +32,11 @@ await delay(1000)
       return {
         error: errorObject.message,
       };
-    } else {
+    } 
       return {
         error: "pb in server",
       };
-    }
+    
   }
 
   revalidatePath('/dashboard')

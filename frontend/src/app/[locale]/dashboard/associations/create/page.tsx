@@ -1,13 +1,26 @@
+import { fetchIllnessForSelectors } from '@/actions/illnesses/fetchIllnessForSelectors';
 import AssociationsForm from '@/components/Forms/AssociationsForm';
-import type { FC } from 'react';
 
-interface pageProps {}
 
-const page: FC<pageProps> = ({}) => {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined };
+}) {
+
+
+  //fetch list of illnesses
+  const { success: illnesses, error } = await fetchIllnessForSelectors(
+  );
+
+  if (error) {
+    throw new Error(error.toString());
+  }
+
+
         return (
           <div className="mt-4">
-            <AssociationsForm />
+            <AssociationsForm illnesses={illnesses.data} />
           </div>
         );
 }
-export default page;

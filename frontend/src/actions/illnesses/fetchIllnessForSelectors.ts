@@ -1,23 +1,11 @@
 "use server";
 import fetchServer from "@/lib/fetch-server";
 import { ResponseIllnessType } from "@/types/illness";
-import { logout } from "../profile";
-import { getSession } from "@/lib/getSessions";
 
-const DEFAULT_PAGE = 1;
-const DEFAULT_PER_PAGE = 2;
-interface IllnessQueryParams {
-  page?: string;
-  per_page?: string;
-}
 
-export const fetchIllness = async (params: any) => {
+export const fetchIllnessForSelectors = async () => {
   // type for response
-  let url = `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/illnesses`;
-  url += `?page=${params.page || DEFAULT_PAGE}&per_page=${
-    params.per_page || DEFAULT_PER_PAGE
-  }`;
-
+  let url = `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/illnesses/selectors`;
 
 
   try {
@@ -45,8 +33,10 @@ export const fetchIllness = async (params: any) => {
         error: errorObject.message,
       };
       // if there is no error comes from server
-    } 
-      return {error: "Error on server.",};
-    
+    } else {
+      return {
+        error: "Error on server.",
+      };
+    }
   }
 };

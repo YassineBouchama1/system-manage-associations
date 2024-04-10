@@ -1,18 +1,30 @@
 "use server";
 import fetchServer from "@/lib/fetch-server";
-import {  schemaIllness } from "@/lib/validations";
+import { schemaAssociation } from "@/lib/validations";
 import { revalidatePath } from "next/cache";
 
-export const createIllness = async (formData: FormData) => {
+export const createAssociation = async (formData: FormData) => {
   const name = formData.get("name");
+  const email = formData.get("email");
+  const password = formData.get("password");
+  const phone = formData.get("phone");
+  const city = formData.get("city");
+  const illness = formData.get("illness_id");
+  const logo = formData.get("logo");
 
-  // if(!id)return {error:'id required'}
-console.log(name);
+  if (!logo) return { error: "logo required" };
 
+console.log(logo);
   //2-validation useing zod
-  const validatedFields = schemaIllness.safeParse({
+  const validatedFields = schemaAssociation.safeParse({
     name,
+    email,
+    password,
+    phone,
+    city,
+    illness
   });
+
 
   //check validation
   if (!validatedFields.success) {

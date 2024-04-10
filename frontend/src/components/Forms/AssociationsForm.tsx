@@ -1,6 +1,6 @@
 'use client'
 import { useTranslations } from 'next-intl';
-import { useState, type FC } from 'react';
+import { useRef, useState, type FC } from 'react';
 
 import FormHeader from './FormHeader';
 import { FormField } from './FormField';
@@ -11,96 +11,136 @@ import { Option } from '@/types/generale';
 import { SubmitButton } from '../ui/SubmitButton';
 import SectionWrapper from '../Wrappers/SectionWrapper';
 import UploaderImg from '../ui/UploaderImg';
+import { IllnessType } from '@/types/illness';
+import { createAssociation } from '@/actions/associations/create';
+import toast from 'react-hot-toast';
 
-interface AssociationsFormProps {}
+interface AssociationsFormProps {
+  illnesses: IllnessType[]
+}
 
-const AssociationsForm: FC<AssociationsFormProps> = ({}) => {
-    const t = useTranslations('ui')
-
-
+const AssociationsForm: FC<AssociationsFormProps> = ({ illnesses }) => {
+  const t = useTranslations("ui");
 
   // dumy data of cities
-const cities: Option[] = [
-  { value: "safi", label: "Safi" },
-  { value: "marrakech", label: "Marrakech" },
-  { value: "casablanca", label: "Casablanca" },
-];
+  const cities: Option[] = [
+    { value: "safi", name: "Safi" },
+    { value: "marrakech", name: "Marrakech" },
+    { value: "casablanca", name: "Casablanca" },
+  ];
 
-        return (
-          <SectionWrapper styles="md:px-20">
-            <form className="w-auto flex-col items-start    ">
-              <FormHeader title={t("admin_Account")} />
+  // ref linked with from
+  const fromRef = useRef<HTMLFormElement>(null);
 
-              {/* start form  */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-6">
-                {/*  form item  */}
+  //createing card useing server action
+  async function onCreate(format: FormData) {
+    const result: any = await createAssociation(format);
 
-                <FormField
-                  id="role"
-                  name="role"
-                  type="text"
-                  placeholder={t("role")}
-                  title={t("role")}
-                />
-                {/*  form item  */}
+    // handle erros from api
+    if (result?.error) {
+      toast.error(result?.error);
+    }
 
-                <FormField
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder={t("email")}
-                  title={t("email")}
-                />
-                {/*  form item  */}
+    //handle zod errors
+    else if (result?.errorZod) {
+      Object.keys(result.errorZod).forEach((key: string) => {
+        toast.error(`${key} ${result.errorZod[key]}`);
+      });
+    } else {
+      toast.success("Added New Illness Successfully ");
+      fromRef.current?.reset(); // reset form
+    }
+  }
 
-                <FormField
-                  id="password"
-                  name="password"
-                  type="password"
-                  placeholder="************"
-                  title={t("password")}
-                />
-                {/*  form item  */}
-              </div>
+  return (
+    <SectionWrapper styles="md:px-20">
+      <form
+        action={onCreate}
+        className="w-auto flex-col items-start"
+        encType="multipart/form-data"
+      >
+        <FormHeader title={t("admin_Account")} />
 
-              <FormHeader title={t("association_Informations")} />
-              <div>
-                {/* img upload  */}
-                <UploaderImg name="logo" text={t("upload_ThPhoto")} />
+        {/* start form  */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-6">
+          {/*  form item  */}
 
-                {/* img upload  */}
-                {/* forms PERSONAL INFORMATION  */}
+          <FormField
+            id="role"
+            name="role"
+            type="text"
+            placeholder={t("role")}
+            title={t("role")}
+            disabled
+          />
 
-                <div className="grid grid-cols-1  md:grid-cols-2 gap-10 mt-10">
-                  <FormField
-                    id="name"
-                    name="name"
-                    type="text"
-                    placeholder={t("name")}
-                    title={t("name")}
-                  />
-                  <FormField
-                    id="phone"
-                    name="phone"
-                    type="number"
-                    placeholder={t("phone_Number")}
-                    title={t("phone_Number")}
-                  />
+          {/*  form item  */}
 
-                  <FormFieldSelect title={t("city")} options={cities} />
-                  <FormFieldSelect title={t("illnesses")} options={cities} />
-                </div>
-                {/* forms PERSONAL INFORMATION  */}
-              </div>
-              {/* end forms  */}
-              <div className="w-full my-6 flex justify-center">
-                <SubmitButton
-                  title={t("create")}
-                  style='bg-theme-color w-52 px-2 py-3 rounded-md text-white text-end"'
-                />
-              </div>
-            </form>
-          </SectionWrapper>
-        );
-}
+          <FormField
+            id="email"
+            name="email"
+            type="email"
+            placeholder={t("email")}
+            title={t("email")}
+          />
+          {/*  form item  */}
+
+          <FormField
+            id="password"
+            name="password"
+            type="password"
+            placeholder="************"
+            title={t("password")}
+          />
+          {/*  form item  */}
+        </div>
+
+        <FormHeader title={t("association_Informations")} />
+        <div>
+          {/* img upload  */}
+          <UploaderImg name="logo" text={t("upload_ThPhoto")} />
+
+          {/* img upload  */}
+          {/* forms PERSONAL INFORMATION  */}
+
+          <div className="grid grid-cols-1  md:grid-cols-2 gap-10 mt-10">
+            <FormField
+              id="name"
+              name="name"
+              type="text"
+              placeholder={t("name")}
+              title={t("name")}
+            />
+            <FormField
+              id="phone"
+              name="phone"
+              type="number"
+              placeholder={t("phone_Number")}
+              title={t("phone_Number")}
+            />
+
+            <FormFieldSelect
+              title={t("city")}
+              options={cities}
+              name="city"
+            />
+            <FormFieldSelect
+              title={t("illnesses")}
+              options={illnesses}
+              name="illness_id"
+            />
+          </div>
+          {/* forms PERSONAL INFORMATION  */}
+        </div>
+        {/* end forms  */}
+        <div className="w-full my-6 flex justify-center">
+          <SubmitButton
+            title={t("create")}
+            style='bg-theme-color w-52 px-2 py-3 rounded-md text-white text-end"'
+          />
+        </div>
+      </form>
+    </SectionWrapper>
+  );
+};
 export default AssociationsForm;

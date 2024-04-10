@@ -6,8 +6,9 @@ import { revalidatePath } from "next/cache";
 export const restoreAction = async (formData: FormData) => {
   const id = formData.get("id");
 
-  await delay(1000);
-  console.log(id);
+  if (!id) {
+    throw new Error("id is required");
+  }
   if (!id) return { error: "id required" };
 
   try {

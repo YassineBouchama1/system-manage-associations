@@ -6,6 +6,7 @@ import { SelectProps } from "@/types/generale";
 const FormFieldSelect: React.FC<SelectProps> = ({
   title,
   options,
+  name,
   ...rest
 }) => {
   return (
@@ -15,14 +16,15 @@ const FormFieldSelect: React.FC<SelectProps> = ({
       </label>
       <select
         {...rest}
+        name={name}
         className={cn(
           "bg-theme-bodyInputs py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
         )}
       >
         <option value="">Select</option>
         {options.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
+          <option key={option.value} value={option.id}>
+            {option.name}
           </option>
         ))}
       </select>
