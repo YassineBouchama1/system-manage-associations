@@ -1,45 +1,68 @@
 "use server";
 import fetchServer from "@/lib/fetch-server";
-import { schemaIllness, schemaIllnessUpdate } from "@/lib/validations";
-import { error } from "console";
+import fetchServerFormData from "@/lib/fetch-server-formData";
+import { schemaAssociation } from "@/lib/validations";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
-export const updateIllness = async (formData: FormData) => {
-  const name = formData.get("name");
-  const id = formData.get("id");
+export const updateAssociation = async (formData: FormData) => {
 
-  console.log(id);
   if (!id) {
     return {
       error: "no id",
     };
   }
-  //2-validation
-  const validatedFields = schemaIllnessUpdate.safeParse({
+
+
+  const name = formData.get("name");
+  const address = formData.get("address");
+  const email = formData.get("email");
+  const password = formData.get("password");
+  const phone = formData.get("phone");
+  const city = formData.get("city");
+  const illness = formData.get("illness_id");
+  const logo = formData.get("logo");
+
+  formData.append("nameAdmin", `admin ${formData.get("name")}`);
+  formData.append("role_id", "2");
+
+
+  if (!logo || typeof logo !== "object" || !(logo instanceof File))
+    return { error: "logo required" };
+
+  //2-validation useing zod
+  const validatedFields = schemaAssociation.safeParse({
     name,
+    email,
+    password,
+    phone,
+    city,
+    illness,
+    address,
+    logo,
   });
 
   //check validation
   if (!validatedFields.success) {
     return {
-      error: "zod pb",
+      errorZod: validatedFields.error.flatten().fieldErrors,
     };
   }
 
   // sending data to api
   try {
-    const illness = await fetchServer({
+    const association = await fetchServerFormData({
       method: "PUT",
-      url: process.env.NEXT_PUBLIC_BACKEND_API_URL + `/illnesses/${id}`,
-      body: JSON.stringify(validatedFields.data),
+      url: process.env.NEXT_PUBLIC_BACKEND_API_URL + `/associations/${id}`,
+      body: formData,
     });
 
-    if (!illness.ok) {
-      throw illness;
+    if (!association.ok) {
+      throw association;
     }
 
     //refrech route
-    revalidatePath("/dashboard/illnesses");
+    revalidatePath("/dashboard/associations");
 
     //after successfully created return msg success
     return { success: "Created" };
@@ -48,14 +71,13 @@ export const updateIllness = async (formData: FormData) => {
     if (error.status) {
       const responseBody = await error.text();
       const errorObject: any = JSON.parse(responseBody);
+
+      console.log(errorObject);
       return {
         error: errorObject.message,
       };
     } else {
-      return {
-        error: "pb in server",
-      };
+      return { error: "pb in server" };
     }
   }
-  // revalidatePath('/dashboard')
 };

@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Association;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Support\Facades\Auth;
 
 class AssociationPolicy
 {
@@ -35,24 +36,28 @@ class AssociationPolicy
     public function view(User $user, Association $association)
     {
         // ... (logic for viewing specific illnesses)
-        return true;
+        return $user->role_id === 1 || ($user->role_id === 2 && $user->association_id === $association->id);
     }
 
-    public function create(User $user)
+    public function create(User $user,)
     {
+
         // ... (logic for creating illnesses)
-        return $user->role_id === 1;
+        return $user->role_id === 1 || $user->role_id === 2;
     }
 
     public function update(User $user, Association $association)
     {
+
+
         // ... (logic for updating illnesses)
-        return true;
+        return $user->role_id === 1 || ($user->role_id === 2 && $user->association_id === $association->id);
     }
 
     public function delete(User $user, Association $association)
     {
+
         // ... (logic for deleting illnesses)
-        return $user->role_id === 1;
+        return $user->role_id === 1 || ($user->role_id === 2 && $user->association_id === $association->id);
     }
 }

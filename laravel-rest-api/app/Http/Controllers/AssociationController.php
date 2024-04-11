@@ -23,7 +23,10 @@ class AssociationController extends Controller
     public function index(Request $request) // Use Request for potential filtering
     {
 
-        // $this->authorize('viewAny');
+
+        if ($request->user()->cannot('viewAny')) {
+            return response()->json(['message' => 'no allowed to show all association   '], 403);
+        }
 
         // $associations = Association::query();
         $associations = Association::withTrashed()->latest();
@@ -64,9 +67,11 @@ class AssociationController extends Controller
 
 
 
-        // Check authorization (assuming authorization logic is elsewhere)
-        // $this->authorize('create', Association::class);
-        // dd($request->logo);
+
+        // Check authorization
+        if ($request->user()->cannot('create', Association::class)) {
+            return response()->json(['message' => 'no allowed to create '], 403);
+        }
 
         $illnessIsDeleted = Illness::find($request->illness_id);
 
@@ -151,8 +156,14 @@ class AssociationController extends Controller
         $association = Association::find($id);
         // $this->authorize('update', $illness); // Check authorization
 
+
         if (!$association) {
             return response()->json(['message' => 'Association not found'], 404);
+        }
+
+        // Check authorization
+        if ($request->user()->cannot('update', $association)) {
+            return response()->json(['message' => 'no allowed to updatethis  ' . $id], 403);
         }
 
         $association->update($request->validated());
@@ -162,28 +173,34 @@ class AssociationController extends Controller
 
 
 
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $Association = Association::find($id);
+        $association = Association::find($id);
 
-        if (!$Association) {
+        if (!$association) {
             return response()->json(['message' => 'Association not found'], 404);
         }
-
-        return response()->json(new AssociationResource($Association), 200);
+        if ($request->user()->cannot('view', $association)) {
+            return response()->json(['message' => 'no allowed to show this association :  ' . $id], 403);
+        }
+        return response()->json(new AssociationResource($association), 200);
     }
 
 
 
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $association = Association::find($id);
         // $this->authorize('delete', $association); // Check authorization
 
 
         if (!$association) {
-            return response()->json(['message' => 'Association not found'], 404);
+            return response()->json(['message' => 'Association not found or Already deleted'], 404);
+        }
+
+        if ($request->user()->cannot('delete', $association)) {
+            return response()->json(['message' => 'no allowed to delete this id :  ' . $id], 403);
         }
 
         //change status all users belong assosition
