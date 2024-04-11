@@ -47,7 +47,7 @@ const AssociationsForm: FC<AssociationsFormProps> = ({ illnesses }) => {
         toast.error(`${key} ${result.errorZod[key]}`);
       });
     } else {
-      toast.success("Added New Illness Successfully ");
+      toast.success("Added New Assosiation Successfully ");
       fromRef.current?.reset(); // reset form
     }
   }
@@ -55,6 +55,7 @@ const AssociationsForm: FC<AssociationsFormProps> = ({ illnesses }) => {
   return (
     <SectionWrapper styles="md:px-20">
       <form
+        ref={fromRef}
         action={onCreate}
         className="w-auto flex-col items-start"
         encType="multipart/form-data"
@@ -118,12 +119,15 @@ const AssociationsForm: FC<AssociationsFormProps> = ({ illnesses }) => {
               placeholder={t("phone_Number")}
               title={t("phone_Number")}
             />
-
-            <FormFieldSelect
-              title={t("city")}
-              options={cities}
-              name="city"
+            <FormField
+              id="address"
+              name="address"
+              type="text"
+              placeholder={t("address")}
+              title={t("address")}
             />
+
+            <FormFieldSelect title={t("city")} options={cities} name="city" />
             <FormFieldSelect
               title={t("illnesses")}
               options={illnesses}

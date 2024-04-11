@@ -20,8 +20,8 @@ class IllnessResource extends JsonResource
             'name' => $this->name,
             'associations' => $this->associations->count(),
             'deleted_at' => $this->deleted_at,
-            'created_at' => $this->created_at->format('Y-m-d H:i:s'),
-            'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
+            'created_at' => $this->created_at->format('Y-m-d H:i'),
+            'updated_at' => $this->updated_at->format('Y-m-d H:i'),
         ];
     }
 }

@@ -17,7 +17,8 @@ class AuthController extends Controller
     {
 
 
-        
+
+
 
         //send data to action to create user
         $createUser(
@@ -30,20 +31,29 @@ class AuthController extends Controller
         );
 
         return response()->json([
-            'status' => 'user-created',
+            'message' => 'user-created',
         ]);
+        // } catch (\Throwable $th) {
+        //     return response()->json([
+        //         'status' => false,
+        //         'message' => $th->getMessage()
+        //     ], 500);
+        // }
     }
 
     public function login(LoginRequest $request): JsonResponse
     {
+
+
+
         $credentials = $request->only(['email', 'password']);
 
         $token = Auth::attempt($credentials);
 
         if (!$token) {
             return response()->json([
-                'status' => 'invalid-credentials',
-                'message' => 'invalid credentials',
+                'status' => 401,
+                'message' => 'Email & Password does not match with our record.',
             ], 401);
         }
 

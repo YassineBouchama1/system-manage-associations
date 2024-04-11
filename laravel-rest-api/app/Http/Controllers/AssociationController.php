@@ -22,13 +22,17 @@ class AssociationController extends Controller
 
     public function index(Request $request) // Use Request for potential filtering
     {
+
+        // $this->authorize('viewAny');
+
         // $associations = Association::query();
-        $associations = Association::withTrashed();
+        $associations = Association::withTrashed()->latest();
 
         // Filter by search query (if applicable)
         $searchTerm = $request->query('q');
         $perPage = $request->query('per_page', 10); // Default per page results (optional)
-
+        // Limit maximum per page
+        $perPage = min($perPage, 30);
 
         if ($searchTerm) {
             $associations->where('name', 'like', "%{$searchTerm}%");
@@ -62,14 +66,29 @@ class AssociationController extends Controller
 
         // Check authorization (assuming authorization logic is elsewhere)
         // $this->authorize('create', Association::class);
+        // dd($request->logo);
 
         $illnessIsDeleted = Illness::find($request->illness_id);
 
         if (!$illnessIsDeleted) {
-            return response()->json(['message' => 'illness is deleted '], 500);
+            return response()->json(['message' => 'illness You Fill is deleted '], 500);
         }
 
-        $association = Association::create($request->validated());
+        // Handle image upload (before creating association)
+        $image = $request->file('logo');
+
+        $associationData = $request->validated();
+
+        $imageName = time() . '.' . $image->extension();
+        $image->move(public_path('associations'), $imageName);
+
+
+
+        $associationData['logo'] = $imageName; // Add logo data
+
+
+
+        $association = Association::create($associationData);
 
         // Check if association creation was successful
         if (!$association) {
@@ -90,7 +109,12 @@ class AssociationController extends Controller
 
             ]);
             if ($validator->fails()) {
-                return response()->json($validator->errors(), 422); // Unprocessable Entity
+                // if user not created delete assosication
+                $association->forceDelete();
+                return response()->json([
+                    'message' => $validator->errors()->first(),
+                    $validator->errors()
+                ], 422);
             }
 
 
@@ -105,7 +129,7 @@ class AssociationController extends Controller
 
             // if user not created delete assosication
             if (!$user) {
-                $association->forceDelete(); // Permanent deletion
+                $association->forceDelete();
                 return response()->json(['message' => 'Association created but user not provided. Association permanently deleted.'], 201);
             }
         }

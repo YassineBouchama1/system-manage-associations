@@ -18,9 +18,9 @@ class IllnessController extends Controller
         $perPage = $request->query('per_page', 10);
 
         // Limit maximum per page
-        $perPage = min($perPage, 50);
+        $perPage = min($perPage, 30);
 
-        $illnesses = Illness::paginate($perPage);
+        $illnesses = Illness::withTrashed()->latest()->paginate($perPage);
         $totalPages = $illnesses->lastPage();
         $currentPage = $illnesses->currentPage();
 
@@ -34,6 +34,16 @@ class IllnessController extends Controller
         ], 200);
     }
 
+    public function indexForSelectors()
+    {
+
+        $illnesses = Illness::latest()->get();
+
+        // dd($illnesses);
+        return response()->json([
+            "data" => IllnessResource::collection($illnesses)
+        ], 200);
+    }
 
     public function store(CreateIllnessRequest $request)
     {
@@ -82,7 +92,7 @@ class IllnessController extends Controller
 
     public function destroy($id)
     {
-        // $this->authorize('delete', $illness); // Check authorization
+        // $this->authorize('delete',); // Check authorization
 
         //check if this illness exist
         $illness = Illness::find($id);
@@ -94,6 +104,50 @@ class IllnessController extends Controller
 
         //soft delete
         $illness->delete();
+
+        return response()->json(null, 204); // No content on successful deletion
+    }
+
+    public function restore($id)
+    {
+
+
+        // $this->authorize('delete', $illness); // Check authorization
+
+        //check if this illness exist
+        $illness = Illness::withTrashed()->find($id);
+        // dd($illness);
+
+
+        //check if illness exist
+        if (!$illness) {
+            return response()->json(['message' => 'Illness not found'], 404);
+        }
+
+        //soft delete
+        $illness->restore();
+
+        return response()->json(null, 204); // No content on successful deletion
+    }
+
+    public function forceDelete($id)
+    {
+
+
+        // $this->authorize('delete', $illness); // Check authorization
+
+        //check if this illness exist
+        $illness = Illness::withTrashed()->find($id);
+        // dd($illness);
+
+
+        //check if illness exist
+        if (!$illness) {
+            return response()->json(['message' => 'Illness not found'], 404);
+        }
+
+        //soft delete
+        $illness->forceDelete();
 
         return response()->json(null, 204); // No content on successful deletion
     }

@@ -1,4 +1,3 @@
-
 import "server-only";
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/getSessions";
@@ -8,27 +7,26 @@ interface fetchServerProps {
   url: string;
   body?: string | FormData;
 }
-function isFormData(body: any): body is FormData {
-  return body && typeof body.append === "function"; 
-}
-      
-async function fetchServer({ method = "GET", url, body = ""  }: fetchServerProps) {
+
+
+async function fetchServerFormData({
+  method = "GET",
+  url,
+  body = "",
+}: fetchServerProps) {
   try {
     const session = await getSession();
-  
-                const contentType =
-                  typeof body === "string"
-                    ? "application/json"
-                    : isFormData(body)
-                    ? "multipart/form-data"
-                    : "";
 
+    const contentType =
+      typeof body === "string"
+        ? "application/json"
+        : null
 
     const response = await fetch(url.toString(), {
       method: method,
       headers: {
         Accept: "application/json",
-        "Content-Type": contentType,
+  
         Authorization: "Bearer" + session?.token,
       },
       body: body || undefined,
@@ -42,17 +40,6 @@ async function fetchServer({ method = "GET", url, body = ""  }: fetchServerProps
   } catch (error) {
     //get instant from Response to error
     if (error instanceof Response) {
-      //if  unauth logout user
-    //   console.log('from fetch main')
-    //  if (error.status === 401) {
-    //    return redirect("/login");
-    //  }
-
-    //  if (error.status === 409) {
-    //    return redirect("/request-email-verification");
-    //  }
-
-      //if  not email verefied
 
       if (error.status === 409) {
         return redirect("/request-email-verification");
@@ -64,4 +51,4 @@ async function fetchServer({ method = "GET", url, body = ""  }: fetchServerProps
   }
 }
 
-export default fetchServer;
+export default fetchServerFormData;

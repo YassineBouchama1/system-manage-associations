@@ -18,7 +18,7 @@ class CreateAssociationRequest extends FormRequest
         $rules = [
             'name' => 'required|string|unique:associations,name',
             'address' => 'required|string',
-            'logo' => 'required|string',
+            'logo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust allowed types and size limits as needed
             'city' => 'required|string',
             'status' => 'in:active,inactive,suspended,deleted',
             'illness_id' => 'required|exists:illnesses,id',
@@ -36,7 +36,7 @@ class CreateAssociationRequest extends FormRequest
             'name.string' => 'The association name must be a string.',
             'name.unique' => 'The association name must be unique.',
             'address.string' => 'The address must be a string.',
-            'logo.string' => 'The association logo must be a string (URL or path).',
+            'logo.required' => 'The association logo is required.',
             'city.required' => 'The city is required.',
             'city.string' => 'The city must be a string.',
             'status.in' => 'The association status must be one of active, inactive, suspended, or deleted.',

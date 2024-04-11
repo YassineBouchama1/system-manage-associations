@@ -1,10 +1,15 @@
 "use server";
 import fetchServer from "@/lib/fetch-server";
+import fetchServerFormData from "@/lib/fetch-server-formData";
 import { schemaAssociation } from "@/lib/validations";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export const createAssociation = async (formData: FormData) => {
+
+
   const name = formData.get("name");
+  const address = formData.get("address");
   const email = formData.get("email");
   const password = formData.get("password");
   const phone = formData.get("phone");
@@ -12,18 +17,25 @@ export const createAssociation = async (formData: FormData) => {
   const illness = formData.get("illness_id");
   const logo = formData.get("logo");
 
-  if (!logo) return { error: "logo required" };
+  formData.append("nameAdmin", `admin ${formData.get("name")}`);
+  formData.append("role_id", "2");
 
-console.log(logo);
+if (!logo || typeof logo !== "object" || !(logo instanceof File))
+  return { error: "logo required" };
+
+
+
   //2-validation useing zod
-  const validatedFields = schemaAssociation.safeParse({
-    name,
-    email,
-    password,
-    phone,
-    city,
-    illness
-  });
+const validatedFields = schemaAssociation.safeParse({
+  name,
+  email,
+  password,
+  phone,
+  city,
+  illness,
+  address,
+  logo,
+});
 
 
   //check validation
@@ -35,19 +47,20 @@ console.log(logo);
 
   // sending data to api
   try {
-    const illness = await fetchServer({
+    const association = await fetchServerFormData({
       method: "POST",
-      url: process.env.NEXT_PUBLIC_BACKEND_API_URL + `/illnesses`,
-      body: JSON.stringify(validatedFields.data),
+      url: process.env.NEXT_PUBLIC_BACKEND_API_URL + `/associations`,
+      body: formData,
     });
 
-    if (!illness.ok) {
-      throw illness;
+    if (!association.ok) {
+      throw association;
     }
 
 
     //refrech route
-    revalidatePath("/dashboard/illnesses");
+    revalidatePath("/dashboard/associations");
+redirect("/associations");
 
     //after successfully created return msg success
     return { success: "Created" };
@@ -56,10 +69,15 @@ console.log(logo);
     if (error.status) {
       const responseBody = await error.text();
       const errorObject: any = JSON.parse(responseBody);
+
+      console.log(errorObject);
       return {
         error: errorObject.message,
       };
     } else {
+          const responseBody = await error.text();
+          const errorObject: any = JSON.parse(responseBody);
+          console.log(errorObject);
       return {
         error: "pb in server",
       };

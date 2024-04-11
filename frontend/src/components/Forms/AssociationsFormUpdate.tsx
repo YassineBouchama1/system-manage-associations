@@ -96,6 +96,13 @@ const AssociationsFormUpdate: FC<AssociationsFormUpdateProps> = ({
               placeholder={t("phone_Number")}
               title={t("phone_Number")}
             />
+            <FormField
+              id="address"
+              name="address"
+              type="text"
+              placeholder={t("address")}
+              title={t("address")}
+            />
 
             <FormFieldSelect title={t("city")} options={cities} name="city" />
             <FormFieldSelect

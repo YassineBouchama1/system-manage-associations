@@ -27,14 +27,14 @@ class OperatorPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->hasRole('admin'); // Adjust logic as needed
+        return $user->role_id  === 1 && $user->role_id  === 1; // Adjust logic as needed
     }
 
     // Define methods for other actions (optional)
     public function view(User $user, $operator)
     {
         // ... (logic for viewing specific illnesses)
-        return true;
+        return $user->role_id  === 1 && ($user->role_id  === 1 && $user->association_id === $operator->association_id);
     }
 
     public function create(User $user)
@@ -52,6 +52,6 @@ class OperatorPolicy
     public function delete(User $user,  $operator)
     {
         // ... (logic for deleting illnesses)
-        return true;
+        return $user->role_id  === 1 && ($user->role_id  === 1 && $user->association_id === $operator->association_id);
     }
 }

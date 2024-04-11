@@ -2,6 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\Association;
+use App\Models\Illness;
+use App\Models\User;
+use App\Policies\AssociationPolicy;
+use App\Policies\IllnessPolicy;
+use App\Policies\OperatorPolicy;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -16,7 +22,9 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        //
+        Association::class => AssociationPolicy::class,
+        Illness::class => IllnessPolicy::class,
+        User::class => OperatorPolicy::class,
     ];
 
     /**
@@ -30,7 +38,7 @@ class AuthServiceProvider extends ServiceProvider
         ResetPassword::createUrlUsing(function (object $notifiable, string $token) {
             $url = "/password-reset?token=$token&email={$notifiable->getEmailForPasswordReset()}";
 
-            return config('app.frontend_url').$url;
+            return config('app.frontend_url') . $url;
         });
 
         // Custom verify email link (you should do a GET request to the $url), remove this if you want to use the default link
@@ -44,10 +52,10 @@ class AuthServiceProvider extends ServiceProvider
                 ]
             );
 
-            $needle = config('app.url').'/api/verify-email/';
+            $needle = config('app.url') . '/api/verify-email/';
             $targetUrl = str_replace($needle, '', urldecode($url));
 
-            return config('app.frontend_url').'/verify-email?url='.$targetUrl;
+            return config('app.frontend_url') . '/verify-email?url=' . $targetUrl;
         });
     }
 }

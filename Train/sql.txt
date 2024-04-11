@@ -1,0 +1,3 @@
+SELECT associations.name , COUNT(users.email) AS sum FROM `associations`  
+INNER JOIN users ON associations.id = users.association_id
+GROUP BY associations.name

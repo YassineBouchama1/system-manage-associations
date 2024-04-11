@@ -11,7 +11,7 @@ import React from "react";
 
 // default value for  query
 const DEFAULT_PAGE = 1;
-const DEFAULT_PER_PAGE = 2;
+const DEFAULT_PER_PAGE = 10;
 
 
 export default async function Associations({

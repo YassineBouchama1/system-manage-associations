@@ -27,7 +27,8 @@ class AssociationPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->hasRole('admin'); // Adjust logic as needed
+        // should be super admin
+        return $user->role_id === 1;
     }
 
     // Define methods for other actions (optional)
@@ -40,7 +41,7 @@ class AssociationPolicy
     public function create(User $user)
     {
         // ... (logic for creating illnesses)
-        return true;
+        return $user->role_id === 1;
     }
 
     public function update(User $user, Association $association)
@@ -52,6 +53,6 @@ class AssociationPolicy
     public function delete(User $user, Association $association)
     {
         // ... (logic for deleting illnesses)
-        return true;
+        return $user->role_id === 1;
     }
 }

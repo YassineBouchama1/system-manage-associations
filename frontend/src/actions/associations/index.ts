@@ -5,7 +5,7 @@ import { ResponseIllnessType } from "@/types/illness";
 
 
 const DEFAULT_PAGE = 1;
-const DEFAULT_PER_PAGE = 2;
+const DEFAULT_PER_PAGE = 10;
 interface AssociationsQueryParams {
   page?: string;
   per_page?: string;

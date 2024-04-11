@@ -18,7 +18,7 @@ class IllnessPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->hasRole('admin'); // Adjust logic as needed
+        return $user->hasRole('admin');
     }
 
     // Define methods for other actions (optional)
@@ -40,9 +40,11 @@ class IllnessPolicy
         return true;
     }
 
-    public function delete(User $user, Illness $illness)
+    public function delete(User $user)
     {
         // ... (logic for deleting illnesses)
-        return true;
+
+        //should be admin
+        return $user->role_id === 1;
     }
 }

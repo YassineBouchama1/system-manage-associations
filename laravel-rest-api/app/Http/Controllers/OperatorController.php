@@ -37,7 +37,7 @@ class OperatorController extends Controller
         }
 
         //pagination
-        // Default to 10 patients per page
+        //Default to 10 patients per page
         $perPage = $request->query('per_page', 10);
 
         // Limit maximum per page
@@ -119,7 +119,7 @@ class OperatorController extends Controller
             return response()->json(['message' => 'operator not found'], 404);
         }
 
-        // $this->authorize('create', Illness::class); // Check authorization
+        $this->authorize('show', $operator); // Check authorization
 
 
 
@@ -180,7 +180,6 @@ class OperatorController extends Controller
 
     public function destroy($id)
     {
-        // $this->authorize('delete', $illness); // Check authorization
 
         //check if this illness exist
         $operator = User::find($id);
@@ -189,6 +188,7 @@ class OperatorController extends Controller
         if (!$operator) {
             return response()->json(['message' => 'operator not found'], 404);
         }
+        $this->authorize('delete', $operator); // Check authorization
 
         //soft delete
         $operator->delete();
