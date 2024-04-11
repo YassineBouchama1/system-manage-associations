@@ -20,6 +20,7 @@ export const schemaIllnessUpdate = z.object({
 
 export const schemaAssociation = z.object({
   email: z.string().email(),
+  password: z.string().min(6),
   phone: z.string().min(10),
   city: z.string(),
   illness: z.string(),

@@ -130,7 +130,7 @@ class AssociationController extends Controller
             // if user not created delete assosication
             if (!$user) {
                 $association->forceDelete();
-                return response()->json(['message' => 'Association created but user not provided. Association permanently deleted.'], 201);
+                return response()->json(['message' => 'Association created but user not provided. Association permanently deleted.'], 401);
             }
         }
 

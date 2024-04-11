@@ -60,7 +60,7 @@ const validatedFields = schemaAssociation.safeParse({
 
     //refrech route
     revalidatePath("/dashboard/associations");
-redirect("/associations");
+
 
     //after successfully created return msg success
     return { success: "Created" };
@@ -74,13 +74,7 @@ redirect("/associations");
       return {
         error: errorObject.message,
       };
-    } else {
-          const responseBody = await error.text();
-          const errorObject: any = JSON.parse(responseBody);
-          console.log(errorObject);
-      return {
-        error: "pb in server",
-      };
+    } else {return { error: "pb in server",};
     }
   }
 };

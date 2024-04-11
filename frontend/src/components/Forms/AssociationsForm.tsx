@@ -14,6 +14,7 @@ import UploaderImg from '../ui/UploaderImg';
 import { IllnessType } from '@/types/illness';
 import { createAssociation } from '@/actions/associations/create';
 import toast from 'react-hot-toast';
+import { redirect } from 'next/navigation';
 
 interface AssociationsFormProps {
   illnesses: IllnessType[]
@@ -49,6 +50,7 @@ const AssociationsForm: FC<AssociationsFormProps> = ({ illnesses }) => {
     } else {
       toast.success("Added New Assosiation Successfully ");
       fromRef.current?.reset(); // reset form
+      redirect("/dashboard/associations");
     }
   }
 
