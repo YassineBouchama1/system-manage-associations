@@ -9,9 +9,10 @@ export type ItemType = {
 
 
 export interface Option {
-  value: string; 
-  name: string; 
-  disabled?: boolean; 
+  id: string;
+  name: string;
+  disabled?: boolean;
+
 }
 
 
@@ -21,5 +22,5 @@ export interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElemen
   name: string;
   options: any[];
 
-  defaultValue?: string;
+  defaultValue?: string | number;
 }

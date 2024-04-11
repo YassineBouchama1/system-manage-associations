@@ -7,8 +7,10 @@ const FormFieldSelect: React.FC<SelectProps> = ({
   title,
   options,
   name,
+  defaultValue,
   ...rest
 }) => {
+
   return (
     <div className="flex flex-col">
       <label className="mr-1" htmlFor={rest.id}>
@@ -23,7 +25,11 @@ const FormFieldSelect: React.FC<SelectProps> = ({
       >
         <option value="">Select</option>
         {options.map((option) => (
-          <option key={option.value} value={option.id}>
+          <option
+            selected={defaultValue === option.id}
+            key={option.id}
+            value={option.id}
+          >
             {option.name}
           </option>
         ))}

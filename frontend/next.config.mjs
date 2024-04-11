@@ -4,12 +4,14 @@ const withNextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-// logging:{
-//     fetches:{
-//         fullUrl:true
-//     }
-// }
-
+  images: {
+    domains: ["localhost", process.env.IMAGE_URL],
+  },
+  // logging:{
+  //     fetches:{
+  //         fullUrl:true
+  //     }
+  // }
 };
 
 export default withNextIntl(nextConfig);

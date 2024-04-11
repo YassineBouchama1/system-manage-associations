@@ -1,57 +1,76 @@
-'use client'
-import { useTranslations } from 'next-intl';
-import { useState, type FC } from 'react';
+"use client";
+import { useTranslations } from "next-intl";
+import { useRef, useState, type FC } from "react";
 
-import FormHeader from './FormHeader';
-import { FormField } from './FormField';
-import Image from 'next/image';
-import { cn } from '@/lib/utils';
-import FormFieldSelect from './FormFieldSelect';
-import { Option } from '@/types/generale';
-import { SubmitButton } from '../ui/SubmitButton';
-import SectionWrapper from '../Wrappers/SectionWrapper';
-import UploaderImg from '../ui/UploaderImg';
-import { AssociationType } from '@/types/association';
+import FormHeader from "./FormHeader";
+import { FormField } from "./FormField";
+import Image from "next/image";
+import { cn } from "@/lib/utils";
+import FormFieldSelect from "./FormFieldSelect";
+import { Option } from "@/types/generale";
+import { SubmitButton } from "../ui/SubmitButton";
+import SectionWrapper from "../Wrappers/SectionWrapper";
+import UploaderImg from "../ui/UploaderImg";
+import { IllnessType } from "@/types/illness";
+import { createAssociation } from "@/actions/associations/create";
+import toast from "react-hot-toast";
+import { redirect } from "next/navigation";
+import { AssociationType } from "@/types/association";
 
 interface AssociationsFormUpdateProps {
-  association:AssociationType;
+  illnesses: IllnessType[];
+  association: AssociationType;
 }
 
 const AssociationsFormUpdate: FC<AssociationsFormUpdateProps> = ({
+  illnesses,
   association,
 }) => {
   const t = useTranslations("ui");
 
   // dumy data of cities
   const cities: Option[] = [
-    { value: "safi", name: "Safi" },
-    { value: "marrakech", name: "Marrakech" },
-    { value: "casablanca", name: "Casablanca" },
+    { id: "Safi", name: "Safi" },
+    { id: "Marrakech", name: "Marrakech" },
+    { id: "Casablanca", name: "Casablanca" },
   ];
 
+  // ref linked with from
 
-  const roles  = [
-    { value: "safi", name: "Safi" },
-    { value: "marrakech", name: "Marrakech" },
-    { value: "casablanca", name: "Casablanca" },
-  ];
+  //createing card useing server action
+  async function onUpdate(format: FormData) {
+    const result: any = await createAssociation(format);
+
+    // handle erros from api
+    if (result?.error) {
+      toast.error(result?.error);
+    }
+
+    //handle zod errors
+    else if (result?.errorZod) {
+      Object.keys(result.errorZod).forEach((key: string) => {
+        toast.error(`${key} ${result.errorZod[key]}`);
+      });
+    } else {
+      toast.success("Assosiation Updated Successfully ");
+    }
+  }
 
   return (
     <SectionWrapper styles="md:px-20">
-      <form className="w-auto flex-col items-start    ">
+      <form
+        action={onUpdate}
+        className="w-auto flex-col items-start"
+        encType="multipart/form-data"
+      >
         <FormHeader title={t("admin_Account")} />
 
         {/* start form  */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-6">
           {/*  form item  */}
 
-          <FormField
-            id="role"
-            name="role"
-            type="text"
-            placeholder={t("role")}
-            title={t("role")}
-          />
+
+
           {/*  form item  */}
 
           <FormField
@@ -60,23 +79,19 @@ const AssociationsFormUpdate: FC<AssociationsFormUpdateProps> = ({
             type="email"
             placeholder={t("email")}
             title={t("email")}
+            disabled
+            defaultValue={association.email}
           />
           {/*  form item  */}
 
-          <FormField
-            id="password"
-            name="password"
-            type="password"
-            placeholder="************"
-            title={t("password")}
-          />
+
           {/*  form item  */}
         </div>
 
         <FormHeader title={t("association_Informations")} />
         <div>
           {/* img upload  */}
-          <UploaderImg name="logo" text={t("upload_ThPhoto")} />
+          <UploaderImg name="logo" text={t("upload_ThPhoto")} defaultImg={association.logo}/>
 
           {/* img upload  */}
           {/* forms PERSONAL INFORMATION  */}
@@ -88,6 +103,7 @@ const AssociationsFormUpdate: FC<AssociationsFormUpdateProps> = ({
               type="text"
               placeholder={t("name")}
               title={t("name")}
+              defaultValue={association.name}
             />
             <FormField
               id="phone"
@@ -95,6 +111,7 @@ const AssociationsFormUpdate: FC<AssociationsFormUpdateProps> = ({
               type="number"
               placeholder={t("phone_Number")}
               title={t("phone_Number")}
+              defaultValue={association.phone}
             />
             <FormField
               id="address"
@@ -102,13 +119,20 @@ const AssociationsFormUpdate: FC<AssociationsFormUpdateProps> = ({
               type="text"
               placeholder={t("address")}
               title={t("address")}
+              defaultValue={association.address}
             />
 
-            <FormFieldSelect title={t("city")} options={cities} name="city" />
+            <FormFieldSelect
+              title={t("city")}
+              options={cities}
+              name="city"
+              defaultValue={association.city}
+            />
             <FormFieldSelect
               title={t("illnesses")}
-              options={cities}
+              options={illnesses}
               name="illness_id"
+              defaultValue={association.illness_id}
             />
           </div>
           {/* forms PERSONAL INFORMATION  */}

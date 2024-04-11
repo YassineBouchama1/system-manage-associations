@@ -30,7 +30,7 @@ const AssociationCard: FC<AssociationCardProps> = ({ association }) => {
       }  bg-white gap-y-1 py-3 w-[260px] h-[260px] rounded-xl flex flex-col justify-start items-center`}
     >
       <Image
-        src={`/Bitmap.png`}
+        src={association.logo}
         alt="assostaion"
         width="200"
         height="200"
@@ -43,7 +43,7 @@ const AssociationCard: FC<AssociationCardProps> = ({ association }) => {
       </div>
       <p>hello@yassine.info</p>
       <div className="w-auto px-2  h-7 border-2 rounded-md flex items-center justify-center gap-x-2">
-        <Link href={`/associations/${association.id}`}>
+        <Link href={`/dashboard/associations/${association.id}`}>
           <FilePenLine size={20} />
         </Link>
         <div className="h-full w-[1px] bg-black/30"></div>

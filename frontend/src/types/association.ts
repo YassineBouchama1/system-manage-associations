@@ -5,6 +5,8 @@ export interface AssociationType {
   logo: string;
   city: string;
   illness_id: number;
+  email?: string;
+  phone?: string;
   status: "active" | "inactive" | "suspended" | "deleted";
   deleted_at: string | null;
   created_at: string;

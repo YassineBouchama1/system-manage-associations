@@ -25,9 +25,9 @@ const AssociationsForm: FC<AssociationsFormProps> = ({ illnesses }) => {
 
   // dumy data of cities
   const cities: Option[] = [
-    { value: "safi", name: "Safi" },
-    { value: "marrakech", name: "Marrakech" },
-    { value: "casablanca", name: "Casablanca" },
+    { id: "safi", name: "Safi" },
+    { id: "marrakech", name: "Marrakech" },
+    { id: "casablanca", name: "Casablanca" },
   ];
 
   // ref linked with from
@@ -50,7 +50,7 @@ const AssociationsForm: FC<AssociationsFormProps> = ({ illnesses }) => {
     } else {
       toast.success("Added New Assosiation Successfully ");
       fromRef.current?.reset(); // reset form
-      redirect("/dashboard/associations");
+      redirect("/dashboard/associations"); // redirect to list of associations
     }
   }
 
