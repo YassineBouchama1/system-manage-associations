@@ -5,7 +5,7 @@ import { schemaAssociation } from "@/lib/validations";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-export const updateAssociation = async (formData: FormData) => {
+export const updateAssociation = async (formData: FormData,id:number|string) => {
 
   if (!id) {
     return {
@@ -23,6 +23,8 @@ export const updateAssociation = async (formData: FormData) => {
   const illness = formData.get("illness_id");
   const logo = formData.get("logo");
 
+
+  
   formData.append("nameAdmin", `admin ${formData.get("name")}`);
   formData.append("role_id", "2");
 

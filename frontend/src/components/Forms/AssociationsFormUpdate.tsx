@@ -16,6 +16,7 @@ import { createAssociation } from "@/actions/associations/create";
 import toast from "react-hot-toast";
 import { redirect } from "next/navigation";
 import { AssociationType } from "@/types/association";
+import cities from "../../lib/cities.json";
 
 interface AssociationsFormUpdateProps {
   illnesses: IllnessType[];
@@ -29,11 +30,11 @@ const AssociationsFormUpdate: FC<AssociationsFormUpdateProps> = ({
   const t = useTranslations("ui");
 
   // dumy data of cities
-  const cities: Option[] = [
-    { id: "Safi", name: "Safi" },
-    { id: "Marrakech", name: "Marrakech" },
-    { id: "Casablanca", name: "Casablanca" },
-  ];
+  // const cities: Option[] = [
+  //   { id: "Safi", name: "Safi" },
+  //   { id: "Marrakech", name: "Marrakech" },
+  //   { id: "Casablanca", name: "Casablanca" },
+  // ];
 
   // ref linked with from
 
