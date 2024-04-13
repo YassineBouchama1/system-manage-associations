@@ -24,9 +24,9 @@ class AssociationController extends Controller
     {
 
 
-        if ($request->user()->cannot('viewAny')) {
-            return response()->json(['message' => 'no allowed to show all association   '], 403);
-        }
+        // if ($request->user()->cannot('viewAny')) {
+        //     return response()->json(['message' => 'no allowed to show all association   '], 403);
+        // }
 
         // $associations = Association::query();
         $associations = Association::withTrashed()->latest();

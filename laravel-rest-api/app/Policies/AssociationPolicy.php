@@ -29,7 +29,7 @@ class AssociationPolicy
     public function viewAny(User $user)
     {
         // should be super admin
-        return $user->role_id === 1;
+        return $user->role_id === 1 || $user->role_id === 2;
     }
 
     // Define methods for other actions (optional)

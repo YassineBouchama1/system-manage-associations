@@ -47,15 +47,7 @@ class IllnessController extends Controller
 
     public function store(CreateIllnessRequest $request)
     {
-        // $this->authorize('create', Illness::class); // Check authorization
 
-
-        //chekc if name already exist in trached
-        // $isExistInDeleted = Illness::where('name', $request->name)->withTrashed()->first();
-
-        // if ($isExistInDeleted) {
-        //     return response()->json(['message' => 'name should be uniqe'], 404);
-        // }
 
 
         $illness = Illness::create($request->validated());
