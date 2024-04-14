@@ -146,29 +146,57 @@ class AssociationController extends Controller
 
     public function update(UpdateAssociationRequest $request, $id)
     {
-
-
-
+        // Validate ID and association existence
         if (!$id) {
             return response()->json(['message' => 'id not found'], 404);
         }
 
         $association = Association::find($id);
-        // $this->authorize('update', $illness); // Check authorization
-
 
         if (!$association) {
             return response()->json(['message' => 'Association not found'], 404);
         }
 
-        // Check authorization
+        // Check authorization (assuming implemented)
         if ($request->user()->cannot('update', $association)) {
-            return response()->json(['message' => 'no allowed to updatethis  ' . $id], 403);
+            return response()->json(['message' => 'You are not authorized to update this association'], 403);
         }
 
-        $association->update($request->validated());
 
-        return response()->json(new AssociationResource($association), 200);
+        $associationData = $request->validated();
+
+
+        // update logo if exist
+        $image = $request->file('logo');
+
+        if ($image) {
+            // Image upload requested
+            $validator = Validator::make(['logo' => $image], [
+                'logo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust allowed types and size limits as needed
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => $validator->errors()->first(),
+                    $validator->errors()
+                ], 422);
+            }
+            // store it
+            $imageName = time() . '.' . $image->extension();
+            $image->move(public_path('associations'), $imageName);
+            // save path
+            $associationData['logo'] = $imageName;
+        }
+
+
+
+        $updatedAssociation = $association->update($associationData);
+
+        if ($updatedAssociation) {
+            return response()->json(['message' => $associationData], 200);
+        } else {
+            return response()->json(['message' => 'Error while updating association'], 400); // Use 400 for bad request
+        }
     }
 
 
