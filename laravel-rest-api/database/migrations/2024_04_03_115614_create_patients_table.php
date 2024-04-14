@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('current_address');
             $table->string('birth_address');
             $table->string('phone');
+            $table->string('avatar');
             $table->enum('status', ['active', 'inactive', 'deleted', 'dead'])->default('active'); // if driver auto inactive tell  add all
             $table->date('date_of_birth');
             $table->softDeletes();

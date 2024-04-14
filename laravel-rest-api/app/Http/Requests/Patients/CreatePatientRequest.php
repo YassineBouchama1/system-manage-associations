@@ -17,7 +17,9 @@ class CreatePatientRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'association_id' => 'nullable|exists:associations,id',
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust allowed types and size limits as needed
+
+            'association_id' => 'required|exists:associations,id',
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'city' => 'nullable|string', // City is optional
@@ -26,6 +28,7 @@ class CreatePatientRequest extends FormRequest
             'phone' => 'nullable|string', // Phone number is optional
             'status' => 'in:active,inactive,deleted', 'dead', // Same status options as associations
             'date_of_birth' => 'required|date',
+
         ];
 
         return $rules;
@@ -34,6 +37,8 @@ class CreatePatientRequest extends FormRequest
     public function messages()
     {
         return [
+            'avatar.required' => 'The association avatar is required if uploading a new image.',
+            'avatar.image' => 'The association avatar must be a image.',
             'association_id.exists' => 'The selected association does not exist.',
             'first_name.required' => 'The patient\'s first name is required.',
             'first_name.string' => 'The first name must be a string.',
