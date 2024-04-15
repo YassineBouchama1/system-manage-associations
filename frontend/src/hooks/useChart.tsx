@@ -1,81 +1,85 @@
-// chart.tsx (or a dedicated chart component file)
+"use client";
+import { useRef, useEffect, useState } from "react";
+import { Chart } from "chart.js/auto";
 
-import React, { useEffect, useRef } from "react";
-import { Chart } from "chart.js";
-import {
-  BarController,
-  LineController,
-  PieController,
-  LineElement,
-  ArcElement,
-  PointElement,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
-
-Chart.register(
-  BarController,
-  LineController,
-  PieController,
-  LineElement,
-  ArcElement,
-  PointElement,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
-
-interface ChartData {
-  labels: string[];
-  datasets: { label: string; data: number[] }[];
-}
-
-interface ChartOptions {
-  // Add any custom options you want to support in your charts
-}
-
-const useChart = (
-  data: ChartData,
-  options: ChartOptions,
-  type:  "line"
-): React.RefObject<HTMLCanvasElement> => {
-  const chartRef = useRef<HTMLCanvasElement>(null);
-  const chartInstance = useRef<Chart | null>(null);
+export default function BarChart({ chartData }: { chartData: any }) {
+  const chartRef: any = useRef<Chart | null>(null);
+  // const [chartData, setChartData] = useState([]);
 
   useEffect(() => {
     if (chartRef.current) {
-      // Initialize the chart if it hasn't been created yet
-      if (!chartInstance.current) {
-        chartInstance.current = new Chart(chartRef.current, {
-          type: type,
-          data,
-          options,
-        });
-      } else {
-        // Update the existing chart
-        // chartInstance.current.type = 'line' ;
-        chartInstance.current.data = data;
-        chartInstance.current.options = options;
-        chartInstance.current.update(); // Call `update` to reflect changes
+      if (chartRef.current.chart) {
+        //  chartRef.current.data = chartData.data;
+        //  chartRef.current.update();
+        chartRef.current.chart.destroy();
       }
+
+      const context = chartRef.current.getContext("2d");
+
+      const label = chartData.labels;
+      const data = chartData.data;
+
+      const newChart = new Chart(context, {
+        type: "bar",
+        data: {
+          labels: label,
+          datasets: [
+            {
+              // barPercentage: 0.9,
+              // barThickness: 50,
+              label: "Info",
+              data: data,
+              backgroundColor: ["rgb(153, 102, 255, 0.2)"],
+              borderColor: ["rgb(54, 162, 235)"],
+              borderWidth: 1,
+              borderRadius: 10,
+            },
+          ],
+        },
+        options: {
+          plugins: {
+            title: {
+              display: true,
+              text: "Weight Name Info",
+            },
+          },
+          layout: {
+            padding: 40,
+          },
+          // responsive: true
+          scales: {
+            x: {
+              type: "category",
+            },
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+
+      chartRef.current.chart = newChart;
     }
+  }, [chartData]);
 
-    return () => {
-      if (chartInstance.current) {
-        chartInstance.current.destroy();
-        chartInstance.current = null;
-      }
-    };
-  }, [data, options, type]);
-
-  return chartRef;
-};
-
-export default useChart;
+  function handleDownload() {
+    if (chartRef.current) {
+      const file = chartRef.current.toDataURL("image/png");
+      const link = document.createElement("a");
+      link.href = file;
+      link.download = "barChart.png";
+      link.click();
+    }
+  }
+  return (
+    <div style={{ position: "relative", width: "90vw", height: "80vh" }}>
+      <canvas ref={chartRef} />
+      <button
+        onClick={handleDownload}
+        className="rounded-md bg-amber-600 bg-opacity-25 p-3 m-4 border border-amber-800"
+      >
+        Download Chart
+      </button>
+    </div>
+  );
+}
