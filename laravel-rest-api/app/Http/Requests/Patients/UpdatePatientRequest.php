@@ -17,8 +17,6 @@ class UpdatePatientRequest extends FormRequest
     }
     public function rules()
     {
-        // $PatientsId = $this->route('Patient');
-        // 'name' => 'nullable|string|unique:Patients,name,' . $PatientsId . ',id,deleted_at,NULL',
 
         $rules = [
             'association_id' => 'nullable|exists:associations,id',
@@ -26,7 +24,6 @@ class UpdatePatientRequest extends FormRequest
             'last_name' => 'nullable|string|max:255',
             'city' => 'nullable|string',
             'current_address' => 'nullable|string',
-            'birth_address' => 'nullable|string',
             'phone' => 'nullable|string',
             'status' => 'in:active,inactive,suspended,deleted',
             'date_of_birth' => 'nullable|date',

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Patient;
 
+use App\Models\Illness;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PatientResource extends JsonResource
@@ -14,17 +15,22 @@ class PatientResource extends JsonResource
      */
     public function toArray($request)
     {
+        $imageUrl = asset('patients/' . $this->avatar);
+
+        // get illness patient
+        $illness = Illness::find($this->association->illness_id)->first()->name;
         return [
             'id' => $this->id,
             'association_id' => $this->association_id,
+            'illness' => $illness,
             'association' => $this->association->name,
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
             'city' => $this->city,
             'current_address' => $this->current_address,
-            'birth_address' => $this->birth_address,
+            // 'birth_address' => $this->birth_address,
             'phone' => $this->phone,
-            'avatar' => $this->avatar,
+            'avatar' => $imageUrl,
             'status' => $this->status,
             'date_of_birth' => $this->date_of_birth,
             'deleted_at' => $this->deleted_at,

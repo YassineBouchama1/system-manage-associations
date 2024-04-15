@@ -78,6 +78,7 @@ class PatientController extends Controller
 
 
         $validatedData['avatar'] = $imageName; // Add logo data
+        $validatedData['association_id'] = Auth::user()->association_id; // Add logo data
 
 
 
@@ -151,12 +152,16 @@ class PatientController extends Controller
             $imageName = time() . '.' . $image->extension();
             $image->move(public_path('patients'), $imageName);
             // save path
-            $associationData['avatar'] = $imageName;
+            $validatedData['avatar'] = $imageName;
         }
 
-        $patient->update($validatedData);
+        $patientUpdated =    $patient->update($validatedData);
 
-        return response()->json(new PatientResource($patient), 200);
+        if ($patientUpdated) {
+            return response()->json(['message' => 'updated'], 200);
+        } else {
+            return response()->json(['message' => 'Error while updating association'], 400); // Use 400 for bad request
+        }
     }
 
     /**

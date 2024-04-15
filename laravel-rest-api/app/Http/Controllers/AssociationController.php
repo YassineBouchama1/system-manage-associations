@@ -12,6 +12,7 @@ use App\Http\Resources\Association\AssociationResource;
 
 use App\Models\Association;
 use App\Models\Illness;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 
 use Illuminate\Http\Request;
@@ -166,6 +167,12 @@ class AssociationController extends Controller
         $associationData = $request->validated();
 
 
+        // validate if he is a admin
+        if ($associationData->status && $associationData->status != 'active') {
+            // block admin
+            User::where('association_id', $id)->update(['status' => "inactive"]);
+        }
+
         // update logo if exist
         $image = $request->file('logo');
 
@@ -193,7 +200,7 @@ class AssociationController extends Controller
         $updatedAssociation = $association->update($associationData);
 
         if ($updatedAssociation) {
-            return response()->json(['message' => $associationData], 200);
+            return response()->json(['message' => 'updated'], 200);
         } else {
             return response()->json(['message' => 'Error while updating association'], 400); // Use 400 for bad request
         }

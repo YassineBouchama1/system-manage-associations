@@ -18,13 +18,12 @@ class CreatePatientRequest extends FormRequest
     {
         $rules = [
             'avatar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust allowed types and size limits as needed
-
-            'association_id' => 'required|exists:associations,id',
+            // 'association_id' => 'required|exists:associations,id',
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'city' => 'nullable|string', // City is optional
             'current_address' => 'required|string',
-            'birth_address' => 'nullable|string',
+            // 'birth_address' => 'nullable|string',
             'phone' => 'nullable|string', // Phone number is optional
             'status' => 'in:active,inactive,deleted', 'dead', // Same status options as associations
             'date_of_birth' => 'required|date',
