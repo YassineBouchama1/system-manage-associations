@@ -27,10 +27,19 @@ class PatientController extends Controller
         $perPage = min($perPage, 50);
 
         // Get the association ID of the authenticated user
-        $userAssociation = Auth::user()->association_id;
+        $user = Auth::user();
+
+        if ($user->role_id === 1) {
+            $patients = Patient::withTrashed();
+        } else {
+
+            $userAssociation = $user->association_id;
+            $patients = Patient::withTrashed()->where('association_id', $userAssociation);
+        }
+
+
 
         // Retrieve patients associated with the authenticated user's association, including soft deleted patients
-        $patients = Patient::withTrashed()->where('association_id', $userAssociation);
 
         // Filter by search query for first & last name (optional)
         $search = $request->query('search');
