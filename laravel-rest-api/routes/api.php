@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\IllnessController;
+use App\Http\Controllers\StatisticsController;
 use App\Http\Controllers\Users\UserController;
 use App\Http\Middleware\RoleMiddleware;
 use Illuminate\Http\Request;
@@ -38,4 +39,9 @@ Route::middleware(['auth:api', 'verified'])->group(function () {
 
     Route::patch('/user/change-password', [UserController::class, 'changePassword'])
         ->name('user.change-password');
+});
+
+
+Route::middleware(['auth:api'])->group(function () {
+    Route::get('/statistics', [StatisticsController::class, 'getStatistics']);
 });
