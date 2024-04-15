@@ -5,9 +5,9 @@ import type { FC } from 'react';
 import { SubmitButton } from './SubmitButton';
 import { AssociationType } from '@/types/association';
 import toast from 'react-hot-toast';
-import { deleteAction } from '@/actions/associations/delete';
 import Link from 'next/link';
 import { PatienType } from '@/types/patiens';
+import { deleteAction } from '@/actions/patients/delete';
 
 interface PatientCardProps {
   patient: PatienType;

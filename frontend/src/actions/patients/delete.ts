@@ -12,16 +12,16 @@ await delay(1000)
   if(!id)return {error:'id required'}
 
   try {
-    const association = await fetchServer({
+    const patient = await fetchServer({
       method: "DELETE",
-      url: process.env.NEXT_PUBLIC_BACKEND_API_URL + `/associations/${id}`,
+      url: process.env.NEXT_PUBLIC_BACKEND_API_URL + `/patients/${id}`,
     });
 
-    if (!association.ok) {
-      throw association;
+    if (!patient.ok) {
+      throw patient;
     }
 
-    revalidatePath("/dashboard/associations");
+    revalidatePath("/dashboard/patients");
 
     return { success: "deleted" };
   } catch (error: any) {

@@ -58,7 +58,7 @@ export const updatePatient = async (formData: FormData, id: string) => {
     }
 
     const response = await association.json();
-    console.log(response);
+ 
     //refrech route
     // revalidatePath("/dashboard/associations");
 

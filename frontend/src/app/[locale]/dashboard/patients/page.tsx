@@ -6,6 +6,7 @@ import AssociationCard from "@/components/ui/AssociationCard";
 import PatientCard from "@/components/ui/PatientCard";
 import TitlePage from "@/components/ui/TitlePage";
 import { delay } from "@/lib/delay";
+import { getSession } from "@/lib/getSessions";
 import { AssociationType } from "@/types/association";
 import { PatienType } from "@/types/patiens";
 import { getTranslations } from "next-intl/server";
@@ -37,6 +38,10 @@ export default async function Associations({
   }
 
   const t = await getTranslations("ui");
+
+    const session = await getSession();
+
+   
   return (
     <>
       <div className="w-full flex justify-center md:justify-end">
@@ -46,12 +51,14 @@ export default async function Associations({
           totalPages={success.total_pages}
           currentPage={success.current_page}
         />
-        <Link
-          href="/dashboard/patients/create"
-          className=" bg-theme-color min-w-24 text-center px-2 py-3 rounded-md text-white "
-        >
-          {t("create")}
-        </Link>
+        {session.role === 2 && (
+          <Link
+            href="/dashboard/patients/create"
+            className=" bg-theme-color min-w-24 text-center px-2 py-3 rounded-md text-white "
+          >
+            {t("create")}
+          </Link>
+        )}
       </div>
       <div className=" mt-4 flex gap-6 flex-wrap justify-center md:justify-start">
         {success.data.length === 0 ? (
