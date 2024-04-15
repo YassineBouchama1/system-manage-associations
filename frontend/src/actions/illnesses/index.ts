@@ -5,7 +5,7 @@ import { logout } from "../profile";
 import { getSession } from "@/lib/getSessions";
 
 const DEFAULT_PAGE = 1;
-const DEFAULT_PER_PAGE = 2;
+const DEFAULT_PER_PAGE = 6;
 interface IllnessQueryParams {
   page?: string;
   per_page?: string;

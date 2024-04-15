@@ -7,7 +7,8 @@ export interface SessionData {
   name?: string;
   email?: string;
   img?: string;
-  role?: string;
+  role?: string | number;
+  roleName?: string ;
   isBlocked?: boolean;
   permissions: string[];
   isLoggedIn: boolean;

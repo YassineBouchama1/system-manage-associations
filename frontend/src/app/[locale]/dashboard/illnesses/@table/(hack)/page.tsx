@@ -4,7 +4,7 @@ import PaginationControls from "@/components/Table/PaginationControls";
 
 // default value for  query
 const DEFAULT_PAGE = 1;
-const DEFAULT_PER_PAGE = 2;
+const DEFAULT_PER_PAGE = 6;
 
 export default async function Home({
   searchParams,

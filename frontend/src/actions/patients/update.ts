@@ -1,46 +1,39 @@
 "use server";
 import fetchServer from "@/lib/fetch-server";
 import fetchServerFormData from "@/lib/fetch-server-formData";
-import { schemaAssociation, schemaAssociationUpdate } from "@/lib/validations";
+import { schemaAssociation, schemaAssociationUpdate, schemaPatientUpdate } from "@/lib/validations";
 import { string } from "zod";
 
 
 
-export const updateAssociation = async (
-  formData: FormData,
-  id: string,
-  oldData:any
-) => {
+export const updatePatient = async (formData: FormData, id: string) => {
   if (!id) {
     return {
       error: "no id",
     };
   }
 
-
-
-
-  
-  const name = formData.get("name");
-  const address = formData.get("address");
+  const first_name = formData.get("first_name");
+  const last_name = formData.get("last_name");
+  const current_address = formData.get("current_address");
+  const phone = formData.get("phone");
   const city = formData.get("city");
-  const illness = formData.get("illness_id");
+  const date_of_birth = formData.get("date_of_birth");
 
-const logo : any = formData.get("logo");
-console.log(logo?.name === "undefined");
+  const avatar: any = formData.get("avatar");
+  console.log(avatar?.name === "undefined");
 
-// if user dosnt pass a new logo remove it from formdata
-if (logo?.name === "undefined") formData.delete("logo");
-
-
-
+  // if user dosnt pass a new avatar remove it from formdata
+  if (avatar?.name === "undefined") formData.delete("avatar");
 
   //2-validation useing zod
-  const validatedFields = schemaAssociationUpdate.safeParse({
-    name,
+  const validatedFields = schemaPatientUpdate.safeParse({
+    first_name,
+    last_name,
+    current_address,
+    date_of_birth,
+    phone,
     city,
-    illness,
-    address,
   });
 
   //check validation
@@ -50,16 +43,13 @@ if (logo?.name === "undefined") formData.delete("logo");
     };
   }
 
-
-
-
   // passing method put  becouse laravel dosnt accept it with normal way
   formData.append("_method", "PUT");
   // sending data to api
   try {
     const association = await fetchServerFormData({
       method: "POST",
-      url: process.env.NEXT_PUBLIC_BACKEND_API_URL + `/associations/${id}`,
+      url: process.env.NEXT_PUBLIC_BACKEND_API_URL + `/patients/${id}`,
       body: formData,
     });
 

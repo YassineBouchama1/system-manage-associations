@@ -7,9 +7,10 @@ import {
   Settings,
   WalletCards,
   LogOut,
-  AlignJustify,
+  ShieldOff,
   X,
   Building2,
+  UsersRound,
 } from "lucide-react";
 import SidebarItem from "./item";
 import { useEffect, useMemo, useState } from "react";
@@ -18,81 +19,94 @@ import { useAuthContext } from "@/hooks/useAuthProvider";
 import { logout } from "@/actions/profile";
 import { SubmitButton } from "../ui/SubmitButton";
 import { useLocale, useTranslations } from "next-intl";
-import LocaleSwitcher from "../next-intl/LocaleSwitcher";
-import { useGlobalTheme } from "@/hooks/useTheme";
+
 import Image from "next/image";
 import { motion, useCycle } from "framer-motion";
 import { ISidebarItem } from "@/types/sideBar";
 import { useAppDispatch, useAppSelector } from "@/redux/Hook";
 import {  toggleSidebar } from "@/redux/ThemeSlice";
+import { SessionData } from "@/lib/optionsSessions";
 
 
 
-const Sidebar = () => {
+const Sidebar = ({ session }: { session: SessionData}) => {
   const t = useTranslations("sideBar");
 
-  //list of 
-  const items: ISidebarItem[] = useMemo(()=> [
-    {
-      name: t("dashboard"),
-      path: "/dashboard",
-      icon: LayoutDashboard,
-      role: "admin",
-    },
-    {
-      name: t("associations"),
-      path: "/dashboard/associations",
-      icon: Building2,
-      role: "admin",
-    },
-    {
-      name: t("illnesses"),
-      path: "/dashboard/illnesses",
-      icon: Building2,
-      role: "admin",
-    },
-    {
-      name: t("settings"),
-      path: "/dashboard/settings",
-      icon: Settings,
-      role: "admin",
+  //list of
+  const items: ISidebarItem[] = useMemo(
+    () => [
+      {
+        name: t("dashboard"),
+        path: "/dashboard",
+        icon: LayoutDashboard,
+        role: 0,
+      },
+      {
+        name: t("associations"),
+        path: "/dashboard/associations",
+        icon: Building2,
+        role: 1,
+      },
+      {
+        name: t("illnesses"),
+        path: "/dashboard/illnesses",
+        icon: ShieldOff,
+        role: 1,
+      },
+      {
+        name: t("patients"),
+        path: "/dashboard/patients",
+        icon: UsersRound,
+        role: 0,
+      },
+      // {
+      //   name: t("operators"),
+      //   path: "/dashboard/operators",
+      //   icon: UsersRound,
+      //   role: "admin",
+      // },
+      // {
+      //   name: t("settings"),
+      //   path: "/dashboard/settings",
+      //   icon: Settings,
+      //   role: "admin",
 
-      items: [
-        {
-          name: "General",
-          path: "/dashboard/settings",
-          role: "admin",
-        },
-        {
-          name: "Security",
-          path: "/dashboard/settings/security",
-        },
-        {
-          name: "Notifications",
-          path: "/dashboard/settings/notifications",
-        },
-      ],
-    },
-  ],[])
+      //   items: [
+      //     {
+      //       name: "General",
+      //       path: "/dashboard/settings",
+      //       role: "admin",
+      //     },
+      //     {
+      //       name: "Security",
+      //       path: "/dashboard/settings/security",
+      //     },
+      //     {
+      //       name: "Notifications",
+      //       path: "/dashboard/settings/notifications",
+      //     },
+      //   ],
+      // },
+    ],
+    []
+  );
   const [name, setName] = useState<string | undefined>("");
-  const { session, setSession, loading } = useAuthContext();
+  // const { session, setSession, loading } = useAuthContext();
   // const { toggleSIdeBar, setToggleSIdeBar } = useGlobalTheme();
 
+  const toggleSIdeBar = useAppSelector((state) => state.theme.sideBar);
 
-  const toggleSIdeBar = useAppSelector((state)=>state.theme.sideBar)
+  // //bring session
+  // useEffect(() => {
+  //   const fetchSessions = async () => {
+  //     const session = await getSession();
+  //     console.log(session);
+  //     setName(session?.name);
+  //   };
+  //   fetchSessions();
+  // }, []);
 
-  //bring session
-  useEffect(() => {
-    const fetchSessions = async () => {
-      const session = await getSession();
-      console.log(session);
-      setName(session?.name);
-    };
-    fetchSessions();
-  }, []);
-
-
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
   const location = useLocale();
 
   const variants = {
@@ -120,7 +134,7 @@ const Sidebar = () => {
         <div className="flex gap-1">
           <button
             className="md:hidden opacity-75"
-            onClick={() =>  dispatch(toggleSidebar())}
+            onClick={() => dispatch(toggleSidebar())}
           >
             <X />
           </button>
@@ -134,14 +148,18 @@ const Sidebar = () => {
         </div>
 
         <div className="flex flex-col space-y-2">
-          {items.map((item, index) => (
-            <SidebarItem key={index} item={item} />
-          ))}
+          {items
+            .filter(
+              (item) => item.role === session.role || item.role === 0
+            )
+            .map((item, index) => (
+              <SidebarItem key={index} item={item} />
+            ))}
         </div>
 
         <div className="flex h-full   justify-end  flex-col space-y-10 w-full">
           <hr></hr>
-       
+
           <form action={logout}>
             <SubmitButton title={t("logout")} />
           </form>

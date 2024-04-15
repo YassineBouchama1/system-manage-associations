@@ -22,7 +22,7 @@ const PaginationControls: FC<PaginationControlsProps> = ({
   const pathname = usePathname();
 
   const page = searchParams.get("page") ?? "1";
-  const per_page = searchParams.get("per_page") ?? "2";
+  const per_page = searchParams.get("per_page") ?? "10";
 
   return (
     <div className="rounded-b-lg border-t border-gray-200 px-4 py-2">

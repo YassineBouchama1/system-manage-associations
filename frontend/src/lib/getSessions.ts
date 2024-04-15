@@ -4,8 +4,8 @@ import { SessionData, defaultSession, sessionOptions } from "./optionsSessions";
 import { cookies } from "next/headers";
 
 export const getSession = async () => {
-  let role = "admin";
-  let isBlocked = false;
+  // let role = 1;
+  // let isBlocked = false;
 
   const session = await getIronSession<SessionData>(cookies(), sessionOptions);
 
@@ -14,8 +14,8 @@ export const getSession = async () => {
   }
 
   // CHECK THE USER IN THE DB
-  session.isBlocked = isBlocked;
-  session.role = role;
+  // session.isBlocked = isBlocked;
+  // session.role = role;
 
   return session;
 };

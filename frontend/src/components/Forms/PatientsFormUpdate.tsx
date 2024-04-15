@@ -11,37 +11,29 @@ import { Option } from "@/types/generale";
 import { SubmitButton } from "../ui/SubmitButton";
 import SectionWrapper from "../Wrappers/SectionWrapper";
 import UploaderImg from "../ui/UploaderImg";
-import { IllnessType } from "@/types/illness";
-import { createAssociation } from "@/actions/associations/create";
+
 import toast from "react-hot-toast";
 import { redirect, useParams } from "next/navigation";
-import { AssociationType } from "@/types/association";
 import cities from "../../lib/cities.json";
 import { updateAssociation } from "@/actions/associations/update";
+import { updatePatient } from "@/actions/patients/update";
+import { PatienType } from "@/types/patiens";
 
-interface AssociationsFormUpdateProps {
-  illnesses: IllnessType[];
-  association: AssociationType;
+interface PatientFormsProps {
+  associationsList?: any[];
+  patient:PatienType
 }
 
-const AssociationsFormUpdate: FC<AssociationsFormUpdateProps> = ({
-  illnesses,
-  association,
-}) => {
+const PatientsFormUpdate: FC<PatientFormsProps> = ({patient}) => {
   const t = useTranslations("ui");
 
-
-  const param = useParams()
+  const param = useParams();
   // console.log(param);
   // ref linked with from
 
   //createing card useing server action
   async function onUpdate(format: FormData) {
-    const result: any = await updateAssociation(
-      format,
-      param?.id as string,
-      association
-    );
+    const result: any = await updatePatient(format, param?.id as string);
 
     // handle erros from api
     if (result?.error) {
@@ -54,7 +46,7 @@ const AssociationsFormUpdate: FC<AssociationsFormUpdateProps> = ({
         toast.error(`${key} ${result.errorZod[key]}`);
       });
     } else {
-      toast.success("Assosiation Updated Successfully ");
+      toast.success("patient Updated Successfully ");
     }
   }
 
@@ -65,69 +57,67 @@ const AssociationsFormUpdate: FC<AssociationsFormUpdateProps> = ({
         className="w-auto flex-col items-start"
         encType="multipart/form-data"
       >
-        <FormHeader title={t("admin_Account")} />
-
-        {/* start form  */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-6">
-          {/*  form item  */}
-
-
-
-          {/*  form item  */}
-
-          <FormField
-            id="email"
-            name="email"
-            type="email"
-            placeholder={t("email")}
-            title={t("email")}
-            disabled
-            defaultValue={association.email}
-          />
-          {/*  form item  */}
-
-
-          {/*  form item  */}
-        </div>
-
-        <FormHeader title={t("association_Informations")} />
+        <FormHeader title={t("patient_Informations")} />
         <div>
           {/* img upload  */}
-          <UploaderImg name="logo" text={t("upload_ThPhoto")} defaultImg={association.logo}/>
+          <UploaderImg
+            name="avatar"
+            text={t("upload_ThPhoto")}
+            defaultImg={patient.avatar}
+          />
 
           {/* img upload  */}
           {/* forms PERSONAL INFORMATION  */}
 
           <div className="grid grid-cols-1  md:grid-cols-2 gap-10 mt-10">
             <FormField
-              id="name"
-              name="name"
+              id="first_name"
+              name="first_name"
               type="text"
-              placeholder={t("name")}
-              title={t("name")}
-              defaultValue={association.name}
+              placeholder={t("first_name")}
+              title={t("first_name")}
+              defaultValue={patient.first_name}
             />
-    
             <FormField
-              id="address"
-              name="address"
+              id="last_name"
+              name="last_name"
+              type="text"
+              placeholder={t("last_name")}
+              title={t("last_name")}
+              defaultValue={patient.last_name}
+            />
+            <FormField
+              id="phone"
+              name="phone"
+              type="number"
+              placeholder={t("phone_Number")}
+              title={t("phone_Number")}
+              defaultValue={patient.phone}
+            />
+            <FormField
+              id="current_address"
+              name="current_address"
               type="text"
               placeholder={t("address")}
               title={t("address")}
-              defaultValue={association.address}
+              defaultValue={patient.current_address}
             />
+
+            <FormField
+              id="date_of_birth"
+              name="date_of_birth"
+              type="date"
+              placeholder={t("date_of_birth")}
+              title={t("date_of_birth")}
+              defaultValue={patient.date_of_birth}
+            />
+ 
 
             <FormFieldSelect
               title={t("city")}
               options={cities}
               name="city"
-              defaultValue={association.city}
-            />
-            <FormFieldSelect
-              title={t("illnesses")}
-              options={illnesses}
-              name="illness_id"
-              defaultValue={association.illness_id}
+              defaultValue={patient.city}
             />
           </div>
           {/* forms PERSONAL INFORMATION  */}
@@ -143,4 +133,4 @@ const AssociationsFormUpdate: FC<AssociationsFormUpdateProps> = ({
     </SectionWrapper>
   );
 };
-export default AssociationsFormUpdate;
+export default PatientsFormUpdate;

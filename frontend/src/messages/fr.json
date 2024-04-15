@@ -30,7 +30,9 @@
     "createAssociation": "Créer une association",
     "logout": "Déconnexion",
     "create": "Créer",
-    "illnesses": "les maladies"
+    "illnesses": "les maladies",
+    "operators": "operators",
+    "patients": "patients"
   },
   "IndexPage": {
     "title": "Exemple next-intl",
@@ -57,6 +59,10 @@
     "select": "Sélectionner",
     "illnesses": "Maladies",
     "createAssociation": "create Association",
-    "SignIn": "Sign in"
+    "SignIn": "Sign in",
+    "patient_Informations": "patient Informations",
+    "first_name": "first name",
+    "last_name": "last name",
+    "date_of_birth": "date of birth"
   }
 }

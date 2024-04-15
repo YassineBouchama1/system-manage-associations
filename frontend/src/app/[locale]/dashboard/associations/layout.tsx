@@ -1,3 +1,5 @@
+import { getSession } from "@/lib/getSessions";
+import { redirect } from "next/navigation";
 
 export default async function TransactionLayout({
   children,
@@ -6,10 +8,15 @@ export default async function TransactionLayout({
   children: React.ReactNode;
 
 }>) {
-  return (
-    <div className="flex flex-col gap-8">
-      <div> {children}</div>
- 
-    </div>
-  );
+
+    const session = await getSession();
+
+    if (session.role === 2){
+      redirect('/dashboard')
+    }
+      return (
+        <div className="flex flex-col gap-8">
+          <div> {children}</div>
+        </div>
+      );
 }

@@ -1,6 +1,8 @@
 import { fetchAssociationById } from '@/actions/associations/getById';
 import { fetchIllnessForSelectors } from '@/actions/illnesses/fetchIllnessForSelectors';
+import { fetchPatientById } from '@/actions/patients/getById';
 import AssociationsFormUpdate from '@/components/Forms/AssociationsFormUpdate';
+import PatientsFormUpdate from '@/components/Forms/PatientsFormUpdate';
 import type { FC } from 'react';
 
 
@@ -13,8 +15,9 @@ export default async function Associations({
 
 
   //fetch association by id
-  const { success: associationData, error: errorAssociation } =
-    await fetchAssociationById(params.id);
+  const { success: patientData, error: errorpatient } = await fetchPatientById(
+    params.id
+  );
 
   //fetch list of illnesses
   const { success: illnessesData, error: errorIllnesses } =
@@ -23,17 +26,16 @@ export default async function Associations({
 
 
   // handle errors  if fetching Failed
-  if (errorAssociation) {
-    throw new Error(errorAssociation.toString());
+  if (errorpatient) {
+    throw new Error(errorpatient.toString());
   }
   if (errorIllnesses) {
     throw new Error(errorIllnesses.toString());
   }
   return (
     <div className="mt-4">
-      <AssociationsFormUpdate
-        association={associationData}
-        illnesses={illnessesData.data}
+      <PatientsFormUpdate
+        patient={patientData}
       />
     </div>
   );

@@ -27,7 +27,12 @@ export default async function middleware(req: any) {
   const isGuestRoute = guestRoutes.some((route) =>
     req.nextUrl.pathname.startsWith(route)
   );
-
+  const isSuperAdminRoute = authRoutesSuperAdmin.some((route) =>
+    req.nextUrl.pathname.endsWith(route)
+  );
+    const isAssociationRoute = authRoutesAssociation.some((route) =>
+      req.nextUrl.pathname.startsWith(route)
+    );
 //get session <data user auth>
   const session = await getSession();
 
@@ -38,15 +43,30 @@ export default async function middleware(req: any) {
   if (session?.token) {
  
 
-    if ( isGuestRoute || isVerifyRoute) {
+if (session.role === 2 &&  isSuperAdminRoute) {
       return NextResponse.redirect(new URL("/dashboard", req.nextUrl.origin));
-    }
+}
+
+
+if (session.role === 1 && isAssociationRoute) {
+  return NextResponse.redirect(new URL("/dashboard", req.nextUrl.origin));
+}
+
+  if (isGuestRoute || isVerifyRoute) {
+    return NextResponse.redirect(new URL("/dashboard", req.nextUrl.origin));
+  }
   }
   return NextIntlMiddleware(req);
 
 }
 
 const authRoutes = ["/dashboard"];
+const authRoutesSuperAdmin = [
+  "/(ar|fr)dashboard/illnesses",
+  "/(ar|fr)dashboard/illnesses/*",
+  "/(ar|fr)dashboard/associations/*",
+];
+const authRoutesAssociation = ["/(ar|fr)dashboard/patients"];
 const verifyRoutes = [
   "/(ar|fr)/request-email-verification",
   "/(ar|fr)/verify-email",

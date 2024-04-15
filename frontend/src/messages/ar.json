@@ -30,7 +30,9 @@
     "createAssociation": "إنشاء جمعية",
     "logout": "تسجيل خروج",
     "create": "إنشاء",
-    "illnesses": "الأمراض"
+    "illnesses": "الأمراض",
+    "operators": "الأمراض",
+    "patients": "المرضى"
   },
   "IndexPage": {
     "title": "next-intl example",
@@ -42,7 +44,7 @@
   },
   "ui":{
     "create": "إنشاء",
-    "update": "إنشاء",
+    "update": "تحديث",
     "loaidng": "loading...",
     "role": "وظيفة",
     "email": "البريد الإلكتروني",
@@ -58,6 +60,11 @@
     "illnesses": "أمراض ",
     "createAssociation": "إنشاء جمعية",
     "illnessForm": "إنشاء جمعية",
-    "SignIn": "تسجيل الدخول"
+    "address": " address",
+    "SignIn": "تسجيل الدخول",
+    "patient_Informations": "معلومات المريض",
+    "first_name": "الاسم الأول",
+    "last_name": "اسم العائلة",
+    "date_of_birth": "تاريخ الميلاد"
   }
 }

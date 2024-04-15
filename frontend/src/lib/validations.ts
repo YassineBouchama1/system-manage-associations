@@ -19,18 +19,38 @@ export const schemaIllnessUpdate = z.object({
 
 
 export const schemaAssociation = z.object({
+  name: z.string().min(2),
   email: z.string().email(),
   password: z.string().min(6),
   phone: z.string().min(10),
   city: z.string(),
+  address: z.string(),
   illness: z.string(),
-  // logo: z
-  //   .custom((value) => {
-  //     if (typeof value !== "object" || !(value instanceof File)) {
-  //       throw new Error("logo must be a File object");
-  //     }
-  //   })
-
 });
 
 ;
+export const schemaAssociationUpdate = z.object({
+  city: z.string(),
+  illness: z.string(),
+  name: z.string(),
+});
+
+export const schemaPatient = z.object({
+  first_name: z.string().min(2),
+  last_name: z.string().min(2),
+  phone: z.string().min(10),
+  city: z.string(),
+  current_address: z.string(),
+  date_of_birth: z.string(),
+
+});
+
+
+export const schemaPatientUpdate = z.object({
+  first_name: z.string().min(2),
+  last_name: z.string().min(2),
+  phone: z.string().min(10),
+  city: z.string(),
+  current_address: z.string(),
+  date_of_birth: z.string(),
+});

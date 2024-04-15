@@ -39,10 +39,11 @@ export const login = async (formData: FormData) => {
     const data = await response.json();
 
     //assign data user to session
-    session.userId = "1";
+    session.userId = data.user.id;
     session.name = data.user.name;
     session.email = data.user.email;
-    session.role = "admin";
+    session.role = data.user.role_id;
+    session.roleName = data.user.role;
     session.isLoggedIn = true;
     session.permissions = ["create", "delete"];
     session.token = data?.access_token;

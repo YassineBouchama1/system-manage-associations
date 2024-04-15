@@ -14,7 +14,7 @@ export interface ISidebarItem {
   name: string;
   path: string;
   icon: LucideIcon;
-  role?: string;
+  role?: string | number;
   items?: ISubItem[];
 }
 
