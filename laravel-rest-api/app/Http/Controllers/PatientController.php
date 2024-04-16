@@ -55,6 +55,7 @@ class PatientController extends Controller
         $totalPages = $patients->lastPage();
         $currentPage = $patients->currentPage();
 
+
         return response()->json([
             'data' => PatientResource::collection($patients),
             'total_pages' => $totalPages,
@@ -182,13 +183,13 @@ class PatientController extends Controller
     public function destroy($id)
     {
 
-        $patient = Patient::find($id);
+        $patient = Patient::withTrashed()->find($id);
 
         if (!$patient) {
             return response()->json(['message' => 'patient not found'], 404);
         }
 
-        $patient->delete();
+        $patient->forceDelete();
 
         return response()->json(null, 204); // No content on successful deletion
     }

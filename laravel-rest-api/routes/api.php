@@ -12,6 +12,7 @@ require __DIR__ . '/illness.php';
 require __DIR__ . '/association.php';
 require __DIR__ . '/patient.php';
 require __DIR__ . '/operator.php';
+require __DIR__ . '/charts.php';
 
 //@descRoles ids
 //  : 1- super admin

@@ -244,4 +244,25 @@ class AssociationController extends Controller
 
         return response()->json(null, 204); // No content on successful deletion
     }
+
+    public function restore(Request $request, $id)
+    {
+        $association = Association::find($id);
+        // $this->authorize('delete', $association); // Check authorization
+
+
+        if (!$association) {
+            return response()->json(['message' => 'Association not found or Already deleted'], 404);
+        }
+
+        if ($request->user()->cannot('delete', $association)) {
+            return response()->json(['message' => 'no allowed to restore this id :  ' . $id], 403);
+        }
+
+        //change status all users belong assosition
+        $association->users()->update(['status' => 'active']);
+        $association->restore();
+
+        return response()->json(null, 204); // No content on successful deletion
+    }
 }
