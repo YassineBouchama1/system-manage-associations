@@ -13,8 +13,17 @@ class StatisticsController extends Controller
 
 
 
-    public function getStatistics()
+    public function getStatistics(Request $request)
     {
+
+        $associationId = $request->input('association_id');
+
+
+
+        // if admin reqyuest see satistic of association
+        if ($associationId) {
+            return $this->isProfileAssociation($associationId);
+        }
         $user = Auth::user();
 
         if ($user->role_id === 1) {
@@ -38,8 +47,21 @@ class StatisticsController extends Controller
     public function isAssociationAdmin()
     {
 
+
         $user = Auth::user();
         $patients =  count(Patient::where('association_id', $user->association_id)->get());
+
+
+        return response()->json(['message' => 'succefully', "patients" => $patients, 'role' => 2], 200);
+    }
+
+
+    public function isProfileAssociation($associationId)
+    {
+
+
+
+        $patients =  count(Patient::where('association_id', $associationId)->get());
 
 
         return response()->json(['message' => 'succefully', "patients" => $patients, 'role' => 2], 200);

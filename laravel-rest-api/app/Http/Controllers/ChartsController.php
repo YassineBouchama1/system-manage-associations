@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Patient;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class ChartsController extends Controller
 {
@@ -27,8 +28,31 @@ class ChartsController extends Controller
 
     public function patientsChart(Request $request)
     {
+
+        $user = Auth::user();
+
+
+
         $timeframe = $request->input('timeframe', 'last30days');
 
+        // Get the association ID from the request <ca be null>
+        $associationId = $request->input('association_id');
+
+
+
+
+
+        if (!$associationId) {
+            // if associationId Dosnt Pass get authed association
+            $associationId = $user->association_id;
+        } else {
+
+            // check if user want see spicific  association
+            //should be admin or his owen association
+            if ($user->role_id != 1 || !($user->role_id === 2  && $user->association_id === $associationId)) {
+                return response()->json(['message' => 'no allowed to see this element '], 403);
+            }
+        }
         $patients = null;
 
         if ($timeframe === 'last30days') {
@@ -54,8 +78,14 @@ class ChartsController extends Controller
         }
 
         // fsetch patient data for the selected timeframe
-        $patients = Patient::whereBetween('created_at', [$startDate, $endDate])->get();
-
+        if ($associationId) {
+            $patients = Patient::where('association_id', $associationId)
+                ->whereBetween('created_at', [$startDate, $endDate])
+                ->get();
+        } else {
+            // if associationId dosn't passed bring all data
+            $patients = Patient::whereBetween('created_at', [$startDate, $endDate])->get();
+        }
         // Process data to count patients created each day
         $patientCountByDay = $this->processPatientData($patients);
 

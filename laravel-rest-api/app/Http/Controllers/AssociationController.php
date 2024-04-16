@@ -216,11 +216,31 @@ class AssociationController extends Controller
             return response()->json(['message' => 'Association not found'], 404);
         }
         if ($request->user()->cannot('view', $association)) {
+
             return response()->json(['message' => 'no allowed to show this association :  ' . $id], 403);
         }
+
         return response()->json(new AssociationResource($association), 200);
     }
 
+
+
+
+    public function showAssociationDashboard(Request $request, $id)
+    {
+        $association = Association::find($id);
+
+        if (!$association) {
+            return response()->json(['message' => 'Association not found'], 404);
+        }
+        if ($request->user()->cannot('view', $association)) {
+
+            return response()->json(['message' => 'no allowed to show this association :  ' . $id], 403);
+        }
+        return response()->json(['message' => 'succefully', "patients" =>  $association->patients, 'association' => new AssociationResource($association)], 200);
+
+        return response()->json(new AssociationResource($association), 200);
+    }
 
 
 
@@ -265,4 +285,7 @@ class AssociationController extends Controller
 
         return response()->json(null, 204); // No content on successful deletion
     }
+
+
+
 }
