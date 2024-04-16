@@ -2,7 +2,6 @@ import CardStatus from "@/components/CardStatus";
 import { fetchStatistics } from "@/actions/dashboard";
 import { patientsCharts } from "@/actions/dashboard/patientsCharts";
 import BarChart from "@/components/charts/patients/BarChart";
-import BarChartCut from "@/components/charts/patients/LineChart";
 
 const timeFrame = "last30days";
 
@@ -13,9 +12,9 @@ export default async function pageDashboard({
 }) {
   const combinedParams = {
     ...searchParams,
-    timeFrame: searchParams.timeFrame?.toString() || timeFrame.toString(),
+    timeFrame: searchParams.timeframe?.toString() || timeFrame.toString(),
   };
-
+console.log(searchParams);
   const { success, error } = await fetchStatistics();
   const { success: chartData, error: errorChart } = await patientsCharts(
     combinedParams
@@ -30,12 +29,10 @@ export default async function pageDashboard({
       <main className="h-full w-full ">
         <CardStatus itemCards={success} />
 
-        {/* <div className="hidden md:flex">
+        <div className=" md:flex">
           {chartData ? <BarChart chartData={chartData} /> : <h3>error</h3>}
-        </div> */}
-        <div className="hidden md:flex">
-          <BarChartCut chartData={chartData} />
         </div>
+  
       </main>
     </>
   );

@@ -1,83 +1,124 @@
 "use client";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
-import { usePathname, useRouter } from "next/navigation";
-import { useRef } from "react";
-import { Bar } from "react-chartjs-2";
+import { useRef, useEffect, useState } from "react";
+import { Chart } from "chart.js/auto";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { Download } from "lucide-react";
+import { useTranslations } from "next-intl";
+export default function BarChart({ chartData }:{chartData:any}) {
+  const chartRef: any = useRef<Chart | null>(null);
 
-// Register ChartJS components using ChartJS.register
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
+// 
+const t = useTranslations('ui')
 
-interface ChartDataType {
-  labels: string[];
-  data: number[];
-}
 
-interface PropsTypes {
-  chartData: any;
-}
+  useEffect(() => {
+    if (chartRef.current) {
+      console.log(chartData);
+      if (chartRef.current.chart) {
+        //  chartRef.current.data = chartData.data;
+        //  chartRef.current.update();
+        chartRef.current.chart.destroy();
+      }
 
-const BarChart: React.FC<PropsTypes> = ({ chartData }) => {
-  const { labels, data } = chartData;
-console.log(chartData);
+      const context = chartRef.current.getContext("2d");
+
+      const label = chartData.labels;
+      const data = chartData.data;
+
+      const newChart = new Chart(context, {
+        type: "bar",
+        data: {
+          labels: label,
+          datasets: [
+            {
+              // barPercentage: 0.9,
+              // barThickness: 50,
+              label: t("chart_Patient"),
+              data: data,
+              backgroundColor: "#4880FF",
+              borderColor: ["rgb(54, 162, 235)"],
+              borderWidth: 1,
+              borderRadius: 10,
+            },
+          ],
+        },
+        options: {
+          plugins: {
+            title: {
+              display: true,
+              text: t("chart_title_Patient"),
+            },
+          },
+          layout: {
+            padding: 0,
+          },
+          // responsive: true
+          scales: {
+            x: {
+              type: "category",
+            },
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+
+      chartRef.current.chart = newChart;
+    }
+  }, [chartData, t]);
+
   const pathname = usePathname();
   const router = useRouter();
+  const searchParams = useSearchParams()
 
-  const chartRef = useRef();
+interface TimeframeOption {
+  value: string;
+  label: string; 
+}
+const timeframeOptions: TimeframeOption[] = [
+  { value: "last30days", label: t("chart_30_days") },
+  { value: "last90days", label: t("chart_90_days") },
+  { value: "lastWeek", label: t("chart_7_days") },
+  { value: "allTime", label: t("chart_All_time") },
+];
 
-  const options = {
-    responsive: true,
 
-    scales: {
-      y: {
-        beginAtZero: true,
-      },
-    },
-  };
-  const configChart = {
-    labels: labels,
-    datasets: [
-      {
-        label: "Patients",
-        data: data,
-        backgroundColor: "#4178c1",
-        tension: 0.5,
-        pointRadius: 4,
-      },
-    ],
+  const handleSelectNewDate = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedTimeframe = event.target.value as string; // Type casting for safety
+    router.push(`${pathname}/?timeframe=${selectedTimeframe}`);
   };
 
+  function handleDownload() {
+    if (chartRef.current) {
+      const file = chartRef.current.toDataURL("image/png");
+      const link = document.createElement("a");
+      link.href = file;
+      link.download = "barChart.png";
+      link.click();
+    }
+  }
   return (
-    <>
-      <div>
-        {" "}
-        <button
-          onClick={() => {
-            router.push(`${pathname}/?timeframe=last90days`);
-          }}
-        >
-          last 90 Months
+    <div
+      style={{ position: "relative" }}
+      className="flex justify-center flex-col w-[100%]  md:w-1/2 h-auto bg-white rounded-md my-4 px-4"
+    >
+      <div className=" p-4 flex justify-between">
+        <button onClick={handleDownload}>
+          <Download size={20} className="text-theme-color" />
         </button>
+        <select
+          onChange={handleSelectNewDate}
+          value={searchParams.get("timeframe") || ""}
+        >
+          {timeframeOptions.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
       </div>
-      <div className="relative md:w-1/2 w-[90%] bg-white">
-        <Bar options={options} ref={chartRef} data={configChart} />
-      </div>
-    </>
+      <canvas ref={chartRef} />
+    </div>
   );
-};
-
-export default BarChart;
+}

@@ -2,14 +2,14 @@
   "LocaleSwitcher": {
     "label": "Changer la langue",
     "locale": "{locale, select, de {🇩🇪 Allemand} en {🇺🇸 Anglais} other {Inconnu}}",
-    "ar": "Arabic",
-    "fr": "Franch"
+    "ar": "Arabe",
+    "fr": "Français"
   },
   "Index": {
-    "title": "Bonjour le monde !"
+    "title": "Bienvenue dans le monde !"
   },
   "header": {
-    "search": "recherche"
+    "search": "Recherche"
   },
   "login": {
     "title": "Connexion",
@@ -18,7 +18,7 @@
     "password": "Mot de passe",
     "forgetPassword": "Mot de passe oublié ?",
     "dontHaveAccount": "Vous n'avez pas encore de compte ?",
-    "SignIn": "Sign in",
+    "SignIn": "Se connecter",
     "signUp": "Inscrivez-vous",
     "rememberMe": "Se souvenir de moi"
   },
@@ -30,9 +30,9 @@
     "createAssociation": "Créer une association",
     "logout": "Déconnexion",
     "create": "Créer",
-    "illnesses": "les maladies",
-    "operators": "operators",
-    "patients": "patients"
+    "illnesses": "Maladies",
+    "operators": "Opérateurs",
+    "patients": "Patients"
   },
   "IndexPage": {
     "title": "Exemple next-intl",
@@ -44,8 +44,8 @@
   },
   "ui": {
     "create": "Créer",
-    "update": "update",
-    "loaidng": "loading...",
+    "update": "Mettre à jour",
+    "loading": "Chargement...",
     "role": "Rôle",
     "email": "Adresse e-mail",
     "password": "Mot de passe",
@@ -55,14 +55,20 @@
     "phone_Number": "Numéro de téléphone",
     "city": "Ville",
     "specialization": "Spécialisation",
-    "upload_ThPhoto": "Téléverser la photo",
+    "upload_ThPhoto": "Télécharger la photo",
     "select": "Sélectionner",
     "illnesses": "Maladies",
-    "createAssociation": "create Association",
-    "SignIn": "Sign in",
-    "patient_Informations": "patient Informations",
-    "first_name": "first name",
-    "last_name": "last name",
-    "date_of_birth": "date of birth"
+    "createAssociation": "Créer une association",
+    "SignIn": "Se connecter",
+    "patient_Informations": "Informations patient",
+    "first_name": "Prénom",
+    "last_name": "Nom",
+    "date_of_birth": "Date de naissance",
+    "chart_Patient": "Patient",
+    "chart_title_Patient": "Nombre de patients par jour",
+    "chart_7_days": "Derniers 7 jours",
+    "chart_30_days": "Derniers 30 jours",
+    "chart_90_days": "Derniers 90 jours",
+    "chart_All_time": "Toutes les périodes"
   }
 }

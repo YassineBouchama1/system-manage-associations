@@ -11,10 +11,13 @@ export const patientsCharts = async (params: ChartsParams) => {
   // build url
   let url = `${
     process.env.NEXT_PUBLIC_BACKEND_API_URL
-  }/charts/patients?timeframe=${params.timeFrame || timeFrame}`;
+  }/charts/patients`;
 
+  url += `?timeframe=${params.timeFrame || timeFrame}`;
 
-  
+  console.log(params.timeFrame);
+  console.log(url);
+
   try {
     const charts: any = await fetchServer({
       url,

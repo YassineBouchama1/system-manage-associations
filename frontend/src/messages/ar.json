@@ -19,8 +19,8 @@
     "SignIn": "تسجيل الدخول",
     "rememberMe": "تذكرنى"
   },
-  "header":{
-"search":"بحث"
+  "header": {
+    "search": "بحث"
   },
   "sideBar": {
     "logo": "LOGO",
@@ -42,7 +42,7 @@
     "title": "Pathnames",
     "description": "<p>The pathnames are internationalized too.</p><p>If you're using the default language English, you'll see <code>/en/pathnames</code> in the browser address bar on this page.</p><p>If you change the locale to German, the URL is localized accordingly (<code>/de/pfadnamen</code>).</p>"
   },
-  "ui":{
+  "ui": {
     "create": "إنشاء",
     "update": "تحديث",
     "loaidng": "loading...",
@@ -65,6 +65,12 @@
     "patient_Informations": "معلومات المريض",
     "first_name": "الاسم الأول",
     "last_name": "اسم العائلة",
-    "date_of_birth": "تاريخ الميلاد"
+    "date_of_birth": "تاريخ الميلاد",
+    "chart_Patient": "مريض",
+    "chart_title_Patient": "عدد المرضى يوميا",
+    "chart_7_days": "اخر 7 ايام",
+    "chart_30_days": "آخر 30 يومًا",
+    "chart_90_days": "آخر 90 يومًا",
+    "chart_All_time": "كل الأوقات"
   }
 }
