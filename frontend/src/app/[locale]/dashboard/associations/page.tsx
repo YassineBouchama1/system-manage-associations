@@ -2,6 +2,7 @@ import { fetchAssociations } from "@/actions/associations";
 import PaginationControls from "@/components/Table/PaginationControls";
 import AssociationCardSkeleton from "@/components/skeletons/AssociationCardSkeleton";
 import AssociationCard from "@/components/ui/AssociationCard";
+import { SearchBar } from "@/components/ui/SearchBar";
 import TitlePage from "@/components/ui/TitlePage";
 import { delay } from "@/lib/delay";
 import { AssociationType } from "@/types/association";
@@ -35,13 +36,14 @@ export default async function Associations({
   const t = await getTranslations("ui");
   return (
     <>
-      <div className="w-full flex justify-center md:justify-end">
+      <div className="bg-white/60 rounded-md py-3 w-full flex flex-col md:flex-row justify-between px-2">
         <PaginationControls
           hasNextPage={success.current_page < success.total_pages}
           hasPrevPage={success.current_page > 1}
           totalPages={success.total_pages}
           currentPage={success.current_page}
         />
+        <SearchBar/>
         <Link
           href="/dashboard/associations/create"
           className=" bg-theme-color min-w-24 text-center px-2 py-3 rounded-md text-white "

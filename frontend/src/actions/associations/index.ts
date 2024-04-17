@@ -9,6 +9,8 @@ const DEFAULT_PER_PAGE = 10;
 interface AssociationsQueryParams {
   page?: string;
   per_page?: string;
+  query?: string;
+  deleted?: string;
 }
 
 export const fetchAssociations = async (params: AssociationsQueryParams) => {
@@ -17,7 +19,13 @@ export const fetchAssociations = async (params: AssociationsQueryParams) => {
   url += `?page=${params.page || DEFAULT_PAGE}&per_page=${
     params.per_page || DEFAULT_PER_PAGE
   }`;
-
+  
+if(params.query){
+    url += `&q=${params?.query}`;
+}
+if (params.deleted) {
+  url += `&deleted=${params?.deleted}`;
+}
 
 
   try {
