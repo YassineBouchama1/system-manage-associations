@@ -91,20 +91,10 @@ const Sidebar = ({ session }: { session: SessionData}) => {
     []
   );
   const [name, setName] = useState<string | undefined>("");
-  // const { session, setSession, loading } = useAuthContext();
-  // const { toggleSIdeBar, setToggleSIdeBar } = useGlobalTheme();
 
   const toggleSIdeBar = useAppSelector((state) => state.theme.sideBar);
 
-  // //bring session
-  // useEffect(() => {
-  //   const fetchSessions = async () => {
-  //     const session = await getSession();
-  //     console.log(session);
-  //     setName(session?.name);
-  //   };
-  //   fetchSessions();
-  // }, []);
+
 
   const dispatch = useAppDispatch();
   const location = useLocale();

@@ -2,25 +2,28 @@
 import { Building2, Dna, LayoutDashboard, UserRoundCheck, Users } from "lucide-react";
 import { ItemsStatus } from "./ItemsStatus";
 import { ItemType } from "@/types/generale";
+import { useTranslations } from "next-intl";
 
 const CardStatus = ({ itemCards }:{ itemCards:any }) => {
+
+  const t = useTranslations('ui')
   const items: ItemType[] = [
     {
-      title: "Total Patients",
+      title: t("number_of_Patients"),
       data: itemCards.patients >= 0 ? itemCards.patients : null,
       icon: Users,
       color: "#8280FF",
       bgColor: "8280FF",
     },
     {
-      title: "Total Association",
-      data: itemCards.associations  >= 0 ? itemCards.associations : null,
+      title: t("number_of_Association"),
+      data: itemCards.associations >= 0 ? itemCards.associations : null,
       icon: Building2,
       color: "#FEC53D",
       bgColor: "#8280FF",
     },
     {
-      title: "Total illnesses",
+      title: t("number_of_Illnesses"),
       data: itemCards.illnesses >= 0 ? itemCards.illnesses : null,
       icon: Dna,
       color: "#4AD991",

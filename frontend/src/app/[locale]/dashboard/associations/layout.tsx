@@ -11,6 +11,7 @@ export default async function TransactionLayout({
 
     const session = await getSession();
 
+    // only super admin allowed : has role id 1
     if (session.role === 2){
       redirect('/dashboard')
     }

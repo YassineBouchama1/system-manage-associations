@@ -47,6 +47,7 @@
     "update": "Mettre à jour",
     "loading": "Chargement...",
     "role": "Rôle",
+    "address": " address",
     "email": "Adresse e-mail",
     "password": "Mot de passe",
     "admin_Account": "Compte administrateur",
@@ -69,6 +70,10 @@
     "chart_7_days": "Derniers 7 jours",
     "chart_30_days": "Derniers 30 jours",
     "chart_90_days": "Derniers 90 jours",
-    "chart_All_time": "Toutes les périodes"
+    "chart_All_time": "Toutes les périodes",
+    "number_of_Patients": "nombre de patients",
+    "number_of_Association": "nombre d'associations",
+    "number_of_Illnesses": "nombre de maladies",
+    "edit": "edit"
   }
 }

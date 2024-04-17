@@ -35,7 +35,9 @@ const PaginationControls: FC<PaginationControlsProps> = ({
                 `${pathname}/?page=${Number(page) + 1}&per_page=${per_page}`
               );
             }}
-            className="inline-flex size-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180"
+            className={`${
+              !hasNextPage && "opacity-25 bg-gray-300"
+            } inline-flex size-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180`}
           >
             <span className="sr-only">Prev Page</span>
             <svg
@@ -63,7 +65,9 @@ const PaginationControls: FC<PaginationControlsProps> = ({
                 `${pathname}/?page=${Number(page) - 1}&per_page=${per_page}`
               );
             }}
-            className="inline-flex size-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180"
+            className={`${
+              !hasPrevPage && "opacity-25 bg-gray-300"
+            } inline-flex size-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180`}
           >
             <span className="sr-only">Next Page</span>
             <svg

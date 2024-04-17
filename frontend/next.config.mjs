@@ -5,7 +5,7 @@ const withNextIntl = createNextIntlPlugin();
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["localhost", process.env.IMAGE_URL],
+    domains: ["localhost", process.env.IMAGE_URL, "via.placeholder.com"],
   },
   // logging:{
   //     fetches:{

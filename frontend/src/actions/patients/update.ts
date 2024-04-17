@@ -2,6 +2,7 @@
 import fetchServer from "@/lib/fetch-server";
 import fetchServerFormData from "@/lib/fetch-server-formData";
 import { schemaAssociation, schemaAssociationUpdate, schemaPatientUpdate } from "@/lib/validations";
+import { revalidatePath } from "next/cache";
 import { string } from "zod";
 
 
@@ -60,7 +61,7 @@ export const updatePatient = async (formData: FormData, id: string) => {
     const response = await association.json();
  
     //refrech route
-    // revalidatePath("/dashboard/associations");
+    revalidatePath("/dashboard/patients");
 
     //after successfully created return msg success
     return { success: "Updated" };
@@ -82,17 +83,3 @@ export const updatePatient = async (formData: FormData, id: string) => {
 
 
 
-  // function removeUnchangedData(formData: any, oldData: any) {
-  //   const updatedFormData = new FormData();
-
-  //   for (const [key, value] of formData.entries()) {
-  //     // Check if the key exists in old data and values are strictly equal
-  //     if (!(key in oldData) || value !== oldData[key]) {
-  //       updatedFormData.append(key, value);
-  //     }
-  //   }
-  // updatedFormData.append("_method", "PUT");
-  //   return updatedFormData;
-  // }
-
-  // const updatedFormData = removeUnchangedData(formData, oldData);

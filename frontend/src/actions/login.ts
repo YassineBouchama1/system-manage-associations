@@ -38,8 +38,13 @@ export const login = async (formData: FormData) => {
 
     const data = await response.json();
 
-    //assign data user to session
-    session.userId = data.user.id;
+    if (data.user.status != 'active'){
+         return {
+           error: "You Are Blocked",
+         };
+    }
+      //assign data user to session
+      session.userId = data.user.id;
     session.name = data.user.name;
     session.email = data.user.email;
     session.role = data.user.role_id;

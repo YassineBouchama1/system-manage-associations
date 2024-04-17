@@ -60,7 +60,7 @@
     "illnesses": "أمراض ",
     "createAssociation": "إنشاء جمعية",
     "illnessForm": "إنشاء جمعية",
-    "address": " address",
+    "address": " عنوان",
     "SignIn": "تسجيل الدخول",
     "patient_Informations": "معلومات المريض",
     "first_name": "الاسم الأول",
@@ -71,6 +71,12 @@
     "chart_7_days": "اخر 7 ايام",
     "chart_30_days": "آخر 30 يومًا",
     "chart_90_days": "آخر 90 يومًا",
-    "chart_All_time": "كل الأوقات"
+    "chart_All_time": "كل الأوقات",
+    "number_of_Patients": "عدد المرضى",
+    "number_of_Association": "عدد الجمعيات",
+    "number_of_Illnesses": "عدد الأمراض ",
+    "edit": "تعديل",
+    "delete": "الحذف",
+    "deleting": "جاري الحذف"
   }
 }

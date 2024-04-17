@@ -2,6 +2,7 @@ import CardStatus from "@/components/CardStatus";
 import { fetchStatistics } from "@/actions/dashboard";
 import { patientsCharts } from "@/actions/dashboard/patientsCharts";
 import BarChart from "@/components/charts/patients/BarChart";
+import PieChart from "@/components/charts/cities/PieChart";
 
 const timeFrame = "last30days";
 
@@ -14,7 +15,7 @@ export default async function pageDashboard({
     ...searchParams,
     timeFrame: searchParams.timeframe?.toString() || timeFrame.toString(),
   };
-console.log(searchParams);
+
   const { success, error } = await fetchStatistics();
   const { success: chartData, error: errorChart } = await patientsCharts(
     combinedParams
@@ -22,17 +23,17 @@ console.log(searchParams);
   if (error) {
     throw new Error(error.toString());
   }
-
-  console.log(chartData);
+  
+  console.log("chart dashboard", chartData);
   return (
     <>
       <main className="h-full w-full ">
         <CardStatus itemCards={success} />
 
-        <div className=" md:flex">
+        <div className=" flex lg:flex-row  flex-col gap-2">
           {chartData ? <BarChart chartData={chartData} /> : <h3>error</h3>}
+          {/* {chartData ? <PieChart chartData={chartData} /> : <h3>error</h3>} */}
         </div>
-  
       </main>
     </>
   );

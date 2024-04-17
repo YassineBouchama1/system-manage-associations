@@ -4,7 +4,7 @@ import { Chart } from "chart.js/auto";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Download } from "lucide-react";
 import { useTranslations } from "next-intl";
-export default function BarChart({ chartData }:{chartData:any}) {
+export default function BarChartAssociation({ chartData }:{chartData:any}) {
   const chartRef: any = useRef<Chart | null>(null);
 
 // 
@@ -22,8 +22,9 @@ const t = useTranslations('ui')
 
       const context = chartRef.current.getContext("2d");
 
-      const label = chartData.labels;
-      const data = chartData.data;
+   const label = chartData.labels;
+   const data = chartData.data;
+
 
       const newChart = new Chart(context, {
         type: "bar",
@@ -71,12 +72,12 @@ const t = useTranslations('ui')
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams()
- 
+
 interface TimeframeOption {
   value: string;
   label: string; 
 }
-const timeFrameOptions: TimeframeOption[] = [
+const timeframeOptions: TimeframeOption[] = [
   { value: "last30days", label: t("chart_30_days") },
   { value: "last90days", label: t("chart_90_days") },
   { value: "lastWeek", label: t("chart_7_days") },
@@ -84,24 +85,25 @@ const timeFrameOptions: TimeframeOption[] = [
 ];
 
 
-// change  time frame 
   const handleSelectNewDate = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedTimeframe = event.target.value as string;
+    const selectedTimeframe = event.target.value as string; // Type casting for safety
     router.push(`${pathname}/?timeframe=${selectedTimeframe}`);
   };
 
-  // for download img of charts
   function handleDownload() {
     if (chartRef.current) {
       const file = chartRef.current.toDataURL("image/png");
       const link = document.createElement("a");
       link.href = file;
-      link.download = "barChart.png";
+      link.download = "BarChartAssociation.png";
       link.click();
     }
   }
   return (
-    <div className="flex justify-center flex-col w-[100%]   h-auto bg-white rounded-md my-4 p-4">
+    <div
+      style={{ position: "relative" }}
+      className="flex justify-center flex-col w-full  h-auto bg-white rounded-md my-4 p-4"
+    >
       <div className=" p-4 flex justify-between">
         <button onClick={handleDownload}>
           <Download size={20} className="text-theme-color" />
@@ -110,7 +112,7 @@ const timeFrameOptions: TimeframeOption[] = [
           onChange={handleSelectNewDate}
           value={searchParams.get("timeframe") || ""}
         >
-          {timeFrameOptions.map((option) => (
+          {timeframeOptions.map((option) => (
             <option key={option.value} value={option.value}>
               {option.label}
             </option>

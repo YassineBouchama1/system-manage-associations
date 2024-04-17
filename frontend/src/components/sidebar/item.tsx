@@ -8,6 +8,8 @@ import {
 } from "next/navigation";
 
 import SubMenuItem from "./sub-item";
+import { useAppDispatch } from "@/redux/Hook";
+import { toggleSidebar } from "@/redux/ThemeSlice";
 
 // Interface for SidebarItem data
 interface ISidebarItem {
@@ -31,6 +33,9 @@ const SidebarItem: React.FC<{ item: ISidebarItem }> = ({ item }) => {
   const pathname = usePathname();
     const segment = useSelectedLayoutSegment();
 
+    // dispatch from redux
+      const dispatch = useAppDispatch();
+
 
     // fun for display submenus
   const onClick = () => {
@@ -38,6 +43,8 @@ const SidebarItem: React.FC<{ item: ISidebarItem }> = ({ item }) => {
       return setExpanded(!expanded);
     }
 
+    // after click on item of sideabr  hide sidebar
+dispatch(toggleSidebar());
     return router.push(path);
   };
 

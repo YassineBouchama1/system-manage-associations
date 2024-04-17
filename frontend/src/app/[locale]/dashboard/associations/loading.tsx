@@ -6,12 +6,11 @@ export default function Loading() {
   return (
     <>
       <div className="w-full flex justify-center md:justify-end">
-        <Link
-          href="/dashboard/associations/create"
+        <div
           className=" bg-gray-300 min-w-24 animate-pulse px-2 py-3 rounded-md text-gray-300 text-end"
         >
           Add New association
-        </Link>
+        </div>
       </div>
       <div className="mt-4 flex gap-6 flex-wrap justify-center md:justify-start">
         <AssociationCardSkeleton />

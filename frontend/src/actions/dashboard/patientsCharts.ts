@@ -4,7 +4,7 @@ import fetchServer from "@/lib/fetch-server";
 const timeFrame = "last30days";
 interface ChartsParams {
   timeFrame?: string;
- 
+  id?: string | number;
 }
 
 export const patientsCharts = async (params: ChartsParams) => {
@@ -15,8 +15,10 @@ export const patientsCharts = async (params: ChartsParams) => {
 
   url += `?timeframe=${params.timeFrame || timeFrame}`;
 
-  console.log(params.timeFrame);
-  console.log(url);
+// if id passed display it
+  if (params?.id) {
+  url += `?association_id=${params.id}`;
+  } 
 
   try {
     const charts: any = await fetchServer({
