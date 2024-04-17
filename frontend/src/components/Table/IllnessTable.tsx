@@ -21,6 +21,7 @@ const IllnessTable: FC<IllnessTableProps> = ({data}) => {
 
   // delete illness
   async function onDelete(format: FormData) {
+
     //sending request to action <server action>
     const result = await deleteAction(format);
     if (result?.error) {
@@ -99,13 +100,15 @@ const IllnessTable: FC<IllnessTableProps> = ({data}) => {
                       />
                     </form>
                   )}
+   {item.deleted_at ? (
 
-                  <button
-                    onClick={() => setIsOpen(item.id)}
-                    className="inline-block rounded text-green-600 py-2 text-xs font-medium hover:text-green-700 duration-150"
-                  >
+     <button
+     onClick={() => setIsOpen(item.id)}
+     className="inline-block rounded text-green-600 py-2 text-xs font-medium hover:text-green-700 duration-150"
+     >
                     edit
                   </button>
+                  ):null}
                   {isOpen === item.id && (
                     <Modal
                       isOpen={isOpen === item.id}
