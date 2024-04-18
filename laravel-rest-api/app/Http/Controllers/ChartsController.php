@@ -13,15 +13,6 @@ class ChartsController extends Controller
 
 
 
-    public function CitiesChart(Request $request)
-    {
-
-        // Return the data for rendering the chart
-        return response()->json([
-            'labels' => ['safi', 'marrakech', "casa", "rabat"],
-            'data' => [2, 20, 17, 10]
-        ]);
-    }
 
 
 
@@ -42,7 +33,7 @@ class ChartsController extends Controller
 
 
 
-        if (!$associationId) {
+        if (!$associationId  || $user->role_id != 1) {
             // if associationId Dosnt Pass get authed association
             $associationId = $user->association_id;
         } else {
@@ -54,6 +45,8 @@ class ChartsController extends Controller
             }
         }
         $patients = null;
+
+
 
         if ($timeframe === 'last30days') {
             $startDate = now()->subDays(30)->startOfDay();

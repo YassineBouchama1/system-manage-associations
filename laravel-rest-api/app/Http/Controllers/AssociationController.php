@@ -30,16 +30,21 @@ class AssociationController extends Controller
         // }
 
         // $associations = Association::query();
-        $associations = Association::withTrashed()->latest();
+        $associations = Association::latest();
 
         // Filter by search query (if applicable)
         $searchTerm = $request->query('q');
+        $deleted = $request->query('deleted', null);
         $perPage = $request->query('per_page', 10); // Default per page results (optional)
         // Limit maximum per page
         $perPage = min($perPage, 30);
 
         if ($searchTerm) {
             $associations->where('name', 'like', "%{$searchTerm}%");
+        }
+        // if user passed deleted treu bring all deleted associations
+        if ($deleted) {
+            $associations->withTrashed();
         }
 
         // Pagination
@@ -168,10 +173,10 @@ class AssociationController extends Controller
 
 
         // validate if he is a admin
-        if ($associationData->status && $associationData->status != 'active') {
-            // block admin
-            User::where('association_id', $id)->update(['status' => "inactive"]);
-        }
+        // if ($associationData->status && $associationData->status != 'active') {
+        //     // block admin
+        //     User::where('association_id', $id)->update(['status' => "inactive"]);
+        // }
 
         // update logo if exist
         $image = $request->file('logo');
@@ -228,7 +233,7 @@ class AssociationController extends Controller
 
     public function showAssociationDashboard(Request $request, $id)
     {
-        $association = Association::find($id);
+        $association = Association::withTrashed()->find($id);
 
         if (!$association) {
             return response()->json(['message' => 'Association not found'], 404);
@@ -285,7 +290,4 @@ class AssociationController extends Controller
 
         return response()->json(null, 204); // No content on successful deletion
     }
-
-
-
 }

@@ -14,6 +14,7 @@ class VerifyEmailController extends Controller
         if ($request->user()->hasVerifiedEmail()) {
             return response()->json([
                 'status' => 'email-already-verified',
+                'message' => 'email-already-verified',
             ]);
         }
 
@@ -23,6 +24,7 @@ class VerifyEmailController extends Controller
 
         return response()->json([
             'status' => 'email-verified',
+            'message' => 'email-verified',
         ]);
     }
 }

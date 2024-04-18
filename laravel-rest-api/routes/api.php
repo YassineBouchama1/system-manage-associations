@@ -34,7 +34,7 @@ Route::middleware(['auth:api'])->group(function () {
 });
 
 
-Route::middleware(['auth:api', 'verified'])->group(function () {
+Route::middleware(['auth:api'])->group(function () {
     Route::patch('/user', [UserController::class, 'update'])
         ->name('user.update');
 

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Users;
 
+use Illuminate\Support\Facades\Hash;
+
 use App\Actions\Users\ChangePassword;
 use App\Actions\Users\UpdateUser;
 use App\Http\Controllers\Controller;
@@ -33,6 +35,18 @@ class UserController extends Controller
 
     public function changePassword(ChangePasswordRequest $request, ChangePassword $changePassword): JsonResponse
     {
+
+
+
+        // check if old password is correct
+        // $oldPassword = Auth::user()->password;
+        // $oldPassword = Hash::make($request->input('Oldpassword'));
+        // $newPassword = Hash::make($request->input('password'));
+
+        // if (Auth::user()->password != $oldPassword) {
+        //     return response()->json(['message' => 'the old password uncorrect try again'], 404);
+        // }
+
         $changePassword(
             user: $request->user(),
             password: $request->input('password')
@@ -40,7 +54,7 @@ class UserController extends Controller
 
         return response()->json([
             'status' => 'password-changed',
+            'message' => 'password-changed',
         ]);
     }
-    
 }

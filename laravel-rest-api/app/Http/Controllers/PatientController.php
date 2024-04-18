@@ -51,7 +51,7 @@ class PatientController extends Controller
         }
 
         // Pagination
-        $patients = $patients->paginate($perPage);
+        $patients = $patients->latest()->paginate($perPage);
         $totalPages = $patients->lastPage();
         $currentPage = $patients->currentPage();
 

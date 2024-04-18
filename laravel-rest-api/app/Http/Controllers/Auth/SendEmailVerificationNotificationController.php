@@ -13,13 +13,15 @@ class SendEmailVerificationNotificationController extends Controller
         if (Auth::user()->hasVerifiedEmail()) {
             return response()->json([
                 'status' => 'email-already-verified',
-            ]);
+                'message' => 'email-already-verified',
+            ], 200);
         }
 
         Auth::user()->sendEmailVerificationNotification();
 
         return response()->json([
             'status' => 'verification-link-sent',
-        ]);
+            'message' => 'verification-link-sent',
+        ], 200);
     }
 }
