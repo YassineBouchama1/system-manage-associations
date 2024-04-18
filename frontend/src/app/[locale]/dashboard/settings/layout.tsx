@@ -1,16 +1,20 @@
-import Sidebar from "@/components/sidebar";
+import SectionWrapper from "@/components/Wrappers/SectionWrapper";
 
-export default function DashboardLayout({
+export default async function SettingsLayout({
   children,
-  home,
+  PasswordForm,
 }: Readonly<{
   children: React.ReactNode;
-  home: React.ReactNode;
+  PasswordForm: React.ReactNode;
 }>) {
   return (
-    <div>
-      {children}
-      <div> {home}</div>
-    </div>
+    <main className="grid grid-cols-3 gap-4 min-h-full">
+      <SectionWrapper styles="col-span-3 lg:col-span-1 md:px-4 max-h-[500px]">
+        {PasswordForm}
+      </SectionWrapper>
+      <SectionWrapper styles="col-span-3 lg:col-span-2 py-2">
+        {children}
+      </SectionWrapper>
+    </main>
   );
 }

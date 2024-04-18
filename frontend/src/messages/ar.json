@@ -8,7 +8,7 @@
   "Index": {
     "title": "salam world!"
   },
-  "login": {
+  "auth": {
     "title": "تسجيل الدخول",
     "title_form": "تسجيل الدخول إلى حسابك",
     "email": "بريد إلكتروني",
@@ -17,8 +17,14 @@
     "dontHaveAccount": "لا تملك حسابا حتى الآن؟",
     "signUp": "لاشتراك",
     "SignIn": "تسجيل الدخول",
-    "rememberMe": "تذكرنى"
+    "remamberedPassword": "لقد تذكرت كلمة المرور",
+    "rememberMe": "تذكرنى",
+    "titleForgetPassword": "نسيت كلمة المرور",
+    "title_formForgetPassword": "استعادة كلمة المرور الخاصة بك",
+    "send": "إرسال",
+    "reset_Password": "استعادة كلمة المرور "
   },
+
   "header": {
     "search": "بحث"
   },
@@ -76,7 +82,6 @@
     "number_of_Association": "عدد الجمعيات",
     "number_of_Illnesses": "عدد الأمراض ",
     "edit": "تعديل",
-    "delete": "الحذف",
-    "deleting": "جاري الحذف"
+    "delete": "الحذف"
   }
 }

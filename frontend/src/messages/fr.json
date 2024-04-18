@@ -8,10 +8,11 @@
   "Index": {
     "title": "Bienvenue dans le monde !"
   },
+
   "header": {
     "search": "Recherche"
   },
-  "login": {
+  "auth": {
     "title": "Connexion",
     "title_form": "Connectez-vous à votre compte",
     "email": "Adresse e-mail",
@@ -20,8 +21,14 @@
     "dontHaveAccount": "Vous n'avez pas encore de compte ?",
     "SignIn": "Se connecter",
     "signUp": "Inscrivez-vous",
-    "rememberMe": "Se souvenir de moi"
+    "rememberMe": "Se souvenir de moi",
+    "titleForgetPassword": "j'ai oublie le mot de passe",
+    "title_formForgetPassword": "Récupérez votre mot de passe",
+    "remamberedPassword": "Je me suis souvenu du mot de passe",
+    "send": "envoy",
+    "reset_Password": "Récupérez Mdp "
   },
+
   "sideBar": {
     "logo": "LOGO",
     "dashboard": "Tableau de bord",
@@ -47,6 +54,7 @@
     "update": "Mettre à jour",
     "loading": "Chargement...",
     "role": "Rôle",
+    "delete": "delete",
     "address": " address",
     "email": "Adresse e-mail",
     "password": "Mot de passe",

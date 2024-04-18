@@ -6,7 +6,7 @@ import { getTranslations } from "next-intl/server";
 
 
 export async function generateMetadata() {
-  const t = await getTranslations("login");
+  const t = await getTranslations("auth");
 
   return {
     title: t("title"),
@@ -14,7 +14,7 @@ export async function generateMetadata() {
 }
 
 export default function Page() {
-  const t =  useTranslations("login");
+  const t = useTranslations("auth");
 
   return (
     <section className="bg-gray-50 dark:bg-gray-900 h-screen">

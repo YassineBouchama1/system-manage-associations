@@ -26,6 +26,7 @@ import { ISidebarItem } from "@/types/sideBar";
 import { useAppDispatch, useAppSelector } from "@/redux/Hook";
 import {  toggleSidebar } from "@/redux/ThemeSlice";
 import { SessionData } from "@/lib/optionsSessions";
+import Link from "next/link";
 
 
 
@@ -139,9 +140,7 @@ const Sidebar = ({ session }: { session: SessionData}) => {
 
         <div className="flex flex-col space-y-2">
           {items
-            .filter(
-              (item) => item.role === session.role || item.role === 0
-            )
+            .filter((item) => item.role === session.role || item.role === 0)
             .map((item, index) => (
               <SidebarItem key={index} item={item} />
             ))}
@@ -149,7 +148,13 @@ const Sidebar = ({ session }: { session: SessionData}) => {
 
         <div className="flex h-full   justify-end  flex-col space-y-10 w-full">
           <hr></hr>
-
+          <Link
+            className="flex items-center  p-3 rounded-lg space-x-2 gap-x-2 hover:text-sidebar-background cursor-pointer hover:bg-sidebar-active"
+            href="/dashboard/settings"
+          >
+            <Settings size={20} />{" "}
+            <p className="text-sm font-semibold">{t("settings")}</p>
+          </Link>
           <form action={logout}>
             <SubmitButton title={t("logout")} />
           </form>

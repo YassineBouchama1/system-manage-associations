@@ -15,8 +15,14 @@ export function SubmitButton({
   const { pending } = useFormStatus();
 //  const t = useTranslations("ui");
   return (
-    <button type="submit" aria-disabled={pending} className={style}>
-      {pending ? loadingForm : (title ? title : 'button')}
+    <button
+      type="submit"
+      aria-disabled={pending}
+      disabled={pending}
+      className={style}
+      style={{ opacity: pending ?'50%':'100%'}}
+    >
+      {pending ? loadingForm : title ? title : "button"}
     </button>
   );
 }

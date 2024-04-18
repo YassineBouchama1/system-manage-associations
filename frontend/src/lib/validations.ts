@@ -5,7 +5,9 @@ export const schemaLogin = z.object({
   email: z.string().email(),
   password: z.string().min(6),
 });
-
+export const schemaEmail = z.object({
+  email: z.string().email(),
+});
 
 export const schemaIllness = z.object({
   name: z.string().min(5),
@@ -17,6 +19,19 @@ export const schemaIllnessUpdate = z.object({
 });
 ;
 
+// change password
+export const schemaChangePassword = z.object({
+  password: z.string().min(6),
+  password_confirmation: z.string().min(6),
+});
+
+// reset password
+export const schemaResetPassword = z.object({
+  email: z.string().email(),
+  token: z.string(),
+  password: z.string().min(6),
+  password_confirmation: z.string().min(6),
+});
 
 export const schemaAssociation = z.object({
   name: z.string().min(2),

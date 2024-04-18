@@ -100,7 +100,7 @@ const IllnessTable: FC<IllnessTableProps> = ({data}) => {
                       />
                     </form>
                   )}
-   {item.deleted_at ? (
+   {!item.deleted_at ? (
 
      <button
      onClick={() => setIsOpen(item.id)}

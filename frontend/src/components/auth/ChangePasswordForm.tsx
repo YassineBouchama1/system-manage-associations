@@ -1,28 +1,26 @@
 "use client";
-
-import fetchClient from "@/lib/fetch-client";
-import { redirect, useRouter, useSearchParams } from "next/navigation";
-import { SubmitButton } from "../ui/SubmitButton";
+import { useState, type FC, useRef } from "react";
 import { useTranslations } from "next-intl";
-import { FormFieldAuth } from "./FormFieldAuth";
+import UploaderImg from "../ui/UploaderImg";
+import { SubmitButton } from "../ui/SubmitButton";
+import Modal from "../Modal";
+import { createIllness } from "@/actions/illnesses/create";
 import toast from "react-hot-toast";
-import { useRef } from "react";
-import { resetPassword } from "@/actions/resetPassword";
+import { FormField } from "../Forms/FormField";
+import { changePassword } from "@/actions/changePassword";
+import { FormFieldAuth } from "./FormFieldAuth";
 
-export default function PasswordResetForm() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const t = useTranslations("auth");
+interface ChangePasswordFormProps {}
+
+const ChangePasswordForm: FC<ChangePasswordFormProps> = ({}) => {
+  const t = useTranslations("ui");
 
   // ref linked with from
   const fromRef = useRef<HTMLFormElement>(null);
 
   // change password useing server action
-  async function onResetPassword(format: FormData) {
-//append token to send it  to api
-  format.set("token", searchParams.get("token") || "");
-
-    const result: any = await resetPassword(format);
+  async function onchangePassword(format: FormData) {
+    const result: any = await changePassword(format);
 
     // handle erros from api
     if (result?.error) {
@@ -37,39 +35,36 @@ export default function PasswordResetForm() {
     } else {
       toast.success("Password Chanaged Successfully ");
       fromRef.current?.reset(); // reset form
-      redirect('/login')
     }
   }
 
   return (
-    <form action={onResetPassword} className="space-y-4 md:space-y-6">
-      <FormFieldAuth
-        id="email"
-        name="email"
-        type="email"
-        title={t("password")}
-        defaultValue={searchParams.get("email") || ""}
-      />
-
+    <form
+      action={onchangePassword}
+      ref={fromRef}
+      className="flex  flex-col   gap-2  items-center  w-full"
+    >
       <FormFieldAuth
         id="password"
         name="password"
         type="password"
-        title={t("password")}
+        placeholder={"new Password"}
+        title={"new Password"}
       />
-
       <FormFieldAuth
         id="password_confirmation"
         name="password_confirmation"
         type="password"
-        title="password confirmation"
+        placeholder={"confirmation Password"}
+        title={"confirmation Password"}
       />
       <div className="w-full my-6 flex justify-center">
         <SubmitButton
-          title={t("reset_Password")}
+          title={t("update")}
           style=" w-full text-white bg-theme-color hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-500 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
         />
       </div>
     </form>
   );
-}
+};
+export default ChangePasswordForm;

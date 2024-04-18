@@ -32,9 +32,10 @@ const t = useTranslations('ui')
         association.deleted_at && "opacity-15 disabled"
       }  bg-white gap-y-1 py-3 w-[260px] h-[260px] rounded-xl flex flex-col justify-start items-center`}
     >
-      <Link 
-      className='hover:scale-105 duration-100 '
-      href={`/dashboard/associations/profile/${association.id}`}>
+      <Link
+        className="hover:scale-105 duration-100 "
+        href={`/dashboard/associations/profile/${association.id}`}
+      >
         <Image
           src={association.logo}
           alt="assostaion"
@@ -60,7 +61,7 @@ const t = useTranslations('ui')
           <SubmitButton
             style="inline-block rounded text-blue-600  py-2 text-xs font-medium hover:text-blue-700  duration-150"
             title={t("delete")}
-            loadingForm={t("deleting")}
+            loadingForm={t("deleting") + "..."}
           />
         </form>
       </div>
