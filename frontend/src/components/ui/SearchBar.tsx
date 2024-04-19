@@ -1,6 +1,7 @@
 "use client";
+import useDebounce from "@/hooks/useDebounce";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function SearchBar() {
   const router = useRouter();
@@ -12,23 +13,24 @@ export function SearchBar() {
     searchParams.get("deleted") ?? ""
   );
   const per_page: string = searchParams.get("per_page") ?? "10";
-  const query: string = searchParams.get("query") ?? "";
 
-  // function to update URL and trigger navigation without refreshing
-  const updateURL = () => {
-    router.push(
-      `${pathname}?page=${Number(
-        page
-      )}&per_page=${per_page}&query=${query}&deleted=${checkedDeleted}`
-    );
-  };
+const [query, setQuery] = useState(searchParams.get("query") ?? "");
+  
+
 
   // Function to handle checkbox change
   const onDeletedChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.checked ? "true" : "";
+    router.push(
+      `${pathname}?page=${Number(
+        page
+      )}&per_page=${per_page}&query=${query}&deleted=${newValue}`
+    );
     setCheckedDeleted(newValue);
-    updateURL();
   };
+
+  
+
 
   // Function to handle search input change
   const onSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,7 +40,9 @@ export function SearchBar() {
         page
       )}&per_page=${per_page}&query=${newQuery}&deleted=${checkedDeleted}`
     );
+    setQuery(newQuery);
   };
+
 
   return (
     <div className="flex flex-row gap-3">
