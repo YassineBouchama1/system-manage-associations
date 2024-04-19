@@ -48,7 +48,8 @@ export default async function Associations({
           totalPages={success?.total_pages!}
           currentPage={success?.current_page!}
         />
-        <SearchBar/>
+        {/* <SearchBar/> */}
+        
         <Link
           href="/dashboard/associations/create"
           className=" bg-theme-color min-w-24 text-center px-2 py-3 rounded-md text-white "
