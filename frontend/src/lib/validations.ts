@@ -11,7 +11,6 @@ export const schemaEmail = z.object({
 
 export const schemaIllness = z.object({
   name: z.string().min(5),
- 
 });
 
 export const schemaIllnessUpdate = z.object({
@@ -31,6 +30,11 @@ export const schemaResetPassword = z.object({
   token: z.string(),
   password: z.string().min(6),
   password_confirmation: z.string().min(6),
+});
+// for verify email
+export const schemaverifyEmail = z.object({
+  url: z.string(),
+  signature: z.string(),
 });
 
 export const schemaAssociation = z.object({

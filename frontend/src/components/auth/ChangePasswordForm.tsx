@@ -7,7 +7,7 @@ import Modal from "../Modal";
 import { createIllness } from "@/actions/illnesses/create";
 import toast from "react-hot-toast";
 import { FormField } from "../Forms/FormField";
-import { changePassword } from "@/actions/changePassword";
+import { changePassword } from "@/actions/auth/changePassword";
 import { FormFieldAuth } from "./FormFieldAuth";
 
 interface ChangePasswordFormProps {}
@@ -42,7 +42,7 @@ const ChangePasswordForm: FC<ChangePasswordFormProps> = ({}) => {
     <form
       action={onchangePassword}
       ref={fromRef}
-      className="flex  flex-col   gap-2  items-center  w-full"
+      className="space-y-4 md:space-y-6"
     >
       <FormFieldAuth
         id="password"

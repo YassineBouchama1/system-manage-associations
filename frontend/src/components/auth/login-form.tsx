@@ -1,6 +1,6 @@
 "use client";
-import {  login } from "@/actions/login";
-import { logout } from "@/actions/profile";
+import {  login } from "@/actions/auth/login";
+import { logout } from "@/actions/auth/profile";
 import { SubmitButton } from "@/components/ui/SubmitButton";
 import { redirect } from "next/navigation";
 import { useEffect, useTransition } from "react";
@@ -21,15 +21,20 @@ export default function LoginForm() {
     const [isPending, startTransition] = useTransition();
 
 
+
     
     //send request to api useing server action
   async function onLogin(formData: FormData) {
     const { errorZod ,error,success} :any = await login(formData);
   
+
+if (success?.includes("email")) {
+  redirect("/request-email-verification");
+}
+
     // handle erros from api
     if (error) {
    
-
       toast.error(error);
     }
 
@@ -39,6 +44,7 @@ export default function LoginForm() {
       Object.keys(errorZod).forEach((key: string) => {
         toast.error(`${key} ${errorZod[key]}`);
       });
+      
     } else {
      
       toast.success("Logined Successfully ");

@@ -12,32 +12,20 @@ export const restoreAction = async (formData: FormData) => {
   if (!id) return { error: "id required" };
 
   try {
-    const illness = await fetchServer({
-      method:"PATCH",
+    const illness :Response = await fetchServer({
+      method: "PATCH",
       url: process.env.NEXT_PUBLIC_BACKEND_API_URL + `/illnesses/${id}`,
     });
 
-    if (!illness.ok) {
-      throw illness;
-    }
-
     revalidatePath("/dashboard/illnesses");
 
-    return { success: "restored" };
+    //after successfully created return msg success
+    return { success: "restored", error: null };
   } catch (error: any) {
-    // Error caught during execution
-    if (error.status) {
-      const responseBody = await error.text();
-      const errorObject: any = JSON.parse(responseBody);
-      return {
-        error: errorObject.message,
-      };
-    } else {
-      return {
-        error: "pb in server",
-      };
-    }
+    return {
+      success: null,
+      error: error.message,
+    };
   }
 
-  revalidatePath("/dashboard");
 };

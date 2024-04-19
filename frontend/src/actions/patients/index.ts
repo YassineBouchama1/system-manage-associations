@@ -3,7 +3,7 @@ import fetchServer from "@/lib/fetch-server";
 import { ResponseAssociationData } from "@/types/association";
 import { ResponseIllnessType } from "@/types/illness";
 import { redirect } from "next/navigation";
-import { logout } from "../profile";
+import { logout } from "../auth/profile";
 import { ResponsePatienData } from "@/types/patiens";
 
 
@@ -22,37 +22,19 @@ export const fetchPatients = async (params: PatientsQueryParams) => {
   }`;
 
   try {
-    const patients: ResponsePatienData | any = await fetchServer({
+    const patients: Response = await fetchServer({
       url,
     });
 
-    if (!patients.ok) {
-      throw patients;
-    }
 
-    const patientsData: ResponsePatienData | any = await patients.json();
+    const patientsData: ResponsePatienData = await patients.json();
 
-    return {
-      success: patientsData,
-    };
+    //after successfully created return msg success
+    return { success: patientsData, error: null };
   } catch (error: any) {
-    // Error caught during execution
- if (true) {
-   logout();
-   // redirect('/login')
- }
-    if (error.status) {
-      const responseBody = await error.text();
-      const errorObject: any = JSON.parse(responseBody);
-
-   return {
-     error: errorObject.message,
-   };
-      // if there is no error comes from server
-    } else {
-      return {
-        error: "Error on server.",
-      };
-    }
+    return {
+      success: null,
+      error: error.message,
+    };
   }
 };

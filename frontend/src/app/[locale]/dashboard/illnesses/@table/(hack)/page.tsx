@@ -22,9 +22,9 @@ export default async function Home({
 
   const { success, error } = await fetchIllness(combinedParams);
 
-  if (error) {
-    throw new Error(error.toString());
-  }
+ if (!success || error) {
+   throw new Error(error.toString());
+ }
 
   return (
     <>

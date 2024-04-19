@@ -5,7 +5,7 @@ import AssociationCard from "@/components/ui/AssociationCard";
 import { SearchBar } from "@/components/ui/SearchBar";
 import TitlePage from "@/components/ui/TitlePage";
 import { delay } from "@/lib/delay";
-import { AssociationType } from "@/types/association";
+import { AssociationType, ResponseAssociationData } from "@/types/association";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 import React from "react";
@@ -27,21 +27,26 @@ export default async function Associations({
     per_page: searchParams.per_page?.toString() || DEFAULT_PER_PAGE.toString(),
   };
 
-  const { success, error } = await fetchAssociations(combinedParams);
+  const { success, error } = await fetchAssociations(
+    combinedParams
+  );
 
-  if (error) {
+  if (!success || error) {
     throw new Error(error.toString());
+  
   }
+
+
 
   const t = await getTranslations("ui");
   return (
     <>
       <div className="bg-white/60 rounded-md py-3 w-full flex flex-col md:flex-row justify-between px-2">
         <PaginationControls
-          hasNextPage={success.current_page < success.total_pages}
-          hasPrevPage={success.current_page > 1}
-          totalPages={success.total_pages}
-          currentPage={success.current_page}
+          hasNextPage={success?.current_page! < success?.total_pages!}
+          hasPrevPage={success?.current_page! > 1}
+          totalPages={success?.total_pages!}
+          currentPage={success?.current_page!}
         />
         <SearchBar/>
         <Link

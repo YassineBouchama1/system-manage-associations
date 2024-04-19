@@ -36,35 +36,49 @@ export default async function middleware(req: any) {
 //get session <data user auth>
   const session = await getSession();
 
-    if (!session?.token && (isAuthRoute || isVerifyRoute)) {
+
+// if try visit auth routes
+    if (
+      !session?.token &&
+      (isAuthRoute || isVerifyRoute)
+    ) {
       const redirectUrl = new URL("/login", req.nextUrl.origin);
       return NextResponse.redirect(redirectUrl);
     }
+
   if (session?.token) {
- 
+    // protect if user dosnt verified
+    // if (!session?.email_verified_at && isAuthRoute) {
+    //   const redirectUrl = new URL(
+    //     "/request-email-verification",
+    //     req.nextUrl.origin
+    //   );
+    //   return NextResponse.redirect(redirectUrl);
+    // }
 
-if (session.role === 2 &&  isSuperAdminRoute) {
+    // if try visit auth routes for super admin
+    if (session.role === 2 && isSuperAdminRoute) {
       return NextResponse.redirect(new URL("/dashboard", req.nextUrl.origin));
-}
+    }
 
+    // if try visit auth routes for association admin
+    if (session.role === 1 && isAssociationRoute) {
+      return NextResponse.redirect(new URL("/dashboard", req.nextUrl.origin));
+    }
 
-if (session.role === 1 && isAssociationRoute) {
-  return NextResponse.redirect(new URL("/dashboard", req.nextUrl.origin));
-}
-
-  if (isGuestRoute || isVerifyRoute) {
-    return NextResponse.redirect(new URL("/dashboard", req.nextUrl.origin));
-  }
+    if (isGuestRoute || isVerifyRoute) {
+      return NextResponse.redirect(new URL("/dashboard", req.nextUrl.origin));
+    }
   }
   return NextIntlMiddleware(req);
 
 }
 
-const authRoutes = ["/dashboard"];
+const authRoutes = ["/dashboard", "/(ar|fr)/dashboard"];
 const authRoutesSuperAdmin = [
-  "/(ar|fr)dashboard/illnesses",
-  "/(ar|fr)dashboard/illnesses/*",
-  "/(ar|fr)dashboard/associations/*",
+  "/(ar|fr)/dashboard/illnesses",
+  "/(ar|fr)/dashboard/illnesses/*",
+  "/(ar|fr)/dashboard/associations/*",
 ];
 const authRoutesAssociation = ["/(ar|fr)dashboard/patients"];
 const verifyRoutes = [

@@ -28,34 +28,22 @@ export const updateIllness = async (formData: FormData) => {
 
   // sending data to api
   try {
-    const illness = await fetchServer({
+    const illness :Response = await fetchServer({
       method: "PUT",
       url: process.env.NEXT_PUBLIC_BACKEND_API_URL + `/illnesses/${id}`,
       body: JSON.stringify(validatedFields.data),
     });
 
-    if (!illness.ok) {
-      throw illness;
-    }
-
     //refrech route
     revalidatePath("/dashboard/illnesses");
 
     //after successfully created return msg success
-    return { success: "Created" };
+    return { success: 'Updated', error: null };
   } catch (error: any) {
-    // Error caught during execution
-    if (error.status) {
-      const responseBody = await error.text();
-      const errorObject: any = JSON.parse(responseBody);
-      return {
-        error: errorObject.message,
-      };
-    } else {
-      return {
-        error: "pb in server",
-      };
-    }
+    return {
+      success: null,
+      error: error.message,
+    };
   }
   // revalidatePath('/dashboard')
 };

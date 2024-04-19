@@ -21,34 +21,21 @@ export const patientsCharts = async (params: ChartsParams) => {
   } 
 
   try {
-    const charts: any = await fetchServer({
+    const charts: Response = await fetchServer({
       url,
     });
 
-    if (!charts.ok) {
-      throw charts;
-    }
+
 
     const chartsData: any = await charts.json();
-console.log(chartsData);
     return {
       success: chartsData,
+      error: null,
     };
   } catch (error: any) {
-    // Error caught during execution
-
-    if (error.status) {
-      const responseBody = await error.text();
-      const errorObject: any = JSON.parse(responseBody);
-console.log(errorObject.message);
-      return {
-        error: errorObject.message,
-      };
-      // if there is no error comes from server
-    } else {
-      return {
-        error: "Error on server.",
-      };
-    }
+   return {
+     success: null,
+     error: error.message,
+   };
   }
 };

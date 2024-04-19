@@ -10,17 +10,16 @@ export default async function Page({
 
 
   //fetch list of illnesses
-  const { success: illnesses, error } = await fetchIllnessForSelectors(
+  const { success, error } = await fetchIllnessForSelectors(
   );
 
-  if (error) {
-    throw new Error(error.toString());
-  }
-
+ if (!success || error) {
+   throw new Error(error.toString());
+ }
 
         return (
           <div className="mt-4">
-            <AssociationsForm illnesses={illnesses.data} />
+            <AssociationsForm illnesses={success.data} />
           </div>
         );
 }

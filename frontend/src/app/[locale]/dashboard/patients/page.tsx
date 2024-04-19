@@ -33,9 +33,10 @@ export default async function Associations({
   
   const { success, error } = await fetchPatients(combinedParams);
 
-  if (error) {
-    throw new Error(error.toString());
-  }
+ if (!success || error) {
+   throw new Error(error.toString());
+ }
+
 
   const t = await getTranslations("ui");
 

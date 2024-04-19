@@ -1,7 +1,7 @@
 "use server";
 import fetchServer from "@/lib/fetch-server";
 import { ResponseIllnessType } from "@/types/illness";
-import { logout } from "../profile";
+import { logout } from "../auth/profile";
 import { getSession } from "@/lib/getSessions";
 
 const DEFAULT_PAGE = 1;
@@ -18,35 +18,18 @@ export const fetchIllness = async (params: any) => {
     params.per_page || DEFAULT_PER_PAGE
   }`;
 
-
-
   try {
-    const illnesses: ResponseIllnessType | any = await fetchServer({
+    const illnesses: Response = await fetchServer({
       url,
     });
 
-    if (!illnesses.ok) {
-      throw illnesses;
-    }
-
-    const illnessesData = await illnesses.json();
-
-    return {
-      success: illnessesData,
-    };
+    const illnessesData: ResponseIllnessType = await illnesses.json();
+    //after successfully created return msg success
+    return { success: illnessesData, error: null };
   } catch (error: any) {
-    // Error caught during execution
-
-    if (error.status) {
-      const responseBody = await error.text();
-      const errorObject: any = JSON.parse(responseBody);
-
-      return {
-        error: errorObject.message,
-      };
-      // if there is no error comes from server
-    } 
-      return {error: "Error on server.",};
-    
+    return {
+      success: null,
+      error: error.message,
+    };
   }
 };

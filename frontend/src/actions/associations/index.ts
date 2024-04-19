@@ -2,6 +2,7 @@
 import fetchServer from "@/lib/fetch-server";
 import { ResponseAssociationData } from "@/types/association";
 import { ResponseIllnessType } from "@/types/illness";
+import { error } from "console";
 
 
 const DEFAULT_PAGE = 1;
@@ -29,34 +30,20 @@ if (params.deleted) {
 
 
   try {
-    const associations: ResponseIllnessType | any = await fetchServer({
+    const associations:  Response = await fetchServer({
       url,
     });
 
-    if (!associations.ok) {
-      throw associations;
-    }
-
-    const associationsData : ResponseAssociationData | any = await associations.json();
+    const associationsData : ResponseAssociationData  = await associations.json();
 
     return {
       success: associationsData,
+      error:null
     };
   } catch (error: any) {
-    // Error caught during execution
-
-    if (error.status) {
-      const responseBody = await error.text();
-      const errorObject: any = JSON.parse(responseBody);
-
-      return {
-        error: errorObject.message,
-      };
-      // if there is no error comes from server
-    } else {
-      return {
-        error: "Error on server.",
-      };
-    }
+          return {
+            success:null,
+            error: error.message,
+          };
   }
 };

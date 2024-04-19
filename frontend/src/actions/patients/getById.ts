@@ -1,6 +1,7 @@
 "use server";
 import fetchServer from "@/lib/fetch-server";
 import { AssociationType, ResponseAssociationData } from "@/types/association";
+import { PatienType } from "@/types/patiens";
 
 interface AssociationsQueryParams {
   id: number | string;
@@ -12,34 +13,19 @@ export const fetchPatientById = async (id: string | number) => {
   let url = `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/patients/${id}`;
 
   try {
-    const patients: AssociationType | any = await fetchServer({
+    const patients: Response = await fetchServer({
       url,
     });
 
-    if (!patients.ok) {
-      throw patients;
-    }
 
-    const patientsData: AssociationType | any = await patients.json();
+    const patientsData: PatienType = await patients.json();
 
-    return {
-      success: patientsData,
-    };
+    //after successfully created return msg success
+    return { success: patientsData, error: null };
   } catch (error: any) {
-    // Error caught during execution
-
-    if (error.status) {
-      const responseBody = await error.text();
-      const errorObject: any = JSON.parse(responseBody);
-
-      return {
-        error: errorObject.message,
-      };
-      // if there is no error comes from server
-    } else {
-      return {
-        error: "Error on server.",
-      };
-    }
+    return {
+      success: null,
+      error: error.message,
+    };
   }
 };

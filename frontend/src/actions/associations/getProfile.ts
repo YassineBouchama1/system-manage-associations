@@ -13,34 +13,21 @@ export const fetchAssociationById = async (id: string | number) => {
 
 
   try {
-    const association: AssociationType | any = await fetchServer({
+    const association: Response  = await fetchServer({
       url,
     });
 
-    if (!association.ok) {
-      throw association;
-    }
 
-    const associationData: AssociationType | any = await association.json();
+    const associationData: AssociationType  = await association.json();
 
     return {
       success: associationData,
+      error: null,
     };
   } catch (error: any) {
-    // Error caught during execution
-
-    if (error.status) {
-      const responseBody = await error.text();
-      const errorObject: any = JSON.parse(responseBody);
-
-      return {
-        error: errorObject.message,
-      };
-      // if there is no error comes from server
-    } else {
-      return {
-        error: "Error on server.",
-      };
-    }
+          return {
+            success:null,
+            error: error.message,
+          };
   }
 };

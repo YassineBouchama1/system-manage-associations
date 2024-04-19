@@ -12,31 +12,20 @@ await delay(1000)
   if(!id)return {error:'id required'}
 
   try {
-    const association = await fetchServer({
+    const association: Response = await fetchServer({
       method: "DELETE",
       url: process.env.NEXT_PUBLIC_BACKEND_API_URL + `/associations/${id}`,
     });
 
-    if (!association.ok) {
-      throw association;
-    }
-
     revalidatePath("/dashboard/associations");
 
-    return { success: "deleted" };
+    //after successfully created return msg success
+    return { success: "Created", error: null };
   } catch (error: any) {
-    // Error caught during execution
-    if (error.status) {
-      const responseBody = await error.text();
-      const errorObject: any = JSON.parse(responseBody);
-      return {
-        error: errorObject.message,
-      };
-    } else {
-      return {
-        error: "pb in server",
-      };
-    }
+    return {
+      success: null,
+      error: error.message,
+    };
   }
 
 };

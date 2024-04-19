@@ -48,36 +48,23 @@ export const updatePatient = async (formData: FormData, id: string) => {
   formData.append("_method", "PUT");
   // sending data to api
   try {
-    const association = await fetchServerFormData({
+    const association: Response = await fetchServerFormData({
       method: "POST",
       url: process.env.NEXT_PUBLIC_BACKEND_API_URL + `/patients/${id}`,
       body: formData,
     });
 
-    if (!association.ok) {
-      throw association;
-    }
 
-    const response = await association.json();
- 
     //refrech route
     revalidatePath("/dashboard/patients");
 
-    //after successfully created return msg success
-    return { success: "Updated" };
+    //after successfully Updated return msg success
+    return { success: "Updated", error: null };
   } catch (error: any) {
-    // Error caught during execution
-    if (error.status) {
-      const responseBody = await error.text();
-      const errorObject: any = JSON.parse(responseBody);
-
-      console.log(errorObject);
-      return {
-        error: errorObject.message,
-      };
-    } else {
-      return { error: "pb in server" };
-    }
+    return {
+      success: null,
+      error: error.message,
+    };
   }
 };
 

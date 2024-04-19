@@ -20,18 +20,19 @@ export default async function Associations({
   );
 
   //fetch list of illnesses
-  const { success: illnessesData, error: errorIllnesses } =
-    await fetchIllnessForSelectors();
+  // const { success: illnessesData, error: errorIllnesses } =
+  //   await fetchIllnessForSelectors();
 
 
+    // handle errors  if fetching Failed
+ if (!patientData || errorpatient) {
+   throw new Error(errorpatient.toString());
+ }
 
-  // handle errors  if fetching Failed
-  if (errorpatient) {
-    throw new Error(errorpatient.toString());
-  }
-  if (errorIllnesses) {
-    throw new Error(errorIllnesses.toString());
-  }
+
+  // if (errorIllnesses) {
+  //   throw new Error(errorIllnesses.toString());
+  // }
   return (
     <div className="mt-4">
       <PatientsFormUpdate

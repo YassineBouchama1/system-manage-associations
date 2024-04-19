@@ -7,7 +7,8 @@ import { useTranslations } from "next-intl";
 import { FormFieldAuth } from "./FormFieldAuth";
 import toast from "react-hot-toast";
 import { useRef } from "react";
-import { resetPassword } from "@/actions/resetPassword";
+import { resetPassword } from "@/actions/auth/resetPassword";
+import Link from "next/link";
 
 export default function PasswordResetForm() {
   const router = useRouter();
@@ -22,17 +23,17 @@ export default function PasswordResetForm() {
 //append token to send it  to api
   format.set("token", searchParams.get("token") || "");
 
-    const result: any = await resetPassword(format);
+    const response: any = await resetPassword(format);
 
     // handle erros from api
-    if (result?.error) {
-      toast.error(result?.error);
+    if (response?.error) {
+      toast.error(response?.error);
     }
 
     //handle zod errors
-    else if (result?.errorZod) {
-      Object.keys(result.errorZod).forEach((key: string) => {
-        toast.error(`${key} ${result.errorZod[key]}`);
+    else if (response?.errorZod) {
+      Object.keys(response.errorZod).forEach((key: string) => {
+        toast.error(`${key} ${response.errorZod[key]}`);
       });
     } else {
       toast.success("Password Chanaged Successfully ");
@@ -70,6 +71,15 @@ export default function PasswordResetForm() {
           style=" w-full text-white bg-theme-color hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-500 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
         />
       </div>
+      <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+        {t("remamberedPassword")}{" "}
+        <Link
+          href="/login"
+          className="font-medium text-green-500 hover:underline dark:text-primary-500"
+        >
+          {t("SignIn")}
+        </Link>
+      </p>
     </form>
   );
 }

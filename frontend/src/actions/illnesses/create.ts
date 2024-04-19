@@ -7,7 +7,7 @@ export const createIllness = async (formData: FormData) => {
   const name = formData.get("name");
 
   // if(!id)return {error:'id required'}
-console.log(name);
+
 
   //2-validation useing zod
   const validatedFields = schemaIllness.safeParse({
@@ -23,34 +23,22 @@ console.log(name);
 
   // sending data to api
   try {
-    const illness = await fetchServer({
+    const illness :Response= await fetchServer({
       method: "POST",
       url: process.env.NEXT_PUBLIC_BACKEND_API_URL + `/illnesses`,
       body: JSON.stringify(validatedFields.data),
     });
-
-    if (!illness.ok) {
-      throw illness;
-    }
 
 
     //refrech route
     revalidatePath("/dashboard/illnesses");
 
     //after successfully created return msg success
-    return { success: "Created" };
+    return { success: "Created", error: null };
   } catch (error: any) {
-    // Error caught during execution
-    if (error.status) {
-      const responseBody = await error.text();
-      const errorObject: any = JSON.parse(responseBody);
       return {
-        error: errorObject.message,
+        success: null,
+        error: error.message,
       };
-    } else {
-      return {
-        error: "pb in server",
-      };
-    }
   }
 };

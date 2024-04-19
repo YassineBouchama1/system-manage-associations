@@ -6,8 +6,6 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export const createAssociation = async (formData: FormData) => {
-
-
   const name = formData.get("name");
   const address = formData.get("address");
   const email = formData.get("email");
@@ -20,23 +18,20 @@ export const createAssociation = async (formData: FormData) => {
   formData.append("nameAdmin", `admin ${formData.get("name")}`);
   formData.append("role_id", "2");
 
-if (!logo || typeof logo !== "object" || !(logo instanceof File))
-  return { error: "logo required" };
-
-
+  if (!logo || typeof logo !== "object" || !(logo instanceof File))
+    return { error: "logo required" };
 
   //2-validation useing zod
-const validatedFields = schemaAssociation.safeParse({
-  name,
-  email,
-  password,
-  phone,
-  city,
-  illness,
-  address,
-  logo,
-});
-
+  const validatedFields = schemaAssociation.safeParse({
+    name,
+    email,
+    password,
+    phone,
+    city,
+    illness,
+    address,
+    logo,
+  });
 
   //check validation
   if (!validatedFields.success) {
@@ -47,34 +42,21 @@ const validatedFields = schemaAssociation.safeParse({
 
   // sending data to api
   try {
-    const association = await fetchServerFormData({
+    const association: Response = await fetchServerFormData({
       method: "POST",
       url: process.env.NEXT_PUBLIC_BACKEND_API_URL + `/associations`,
       body: formData,
     });
 
-    if (!association.ok) {
-      throw association;
-    }
-
-
     //refrech route
     revalidatePath("/dashboard/associations");
 
-
     //after successfully created return msg success
-    return { success: "Created" };
+    return { success: "Created", error: null };
   } catch (error: any) {
-    // Error caught during execution
-    if (error.status) {
-      const responseBody = await error.text();
-      const errorObject: any = JSON.parse(responseBody);
-
-      console.log(errorObject);
-      return {
-        error: errorObject.message,
-      };
-    } else {return { error: "pb in server",};
-    }
+    return {
+      success: null,
+      error: error.message,
+    };
   }
 };

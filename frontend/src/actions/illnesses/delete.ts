@@ -12,32 +12,21 @@ export const deleteAction= async (formData: FormData) => {
   if(!id)return {error:'id required'}
 
   try {
-    const illness = await fetchServer({
+    const illness :Response = await fetchServer({
       method: "DELETE",
       url: process.env.NEXT_PUBLIC_BACKEND_API_URL + `/illnesses/${id}`,
     });
 
-    if (!illness.ok) {
-      throw illness;
-    }
-
     revalidatePath("/dashboard/illnesses");
 
-    return { success: "deleted" };
+    //after successfully created return msg success
+    return { success: "Deleted", error: null };
   } catch (error: any) {
-    // Error caught during execution
-    if (error.status) {
-      const responseBody = await error.text();
-      const errorObject: any = JSON.parse(responseBody);
-      return {
-        error: errorObject.message,
-      };
-    } 
-      return {
-        error: "pb in server",
-      };
-    
+    return {
+      success: null,
+      error: error.message,
+    };
   }
 
-  revalidatePath('/dashboard')
+
 };

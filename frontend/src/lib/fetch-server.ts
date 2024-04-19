@@ -2,7 +2,7 @@
 import "server-only";
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/getSessions";
-import { logout } from "@/actions/profile";
+import { logout } from "@/actions/auth/profile";
 interface fetchServerProps {
   method?: string;
   url: string;
@@ -39,28 +39,14 @@ async function fetchServer({ method = "GET", url, body = ""  }: fetchServerProps
     }
 
     return response;
-  } catch (error) {
-    //get instant from Response to error
-    if (error instanceof Response) {
-      //if  unauth logout user
-    //   console.log('from fetch main')
-    //  if (error.status === 401) {
-    //    return redirect("/login");
-    //  }
+  } catch (error:any) {
+  const responseBody = await error.text();
+  const errorObject: any = JSON.parse(responseBody);
+  console.log(typeof error);
+  console.log(errorObject);
+     throw new Error(errorObject?.message || error.message);
+     
 
-    //  if (error.status === 409) {
-    //    return redirect("/request-email-verification");
-    //  }
-
-      //if  not email verefied
-
-      if (error.status === 409) {
-        return redirect("/request-email-verification");
-      }
-      return error;
-    }
-
-    throw new Error("Failed to fetch data from the server", { cause: error });
   }
 }
 

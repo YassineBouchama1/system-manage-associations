@@ -36,33 +36,21 @@ export const createPatient = async (formData: FormData) => {
 
   // sending data to api
   try {
-    const patient = await fetchServerFormData({
+    const patient :Response= await fetchServerFormData({
       method: "POST",
       url: process.env.NEXT_PUBLIC_BACKEND_API_URL + `/patients`,
       body: formData,
     });
 
-    if (!patient.ok) {
-      throw patient;
-    }
-
     //refrech route
     revalidatePath("/dashboard/patients");
 
     //after successfully created return msg success
-    return { success: "Created" };
+    return { success: "created", error: null };
   } catch (error: any) {
-    // Error caught during execution
-    if (error.status) {
-      const responseBody = await error.text();
-      const errorObject: any = JSON.parse(responseBody);
-
-      console.log(errorObject);
-      return {
-        error: errorObject.message,
-      };
-    } else {
-      return { error: "pb in server" };
-    }
+    return {
+      success: null,
+      error: error.message,
+    };
   }
 };

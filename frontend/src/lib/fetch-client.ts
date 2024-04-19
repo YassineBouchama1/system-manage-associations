@@ -1,4 +1,4 @@
-import { logout } from "@/actions/profile";
+import { logout } from "@/actions/auth/profile";
 
 interface fetchClientProps {
   method?: string;

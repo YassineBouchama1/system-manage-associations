@@ -16,7 +16,7 @@ import SidebarItem from "./item";
 import { useEffect, useMemo, useState } from "react";
 import { getSession } from "@/lib/getSessions";
 import { useAuthContext } from "@/hooks/useAuthProvider";
-import { logout } from "@/actions/profile";
+import { logout } from "@/actions/auth/profile";
 import { SubmitButton } from "../ui/SubmitButton";
 import { useLocale, useTranslations } from "next-intl";
 

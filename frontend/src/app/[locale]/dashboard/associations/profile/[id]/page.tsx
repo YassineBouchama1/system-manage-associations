@@ -35,10 +35,12 @@ export default async function Associations({
   console.log('chart profile',chartData);
 
   // handle errors  if fetching Failed
-  if (errorAssociation) {
+  if (!associationData || errorAssociation) {
     throw new Error(errorAssociation.toString());
   }
 
+
+  
   return (
     <main className="h-full w-full ">
       <CardStatus itemCards={success} />
@@ -48,7 +50,8 @@ export default async function Associations({
         <AssociationProfile association={associationData} />
         </SectionWrapper>
       <SectionWrapper styles="md:px-6">
-        <BarChartAssociation chartData={chartData} />
+        <h2>charts</h2>
+        {/* <BarChartAssociation chartData={chartData} /> */}
       </SectionWrapper>
       </div>
     </main>

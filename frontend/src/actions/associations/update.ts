@@ -2,14 +2,13 @@
 import fetchServer from "@/lib/fetch-server";
 import fetchServerFormData from "@/lib/fetch-server-formData";
 import { schemaAssociation, schemaAssociationUpdate } from "@/lib/validations";
+import { revalidatePath } from "next/cache";
 import { string } from "zod";
-
-
 
 export const updateAssociation = async (
   formData: FormData,
   id: string,
-  oldData:any
+  oldData: any
 ) => {
   if (!id) {
     return {
@@ -17,23 +16,16 @@ export const updateAssociation = async (
     };
   }
 
-
-
-
-  
   const name = formData.get("name");
   const address = formData.get("address");
   const city = formData.get("city");
   const illness = formData.get("illness_id");
 
-const logo : any = formData.get("logo");
-console.log(logo?.name === "undefined");
+  const logo: any = formData.get("logo");
+  console.log(logo?.name === "undefined");
 
-// if user dosnt pass a new logo remove it from formdata
-if (logo?.name === "undefined") formData.delete("logo");
-
-
-
+  // if user dosnt pass a new logo remove it from formdata
+  if (logo?.name === "undefined") formData.delete("logo");
 
   //2-validation useing zod
   const validatedFields = schemaAssociationUpdate.safeParse({
@@ -50,9 +42,6 @@ if (logo?.name === "undefined") formData.delete("logo");
     };
   }
 
-
-
-
   // passing method put  becouse laravel dosnt accept it with normal way
   formData.append("_method", "PUT");
   // sending data to api
@@ -63,46 +52,20 @@ if (logo?.name === "undefined") formData.delete("logo");
       body: formData,
     });
 
-    if (!association.ok) {
-      throw association;
-    }
-
     const response = await association.json();
-    console.log(response);
+
     //refrech route
-    // revalidatePath("/dashboard/associations");
+    revalidatePath("/dashboard/associations");
 
     //after successfully created return msg success
-    return { success: "Updated" };
+    return {
+      success: "Updated",
+      error: null,
+    };
   } catch (error: any) {
-    // Error caught during execution
-    if (error.status) {
-      const responseBody = await error.text();
-      const errorObject: any = JSON.parse(responseBody);
-
-      console.log(errorObject);
-      return {
-        error: errorObject.message,
-      };
-    } else {
-      return { error: "pb in server" };
-    }
+    return {
+      success: null,
+      error: error.message,
+    };
   }
 };
-
-
-
-  // function removeUnchangedData(formData: any, oldData: any) {
-  //   const updatedFormData = new FormData();
-
-  //   for (const [key, value] of formData.entries()) {
-  //     // Check if the key exists in old data and values are strictly equal
-  //     if (!(key in oldData) || value !== oldData[key]) {
-  //       updatedFormData.append(key, value);
-  //     }
-  //   }
-  // updatedFormData.append("_method", "PUT");
-  //   return updatedFormData;
-  // }
-
-  // const updatedFormData = removeUnchangedData(formData, oldData);

@@ -12,31 +12,19 @@ await delay(1000)
   if(!id)return {error:'id required'}
 
   try {
-    const patient = await fetchServer({
+    const patient :Response = await fetchServer({
       method: "DELETE",
       url: process.env.NEXT_PUBLIC_BACKEND_API_URL + `/patients/${id}`,
     });
 
-    if (!patient.ok) {
-      throw patient;
-    }
-
     revalidatePath("/dashboard/patients");
-
-    return { success: "deleted" };
+    //after successfully Deleted return msg success
+    return { success: "Deleted", error: null };
   } catch (error: any) {
-    // Error caught during execution
-    if (error.status) {
-      const responseBody = await error.text();
-      const errorObject: any = JSON.parse(responseBody);
-      return {
-        error: errorObject.message,
-      };
-    } else {
-      return {
-        error: "pb in server",
-      };
-    }
+    return {
+      success: null,
+      error: error.message,
+    };
   }
 
 };

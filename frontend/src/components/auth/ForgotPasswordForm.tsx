@@ -1,6 +1,6 @@
 "use client";
-import { login } from "@/actions/login";
-import { logout } from "@/actions/profile";
+import { login } from "@/actions/auth/login";
+import { logout } from "@/actions/auth/profile";
 import { SubmitButton } from "@/components/ui/SubmitButton";
 import { redirect } from "next/navigation";
 import { useEffect, useTransition } from "react";
@@ -8,7 +8,7 @@ import Link from "next/link";
 import { useFormState } from "react-dom";
 import { useTranslations } from "next-intl";
 import toast from "react-hot-toast";
-import { forgotPassword } from "@/actions/forgotPassword";
+import { forgotPassword } from "@/actions/auth/forgotPassword";
 import { FormFieldAuth } from "./FormFieldAuth";
 
 const initialState: any = {

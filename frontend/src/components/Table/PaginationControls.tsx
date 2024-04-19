@@ -2,7 +2,7 @@
 
 import { FC } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { navigate } from "@/actions/navigate";
+import { navigate } from "@/actions/auth/navigate";
 
 interface PaginationControlsProps {
   hasNextPage: boolean;

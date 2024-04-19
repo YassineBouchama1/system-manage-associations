@@ -1,5 +1,6 @@
 'use client'
  
+import { cn } from '@/lib/utils';
 import { useTranslations } from 'next-intl';
 import { useFormStatus } from 'react-dom'
  
@@ -19,8 +20,8 @@ export function SubmitButton({
       type="submit"
       aria-disabled={pending}
       disabled={pending}
-      className={style}
-      style={{ opacity: pending ?'50%':'100%'}}
+      className={cn(style,'hover:opacity-90 duration-200 scale-105')}
+      style={{ opacity: pending ? "50%" : "100%" }}
     >
       {pending ? loadingForm : title ? title : "button"}
     </button>
