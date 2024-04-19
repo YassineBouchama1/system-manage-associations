@@ -58,6 +58,34 @@ const AssociationsFormUpdate: FC<AssociationsFormUpdateProps> = ({
     }
   }
 
+const status = [
+  { id: "active", name: "active" },
+  { id: "inactive", name: "inactive" },
+  { id: "suspended", name: "suspended" },
+  { id: "deleted", name: "deleted" }
+];
+
+
+
+const colorStatus = (status:string) => {
+
+  switch (status) {
+    case "active":
+      return "bg-green-500";
+    case "inactive":
+      return "bg-red-500";
+
+    case "suspended":
+      return "bg-blue-500";
+
+    case "deleted":
+      return "bg-black";
+    default:
+      break;
+  }
+};
+
+
   return (
     <SectionWrapper styles="md:px-20">
       <form
@@ -65,13 +93,18 @@ const AssociationsFormUpdate: FC<AssociationsFormUpdateProps> = ({
         className="w-auto flex-col items-start"
         encType="multipart/form-data"
       >
+        <div className="flex justify-end">
+          <p
+            className={`${colorStatus(association.status)} text-white px-4 py-2 rounded-lg`}
+          >
+            {association && association.status}
+          </p>
+        </div>
         <FormHeader title={t("admin_Account")} />
 
         {/* start form  */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-6">
           {/*  form item  */}
-
-
 
           {/*  form item  */}
 
@@ -86,14 +119,17 @@ const AssociationsFormUpdate: FC<AssociationsFormUpdateProps> = ({
           />
           {/*  form item  */}
 
-
           {/*  form item  */}
         </div>
 
         <FormHeader title={t("association_Informations")} />
         <div>
           {/* img upload  */}
-          <UploaderImg name="logo" text={t("upload_ThPhoto")} defaultImg={association.logo}/>
+          <UploaderImg
+            name="logo"
+            text={t("upload_ThPhoto")}
+            defaultImg={association.logo}
+          />
 
           {/* img upload  */}
           {/* forms PERSONAL INFORMATION  */}
@@ -107,7 +143,7 @@ const AssociationsFormUpdate: FC<AssociationsFormUpdateProps> = ({
               title={t("name")}
               defaultValue={association.name}
             />
-    
+
             <FormField
               id="address"
               name="address"
@@ -128,6 +164,12 @@ const AssociationsFormUpdate: FC<AssociationsFormUpdateProps> = ({
               options={illnesses}
               name="illness_id"
               defaultValue={association.illness_id}
+            />
+            <FormFieldSelect
+              title={t("status")}
+              options={status}
+              name="status"
+              defaultValue={association.city}
             />
           </div>
           {/* forms PERSONAL INFORMATION  */}
