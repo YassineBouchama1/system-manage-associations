@@ -95,7 +95,9 @@ const colorStatus = (status:string) => {
       >
         <div className="flex justify-end">
           <p
-            className={`${colorStatus(association.status)} text-white px-4 py-2 rounded-lg`}
+            className={`${colorStatus(
+              association.status
+            )} text-white px-4 py-2 rounded-lg`}
           >
             {association && association.status}
           </p>
@@ -169,7 +171,7 @@ const colorStatus = (status:string) => {
               title={t("status")}
               options={status}
               name="status"
-              defaultValue={association.city}
+              defaultValue={association.status}
             />
           </div>
           {/* forms PERSONAL INFORMATION  */}

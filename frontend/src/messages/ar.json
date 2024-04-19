@@ -53,6 +53,7 @@
     "update": "تحديث",
     "loaidng": "loading...",
     "role": "وظيفة",
+    "restore": "استرجع",
     "email": "البريد الإلكتروني",
     "password": "كلمة السر",
     "admin_Account": "حساب المشرف",
@@ -82,6 +83,7 @@
     "number_of_Association": "عدد الجمعيات",
     "number_of_Illnesses": "عدد الأمراض ",
     "edit": "تعديل",
-    "delete": "الحذف"
+    "delete": "الحذف",
+    "status": "حالة"
   }
 }

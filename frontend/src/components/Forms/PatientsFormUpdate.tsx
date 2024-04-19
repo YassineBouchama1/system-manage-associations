@@ -50,6 +50,30 @@ const PatientsFormUpdate: FC<PatientFormsProps> = ({patient}) => {
     }
   }
 
+const status = [
+  { id: "active", name: "active" },
+  { id: "inactive", name: "inactive" },
+  { id: "dead", name: "dead" },
+  { id: "deleted", name: "deleted" },
+];
+
+const colorStatus = (status: string) => {
+  switch (status) {
+    case "active":
+      return "bg-green-500";
+    case "inactive":
+      return "bg-red-500";
+
+    case "dead":
+      return "bg-blue-500";
+
+    case "deleted":
+      return "bg-black";
+    default:
+      break;
+  }
+};
+
   return (
     <SectionWrapper styles="md:px-20">
       <form
@@ -57,6 +81,15 @@ const PatientsFormUpdate: FC<PatientFormsProps> = ({patient}) => {
         className="w-auto flex-col items-start"
         encType="multipart/form-data"
       >
+        <div className="flex justify-end">
+          <p
+            className={`${colorStatus(
+              patient.status
+            )} text-white px-4 py-2 rounded-lg`}
+          >
+            {patient && patient.status}
+          </p>
+        </div>
         <FormHeader title={t("patient_Informations")} />
         <div>
           {/* img upload  */}
@@ -111,13 +144,18 @@ const PatientsFormUpdate: FC<PatientFormsProps> = ({patient}) => {
               title={t("date_of_birth")}
               defaultValue={patient.date_of_birth}
             />
- 
 
             <FormFieldSelect
               title={t("city")}
               options={cities}
               name="city"
               defaultValue={patient.city}
+            />
+            <FormFieldSelect
+              title={t("status")}
+              options={status}
+              name="status"
+              defaultValue={patient.status}
             />
           </div>
           {/* forms PERSONAL INFORMATION  */}

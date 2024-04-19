@@ -19,9 +19,10 @@ export default async function Associations({
 }) {
   const combinedParams = {
     ...params,
-    timeFrame: params.timeframe?.toString() || params.toString(),
+    timeFrame: params.timeframe?.toString() || timeFrame.toString(),
   };
 
+  //bring statistic data
   const { success, error } = await fetchStatistics(params.id);
 
   //fetch association by id
@@ -32,13 +33,11 @@ export default async function Associations({
     combinedParams
   );
 
-  console.log('chart profile',chartData);
 
   // handle errors  if fetching Failed
   if (!associationData || errorAssociation) {
     throw new Error(errorAssociation.toString());
   }
-
 
   
   return (
@@ -51,7 +50,7 @@ export default async function Associations({
         </SectionWrapper>
       <SectionWrapper styles="md:px-6">
         <h2>charts</h2>
-        {/* <BarChartAssociation chartData={chartData} /> */}
+        <BarChartAssociation chartData={chartData} />
       </SectionWrapper>
       </div>
     </main>

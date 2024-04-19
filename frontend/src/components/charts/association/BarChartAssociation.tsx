@@ -7,13 +7,11 @@ import { useTranslations } from "next-intl";
 export default function BarChartAssociation({ chartData }:{chartData:any}) {
   const chartRef: any = useRef<Chart | null>(null);
 
-// 
-const t = useTranslations('ui')
-
+        console.log(chartData);
+  const t = useTranslations("ui");
 
   useEffect(() => {
     if (chartRef.current) {
-      console.log(chartData);
       if (chartRef.current.chart) {
         //  chartRef.current.data = chartData.data;
         //  chartRef.current.update();
@@ -22,9 +20,8 @@ const t = useTranslations('ui')
 
       const context = chartRef.current.getContext("2d");
 
-   const label = chartData.labels;
-   const data = chartData.data;
-
+      const label = chartData.labels;
+      const data = chartData.data;
 
       const newChart = new Chart(context, {
         type: "bar",
@@ -71,19 +68,18 @@ const t = useTranslations('ui')
 
   const pathname = usePathname();
   const router = useRouter();
-  const searchParams = useSearchParams()
+  const searchParams = useSearchParams();
 
-interface TimeframeOption {
-  value: string;
-  label: string; 
-}
-const timeframeOptions: TimeframeOption[] = [
-  { value: "last30days", label: t("chart_30_days") },
-  { value: "last90days", label: t("chart_90_days") },
-  { value: "lastWeek", label: t("chart_7_days") },
-  { value: "allTime", label: t("chart_All_time") },
-];
-
+  interface TimeframeOption {
+    value: string;
+    label: string;
+  }
+  const timeframeOptions: TimeframeOption[] = [
+    { value: "last30days", label: t("chart_30_days") },
+    { value: "last90days", label: t("chart_90_days") },
+    { value: "lastWeek", label: t("chart_7_days") },
+    { value: "allTime", label: t("chart_All_time") },
+  ];
 
   const handleSelectNewDate = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedTimeframe = event.target.value as string; // Type casting for safety

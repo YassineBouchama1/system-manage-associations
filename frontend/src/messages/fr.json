@@ -54,6 +54,7 @@
     "update": "Mettre à jour",
     "loading": "Chargement...",
     "role": "Rôle",
+    "restore": "restore",
     "delete": "delete",
     "address": " address",
     "email": "Adresse e-mail",
@@ -82,6 +83,7 @@
     "number_of_Patients": "nombre de patients",
     "number_of_Association": "nombre d'associations",
     "number_of_Illnesses": "nombre de maladies",
-    "edit": "edit"
+    "edit": "edit",
+    "status": "status"
   }
 }

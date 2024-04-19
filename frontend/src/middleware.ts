@@ -78,6 +78,9 @@ const authRoutes = ["/dashboard", "/(ar|fr)/dashboard"];
 const authRoutesSuperAdmin = [
   "/(ar|fr)/dashboard/illnesses",
   "/dashboard/illnesses/*",
+  "/(ar|fr)/dashboard/patients",
+  "/dashboard/patients",
+
   "/(ar|fr)/dashboard/associations/*",
 ];
 const authRoutesAssociation = [

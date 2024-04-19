@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 import { restoreAction } from "@/actions/illnesses/restore";
 import Modal from "../Modal";
 import FormIllnessUpdate from "../Forms/FormIllnessUpdate";
+import { useTranslations } from "next-intl";
 
 interface IllnessTableProps {
   data: ResponseIllnessType | undefined
@@ -18,7 +19,7 @@ const IllnessTable: FC<IllnessTableProps> = ({data}) => {
   const items: IllnessType[] | undefined = data?.data;
   const [isOpen, setIsOpen] = useState<number | null>(null); 
 
-
+ const t = useTranslations('ui')
   // delete illness
   async function onDelete(format: FormData) {
 
@@ -86,8 +87,8 @@ const IllnessTable: FC<IllnessTableProps> = ({data}) => {
 
                       <SubmitButton
                         style="inline-block rounded text-red-600  py-2 text-xs font-medium hover:text-red-700  duration-150"
-                        title="Restore"
-                        loadingForm="Restoring"
+                        title={t("restore")}
+                        loadingForm={t("restore") + "..."}
                       />
                     </form>
                   ) : (
@@ -95,20 +96,19 @@ const IllnessTable: FC<IllnessTableProps> = ({data}) => {
                       <input hidden type="number" name="id" value={item.id} />
                       <SubmitButton
                         style="inline-block rounded text-blue-600  py-2 text-xs font-medium hover:text-blue-700  duration-150"
-                        title="delete"
-                        loadingForm="deleting"
+                        title={t("delete")}
+                        loadingForm={t("delete") + "..."}
                       />
                     </form>
                   )}
-   {!item.deleted_at ? (
-
-     <button
-     onClick={() => setIsOpen(item.id)}
-     className="inline-block rounded text-green-600 py-2 text-xs font-medium hover:text-green-700 duration-150"
-     >
-                    edit
-                  </button>
-                  ):null}
+                  {!item.deleted_at ? (
+                    <button
+                      onClick={() => setIsOpen(item.id)}
+                      className="inline-block rounded text-green-600 py-2 text-xs font-medium hover:text-green-700 duration-150"
+                    >
+                      edit
+                    </button>
+                  ) : null}
                   {isOpen === item.id && (
                     <Modal
                       isOpen={isOpen === item.id}

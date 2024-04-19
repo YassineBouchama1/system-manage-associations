@@ -17,8 +17,10 @@ export const patientsCharts = async (params: ChartsParams) => {
 
 // if id passed display it
   if (params?.id) {
-  url += `?association_id=${params.id}`;
+  url += `&association_id=${params.id}`;
   } 
+
+console.log(url)
 
   try {
     const charts: Response = await fetchServer({

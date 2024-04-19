@@ -3,8 +3,7 @@ import { delay } from "@/lib/delay";
 import fetchServer from "@/lib/fetch-server";
 import { revalidatePath } from "next/cache";
 
-export const restoreAction = async (formData: FormData) => {
-  const id = formData.get("id");
+export const restoreAction = async (id: number) => {
 
   await delay(1000);
   console.log(id);
@@ -13,10 +12,10 @@ export const restoreAction = async (formData: FormData) => {
   try {
     const illness = await fetchServer({
       method: "PATCH",
-      url: process.env.NEXT_PUBLIC_BACKEND_API_URL + `/illnesses/${id}`,
+      url: process.env.NEXT_PUBLIC_BACKEND_API_URL + `/associations/${id}`,
     });
 
-    revalidatePath("/dashboard/illnesses");
+    revalidatePath("/dashboard/associations");
 
     return {
       success: "restored",
