@@ -8,42 +8,32 @@ import { useState } from "react";
 import { sendEmailVerification } from "@/actions/auth/sendEmailVerification";
 
 export default function SendEmailVerificationForm() {
-  const [isVerified, setIsVerified] = useState(false);
   const [secondsRemaining, setSecondsRemaining] = useState<number>(60);
   const [canResendEmail, setCanResendEmail] = useState<boolean>(false); // Flag for resend button
 
   //send request to api useing server action
   async function onSendEmailVerification() {
-    const { errorZod, error, success }: any = await sendEmailVerification();
+    const { error, success }: any = await sendEmailVerification();
 
-
-    if (success){
-      setIsVerified(true);
+    if (success) {
+      // if email already verified  send user to dashboard
+      if (success.includes("already")) {
+        redirect("/dashboard");
+      } else {
+        setCanResendEmail(true);
         toast.success(success);
-        // if email already verified  send user to dashboard
-     if (success.includes("already"))    redirect("/dashboard");
-       return;
+      }
     }
 
-      if (error) {
-        // handle erros from api
-        toast.error(error);
-         setCanResendEmail(true);
-          setIsVerified(true);
-          
-          return;
-      }
+    if (error) {
+      // handle erros from api
+      toast.error(error);
+      setCanResendEmail(true);
 
-      //handle zod errors
-      else if (errorZod) {
-        Object.keys(errorZod).forEach((key: string) => {
-          toast.error(`${key} ${errorZod[key]}`);
-        });
-      } else {
-        
-        toast.success("there is a problem try again");
-       
-      }
+      return;
+    } else {
+      toast.success("there is a problem try again");
+    }
   }
 
   return (
@@ -65,4 +55,3 @@ export default function SendEmailVerificationForm() {
     </div>
   );
 }
-

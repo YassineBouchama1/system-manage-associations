@@ -27,7 +27,7 @@ export default function VerifyEmailForm() {
 
    toast.success(success);
    redirect("/login");
-   return;
+  
  }
 
 

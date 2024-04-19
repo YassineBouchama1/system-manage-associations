@@ -48,13 +48,13 @@ export default async function middleware(req: any) {
 
   if (session?.token) {
     // protect if user dosnt verified
-    // if (!session?.email_verified_at && isAuthRoute) {
-    //   const redirectUrl = new URL(
-    //     "/request-email-verification",
-    //     req.nextUrl.origin
-    //   );
-    //   return NextResponse.redirect(redirectUrl);
-    // }
+    if (!session?.email_verified_at && isAuthRoute) {
+      const redirectUrl = new URL(
+        "/request-email-verification",
+        req.nextUrl.origin
+      );
+      return NextResponse.redirect(redirectUrl);
+    }
 
     // if try visit auth routes for super admin
     if (session.role === 2 && isSuperAdminRoute) {
@@ -77,13 +77,20 @@ export default async function middleware(req: any) {
 const authRoutes = ["/dashboard", "/(ar|fr)/dashboard"];
 const authRoutesSuperAdmin = [
   "/(ar|fr)/dashboard/illnesses",
-  "/(ar|fr)/dashboard/illnesses/*",
+  "/dashboard/illnesses/*",
   "/(ar|fr)/dashboard/associations/*",
 ];
-const authRoutesAssociation = ["/(ar|fr)dashboard/patients"];
+const authRoutesAssociation = [
+  "/(ar|fr)/dashboard/patients",
+  "/dashboard/patients",
+  "/dashboard/patients/create",
+  "/(ar|fr)/dashboard/patients/create",
+];
 const verifyRoutes = [
   "/(ar|fr)/request-email-verification",
+  "/request-email-verification",
   "/(ar|fr)/verify-email",
+  "/verify-email",
 ];
 const guestRoutes = [
   "/(ar|fr)/forgot-password",

@@ -2,6 +2,7 @@
 
 import fetchServer from "@/lib/fetch-server";
 import { schemaEmail, schemaverifyEmail } from "@/lib/validations";
+import { changeVerifyEmail } from "./profile";
 
 // this action for verify email
 
@@ -22,7 +23,7 @@ export const verifyEmail = async (url: string, signature: string) => {
   //build url
   const pathname = `${url}&signature=${signature}`;
 
-  console.log(pathname);
+
 
   // return
   // send  dataurl
@@ -33,6 +34,7 @@ export const verifyEmail = async (url: string, signature: string) => {
 
     const success = await response.json();
 
+    changeVerifyEmail(true);
     //after successfully
     return {
       success: success.message,

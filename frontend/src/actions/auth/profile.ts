@@ -28,7 +28,13 @@ export const changeRole = async () => {
   revalidatePath("/profile");
 };
 
+export const changeVerifyEmail = async (isActive:boolean) => {
+  const session = await getSession();
 
+  session.email_verified_at = isActive;
+  await session.save();
+
+};
 export const logout = async () => {
   const session = await getSession();
   session.destroy();

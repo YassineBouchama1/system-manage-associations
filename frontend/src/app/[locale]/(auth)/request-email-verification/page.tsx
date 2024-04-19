@@ -5,18 +5,17 @@ import { getSession } from "@/lib/getSessions";
 import { redirect } from "next/navigation";
 
 export default async function Page() {
+  const session = await getSession();
 
-  const session = await getSession()
+  //chekc if user auth or not
+  if (!session.token) {
+    logout();
+  }
 
-// if already verefied redirect to dashboard
+  // if already verefied redirect to dashboard
   if (session?.email_verified_at) {
     redirect("/dashboard");
   }
-
-  //chekc if user auth or not
-if(!session?.token){
-  logout()
-}
 
   return (
     <>
@@ -28,11 +27,12 @@ if(!session?.token){
           <p className="mb-2 text-lg text-zinc-500">
             We are glad, that you’re with us ? We’ve sent you a verification
             link to the email address{" "}
-            <span className="font-medium text-indigo-500">{session && session.email}
+            <span className="font-medium text-indigo-500">
+              {session && session.email}
             </span>
             .
           </p>
-            <SendEmailVerificationForm />
+          <SendEmailVerificationForm />
         </div>
       </div>
     </>

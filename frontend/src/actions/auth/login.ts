@@ -45,7 +45,7 @@ export const login = async (formData: FormData) => {
     session.email = data.user.email;
     session.role = data.user.role_id;
     session.roleName = data.user.role;
-    session.email_verified_at = data.user.email_verified_at;
+    session.email_verified_at = data.user.email_verified_at ? true:false;
     session.isLoggedIn = true;
     session.permissions = ["create", "delete"];
     session.token = data?.access_token;
