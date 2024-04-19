@@ -171,12 +171,12 @@ class AssociationController extends Controller
 
         $associationData = $request->validated();
 
-
-        // validate if he is a admin
-        // if ($associationData->status && $associationData->status != 'active') {
-        //     // block admin
-        //     User::where('association_id', $id)->update(['status' => "inactive"]);
-        // }
+        // dd($associationData['status']);
+        if ($associationData['status'] && $associationData['status'] !== 'active') {
+            // Block admin of association
+            User::where('association_id', $id)
+                ->update(['status' => 'inactive']);
+        }
 
         // update logo if exist
         $image = $request->file('logo');

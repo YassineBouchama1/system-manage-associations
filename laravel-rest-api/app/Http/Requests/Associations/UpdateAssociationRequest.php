@@ -24,10 +24,10 @@ class UpdateAssociationRequest extends FormRequest
         $rules = [
             'name' => 'nullable|string|unique:associations,name,' . $associationsId . ',id,deleted_at,NULL',
             // 'name' => 'nullable|string|unique:associations,name',
-            'address' => 'nullable|string',  // Address can be updated
-            'city' => 'nullable:method,PUT|string', // Required only on PUT (update)
-            'status' => 'nullable|in:active,inactive,suspended,deleted', // Status can be updated
-            'illness_id' => 'nullable|exists:illnesses,id', // Illness ID can be updated,
+            'address' => 'nullable|string',
+            'city' => 'nullable:method,PUT|string',
+            'status' => 'nullable|in:active,inactive,suspended,deleted',
+            'illness_id' => 'nullable|exists:illnesses,id',
         ];
 
 
