@@ -20,38 +20,43 @@ class PatientController extends Controller
      */
     public function index(Request $request)
     {
-        // Default to 10 patients per page
-        $perPage = $request->query('per_page', 10);
+        $patients = Patient::latest();
 
-        // Limit maximum per page
-        $perPage = min($perPage, 50);
+        // Filter by search query (if applicable)
+        $searchTerm = $request->query('q');
+        $deleted = $request->query('deleted', null);
+        $perPage = $request->query('per_page', 10);
 
         // Get the association ID of the authenticated user
         $user = Auth::user();
 
-        if ($user->role_id === 1) {
-            $patients = Patient::withTrashed();
-        } else {
-
-            $userAssociation = $user->association_id;
-            $patients = Patient::withTrashed()->where('association_id', $userAssociation);
-        }
-
-
-
-        // Retrieve patients associated with the authenticated user's association, including soft deleted patients
 
         // Filter by search query for first & last name (optional)
-        $search = $request->query('search');
-        if ($search) {
-            $patients->where(function ($query) use ($search) {
-                $query->where('first_name', 'like', "%$search%")
-                    ->orWhere('last_name', 'like', "%$search%");
+        if ($searchTerm) {
+            $patients->where(function ($query) use ($searchTerm) {
+                $query->where('first_name', 'like', "%$searchTerm%")
+                    ->orWhere('last_name', 'like', "%$searchTerm%");
             });
         }
 
+
+
+        if ($user->role_id != 1) {
+
+            $userAssociation = $user->association_id;
+            $patients = $patients->where('association_id', $userAssociation);
+        }
+
+
+        // if user passed deleted treu bring all deleted associations
+        if ($deleted) {
+            $patients->withTrashed();
+        }
+        // Retrieve patients associated with the authenticated user's association, including soft deleted patients
+
+
         // Pagination
-        $patients = $patients->latest()->paginate($perPage);
+        $patients = $patients->paginate($perPage);
         $totalPages = $patients->lastPage();
         $currentPage = $patients->currentPage();
 
@@ -188,8 +193,28 @@ class PatientController extends Controller
         if (!$patient) {
             return response()->json(['message' => 'patient not found'], 404);
         }
+        $patient->status = 'deleted';
+        $patient->save();
 
-        $patient->forceDelete();
+
+        $patient->delete();
+
+        return response()->json(null, 204); // No content on successful deletion
+    }
+
+    public function restore($id)
+    {
+
+        $patient = Patient::withTrashed()->find($id);
+
+        if (!$patient) {
+            return response()->json(['message' => 'patient not found'], 404);
+        }
+        $patient->status = 'active';
+        $patient->save();
+
+
+        $patient->restore();
 
         return response()->json(null, 204); // No content on successful deletion
     }

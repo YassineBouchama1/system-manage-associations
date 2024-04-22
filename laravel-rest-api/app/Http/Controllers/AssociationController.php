@@ -258,6 +258,8 @@ class AssociationController extends Controller
         if (!$association) {
             return response()->json(['message' => 'Association not found or Already deleted'], 404);
         }
+        $association->status = 'deleted';
+        $association->save();
 
         if ($request->user()->cannot('delete', $association)) {
             return response()->json(['message' => 'no allowed to delete this id :  ' . $id], 403);
@@ -279,6 +281,9 @@ class AssociationController extends Controller
         if (!$association) {
             return response()->json(['message' => 'Association not found or Already deleted'], 404);
         }
+
+        $association->status = 'active';
+        $association->save();
 
         if ($request->user()->cannot('delete', $association)) {
             return response()->json(['message' => 'no allowed to restore this id :  ' . $id], 403);

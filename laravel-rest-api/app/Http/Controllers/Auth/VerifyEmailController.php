@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 
 class VerifyEmailController extends Controller
 {
@@ -25,6 +26,7 @@ class VerifyEmailController extends Controller
         return response()->json([
             'status' => 'email-verified',
             'message' => 'email-verified',
+            'verified_at' => Auth::user()->email_verified_at
         ]);
     }
 }

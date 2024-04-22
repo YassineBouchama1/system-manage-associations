@@ -17,6 +17,8 @@ Route::group(['prefix' => 'patients', 'middleware' => 'auth:api'], function () {
 
         Route::put('/{id}', [PatientController::class, 'update']);
         Route::post('/', [PatientController::class, 'store']);
-        Route::delete('/{id}', [PatientController::class, 'destroy']); // Added delete route
+        Route::delete('/{id}', [PatientController::class, 'destroy']);
+        Route::patch('/{id}', [PatientController::class, 'restore']);
+
     });
 });
