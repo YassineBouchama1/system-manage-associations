@@ -24,7 +24,7 @@ class ChartsController extends Controller
 
 
 
-        $timeframe = $request->input('timeframe', 'last30days');
+        $timeframe = $request->input('timeFrame', 'last30days');
 
         // Get the association ID from the request <ca be null>
         $associationId = $request->input('association_id');
@@ -33,20 +33,21 @@ class ChartsController extends Controller
 
 
 
-        // if (!$associationId  && $user->role_id != 1) {
-        //     // if associationId Dosnt Pass get authed association
-        //     $associationId = $user->association_id;
-        // } else {
 
-        // check if user want see spicific  association
-        //should be admin or his owen association
-        if ($user->role_id != 1 && ($user->role_id != 2 || $user->association_id === $associationId)) {
-            return response()->json(['message' => 'no allowed to see this element '], 403);
+
+        if (!$associationId  && $user->role_id != 1) {
+            // if associationId Dosnt Pass get authed association
+            $associationId = $user->association_id;
+        } else {
+
+            // check if user want see spicific  association
+            //should be admin or his owen association
+            if ($user->role_id != 1 && ($user->role_id != 2 || $user->association_id === $associationId)) {
+                return response()->json(['message' => 'no allowed to see this element '], 403);
+            }
         }
-
-        // }
         $patients = null;
-    
+
 
 
 

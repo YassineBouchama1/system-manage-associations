@@ -17,6 +17,7 @@ Route::group(['prefix' => 'associations', 'middleware' => 'auth:api'], function 
         Route::get('/profile/{association}', [AssociationController::class, 'showAssociationDashboard']);
         Route::put('/{association}', [AssociationController::class, 'update']);
         Route::post('/', [AssociationController::class, 'store']);
-        Route::delete('/{association}', [AssociationController::class, 'destroy']); // Added delete route
+        Route::delete('/{association}', [AssociationController::class, 'destroy']);
+        Route::patch('/{association}', [AssociationController::class, 'restore']);
     });
 });

@@ -272,7 +272,7 @@ class AssociationController extends Controller
 
     public function restore(Request $request, $id)
     {
-        $association = Association::find($id);
+        $association = Association::withTrashed()->find($id);
         // $this->authorize('delete', $association); // Check authorization
 
 
