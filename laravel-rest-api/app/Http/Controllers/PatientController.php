@@ -6,6 +6,7 @@ use App\Http\Requests\Patients\CreatePatientRequest;
 use App\Http\Requests\Patients\UpdatePatientRequest;
 use App\Http\Resources\Patient\PatientResource;
 use App\Models\Patient;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -80,6 +81,8 @@ class PatientController extends Controller
     {
 
 
+
+        // add filter chekc if they wants add same patients
 
 
         // Handle image upload (before creating patients)
@@ -229,8 +232,13 @@ class PatientController extends Controller
         // Filter by search query (if applicable)
         $deleted = $request->query('deleted', null);
         $perPage = $request->query('per_page', 10);
-        $startDate = $request->query('startDate', null);
-        $endDate = $request->query('endDate', null);
+
+
+        $now = Carbon::now();
+
+        $startDate = $request->query('startDate', '1000-01-01');
+        // if user dosent provied a end date add time now
+        $endDate = $request->query('endDate', strval($now->format('Y-m-d')));
 
         // Get the association ID of the authenticated user
         $user = Auth::user();
@@ -246,6 +254,8 @@ class PatientController extends Controller
             $patients->withTrashed();
         }
 
+
+
         // bring all spicifec association
         // bring all spicifec cities
 
@@ -255,8 +265,34 @@ class PatientController extends Controller
             $patients->whereBetween('created_at', [$startDate, $endDate]);
         }
 
-        $patients = $patients->paginate($perPage);
 
-        return response()->json(PatientResource::collection($patients), 200);
+
+        // Retrieve selected columns as comma speared
+        $selectedColumnsString = $request->query('columns', '');
+
+        // Convert  string into an array by comma
+        $selectedColumns = explode(',', $selectedColumnsString);
+
+        // Fetch specific columns
+        $columns = $selectedColumns ?: [];
+
+        if (!empty($columns)) {
+            if (in_array('all', $columns)) {
+                // fetch all columns
+                $patients = $patients->get();
+            } else {
+                // detch specific columns
+                $patients = $patients->select($columns)->get();
+            }
+        } else {
+            // Fetch default columns
+            $patients = $patients->paginate($perPage);
+        }
+
+
+
+        // $patients = $patients->paginate($perPage);
+
+        return response()->json($patients, 200);
     }
 }
