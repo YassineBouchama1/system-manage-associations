@@ -229,18 +229,14 @@ class PatientController extends Controller
     {
         $patients = Patient::latest();
 
-        // Filter by search query (if applicable)
+        // Filter by search query
         $deleted = $request->query('deleted', null);
         $perPage = $request->query('per_page', 10);
-
-
         $now = Carbon::now();
-
         $startDate = $request->query('startDate', '1000-01-01');
-        // if user dosent provied a end date add time now
         $endDate = $request->query('endDate', strval($now->format('Y-m-d')));
 
-        // Get the association ID of the authenticated user
+        // Get the association ID of the authed user
         $user = Auth::user();
 
         if ($user->role_id != 1) {
@@ -248,50 +244,41 @@ class PatientController extends Controller
             $patients = $patients->where('association_id', $userAssociation);
         }
 
-
-        // if user passed deleted treu bring all deleted associations
+        // Apply soft deletes if requested
         if ($deleted) {
-            $patients->withTrashed();
+            $patients = $patients->withTrashed();
         }
 
 
-
-        // bring all spicifec association
-        // bring all spicifec cities
-
-
-        // if user want data between t dates
-        if ($startDate) {
-            $patients->whereBetween('created_at', [$startDate, $endDate]);
-        }
+        // Filter by date range with validation
+        $startDate = Carbon::parse($startDate);
+        $endDate = Carbon::parse($endDate);
+        $patients = $patients->whereBetween('patients.created_at', [$startDate, $endDate]);
 
 
 
-        // Retrieve selected columns as comma speared
+
+
+
+
+        // Select specific columns
         $selectedColumnsString = $request->query('columns', '');
-
-        // Convert  string into an array by comma
-        $selectedColumns = explode(',', $selectedColumnsString);
-
-        // Fetch specific columns
-        $columns = $selectedColumns ?: [];
-
-        if (!empty($columns)) {
-            if (in_array('all', $columns)) {
-                // fetch all columns
-                $patients = $patients->get();
-            } else {
-                // detch specific columns
-                $patients = $patients->select($columns)->get();
-            }
+        $selectedColumns = !empty($selectedColumnsString) ? explode(',', $selectedColumnsString) : [];
+        if ($selectedColumns) {
+            $patients = $patients->select($selectedColumns);
         } else {
-            // Fetch default columns
-            $patients = $patients->paginate($perPage);
+            // Select all columns
+            $patients = $patients->select('*');
         }
 
+        // join with associations table
+        $patients = $patients->join('associations', 'patients.association_id', '=', 'associations.id')
+            ->orderBy('patients.created_at', 'desc')
+            ->select('patients.*', "associations.name AS nameAssociation");
 
-
-        // $patients = $patients->paginate($perPage);
+            
+        // Consider pagination if needed
+        $patients = $patients->paginate($perPage);
 
         return response()->json($patients, 200);
     }
