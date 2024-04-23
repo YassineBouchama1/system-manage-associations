@@ -218,4 +218,45 @@ class PatientController extends Controller
 
         return response()->json(null, 204); // No content on successful deletion
     }
+
+
+
+    // function for export data for xlsx
+    public function fetchDataForXlsx(Request $request)
+    {
+        $patients = Patient::latest();
+
+        // Filter by search query (if applicable)
+        $deleted = $request->query('deleted', null);
+        $perPage = $request->query('per_page', 10);
+        $startDate = $request->query('startDate', null);
+        $endDate = $request->query('endDate', null);
+
+        // Get the association ID of the authenticated user
+        $user = Auth::user();
+
+        if ($user->role_id != 1) {
+            $userAssociation = $user->association_id;
+            $patients = $patients->where('association_id', $userAssociation);
+        }
+
+
+        // if user passed deleted treu bring all deleted associations
+        if ($deleted) {
+            $patients->withTrashed();
+        }
+
+        // bring all spicifec association
+        // bring all spicifec cities
+
+
+        // if user want data between t dates
+        if ($startDate) {
+            $patients->whereBetween('created_at', [$startDate, $endDate]);
+        }
+
+        $patients = $patients->paginate($perPage);
+
+        return response()->json(PatientResource::collection($patients), 200);
+    }
 }

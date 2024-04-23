@@ -14,11 +14,11 @@ Route::group(['prefix' => 'patients', 'middleware' => 'auth:api'], function () {
     // Admin routes (require admin role)
     Route::group(['middleware' => 'role:2,1'], function () {
         Route::get('/', [PatientController::class, 'index']);
+        Route::get('/xlsx', [PatientController::class, 'fetchDataForXlsx']);
 
         Route::put('/{id}', [PatientController::class, 'update']);
         Route::post('/', [PatientController::class, 'store']);
         Route::delete('/{id}', [PatientController::class, 'destroy']);
         Route::patch('/{id}', [PatientController::class, 'restore']);
-
     });
 });

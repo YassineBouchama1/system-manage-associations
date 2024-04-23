@@ -13,6 +13,7 @@ require __DIR__ . '/association.php';
 require __DIR__ . '/patient.php';
 require __DIR__ . '/operator.php';
 require __DIR__ . '/charts.php';
+require __DIR__ . '/xlsx.php'; // fetch data for excul advanced filters
 
 //@descRoles ids
 //  : 1- super admin
