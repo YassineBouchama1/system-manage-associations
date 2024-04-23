@@ -14,6 +14,7 @@ import toast from 'react-hot-toast';
 import { redirect } from 'next/navigation';
 import cities from "../../lib/cities.json";
 import { createPatient } from '@/actions/patients/create';
+import { getFormattedDateNow } from '@/lib/getFormattedDateNow';
 
 interface PatientFormsProps {
   associationsList?: any[]
@@ -46,6 +47,7 @@ const PatientForms: FC<PatientFormsProps> = () => {
       redirect("/dashboard/patients"); // redirect to list of associations
     }
   }
+
 
   return (
     <SectionWrapper styles="md:px-20">
@@ -97,10 +99,11 @@ const PatientForms: FC<PatientFormsProps> = () => {
               id="date_of_birth"
               name="date_of_birth"
               type="date"
+              max={getFormattedDateNow()}
               placeholder={t("date_of_birth")}
               title={t("date_of_birth")}
             />
-    
+
             <FormFieldSelect title={t("city")} options={cities} name="city" />
           </div>
           {/* forms PERSONAL INFORMATION  */}

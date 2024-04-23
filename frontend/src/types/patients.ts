@@ -1,4 +1,4 @@
-export interface PatienType {
+export interface PatientType {
   id: number;
   association_id: number;
   association: string;
@@ -6,7 +6,7 @@ export interface PatienType {
   last_name: string;
   city: string;
   current_address: string;
-  // birth_address: string;
+  illness: string;
   phone: string;
   avatar: string;
   status: "active" | "inactive" | "suspended" | "deleted" | "dead";
@@ -16,8 +16,8 @@ export interface PatienType {
   updated_at: string;
 }
 
-export interface ResponsePatienData {
-  data: PatienType[];
+export interface ResponsePatientData {
+  data: PatientType[];
   total_pages: number;
   current_page: number;
 }

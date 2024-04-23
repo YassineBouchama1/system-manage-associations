@@ -9,7 +9,7 @@ export interface SessionData {
   img?: string;
   role?: string | number;
   roleName?: string;
-  email_verified_at?: boolean ;
+  email_verified_at?: string | null ;
   isBlocked?: boolean;
   permissions: string[];
   isLoggedIn: boolean;

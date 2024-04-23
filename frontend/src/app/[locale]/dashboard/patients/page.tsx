@@ -1,16 +1,11 @@
-import { fetchAssociations } from "@/actions/associations";
 import { fetchPatients } from "@/actions/patients";
 import PaginationControls from "@/components/Table/PaginationControls";
-import AssociationCardSkeleton from "@/components/skeletons/AssociationCardSkeleton";
-import AssociationCard from "@/components/ui/AssociationCard";
-import PatientCard from "@/components/ui/PatientCard";
-import TitlePage from "@/components/ui/TitlePage";
-import { delay } from "@/lib/delay";
+import FilterTable from "@/components/Table/Patinet/FilterTable";
+import PatinetsTable from "@/components/Table/Patinet/PatinetsTable";
+
 import { getSession } from "@/lib/getSessions";
-import { AssociationType } from "@/types/association";
-import { PatienType } from "@/types/patiens";
+
 import { getTranslations } from "next-intl/server";
-import Link from "next/link";
 import React from "react";
 
 // default value for  query
@@ -44,33 +39,20 @@ export default async function Associations({
 
    
   return (
-    <>
-      <div className="w-full flex justify-center md:justify-end">
-        <PaginationControls
-          hasNextPage={success.current_page < success.total_pages}
-          hasPrevPage={success.current_page > 1}
-          totalPages={success.total_pages}
-          currentPage={success.current_page}
-        />
-        {session.role === 2 && (
-          <Link
-            href="/dashboard/patients/create"
-            className=" bg-theme-color min-w-24 text-center px-2 py-3 rounded-md text-white "
-          >
-            {t("create")}
-          </Link>
-        )}
+    <section className="bg-gray-50 dark:bg-gray-900 ">
+      <div className="mx-auto max-w-screen-xl ">
+        <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden min-h-90">
+          <FilterTable />
+          <PatinetsTable patients={success.data} />
+          <PaginationControls
+            hasNextPage={success?.current_page! < success?.total_pages!}
+            hasPrevPage={success?.current_page! > 1}
+            totalPages={success?.total_pages!}
+            currentPage={success?.current_page!}
+          />
+        </div>
       </div>
-      <div className=" mt-4 flex gap-6 flex-wrap justify-center md:justify-start">
-        {success.data.length === 0 ? (
-          <h2>No patiens</h2>
-        ) : (
-          success.data.map((item: PatienType) => (
-            <PatientCard key={item.id} patient={item} />
-          ))
-        )}
-      </div>
-    </>
+    </section>
   );
 };
 

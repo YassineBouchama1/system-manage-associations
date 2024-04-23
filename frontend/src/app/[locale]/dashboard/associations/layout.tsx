@@ -16,8 +16,6 @@ export default async function TransactionLayout({
       redirect('/dashboard')
     }
       return (
-        <div className="flex flex-col gap-8">
-          <div> {children}</div>
-        </div>
+          <div className="w-full"> {children}</div>
       );
 }

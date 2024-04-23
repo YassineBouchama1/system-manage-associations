@@ -17,7 +17,7 @@ await delay(1000)
       url: process.env.NEXT_PUBLIC_BACKEND_API_URL + `/patients/${id}`,
     });
 
-    revalidatePath("/dashboard/patients");
+    revalidatePath("/dashboard/patientsNew");
     //after successfully Deleted return msg success
     return { success: "Deleted", error: null };
   } catch (error: any) {

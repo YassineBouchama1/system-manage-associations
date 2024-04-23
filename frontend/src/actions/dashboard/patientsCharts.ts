@@ -13,14 +13,14 @@ export const patientsCharts = async (params: ChartsParams) => {
     process.env.NEXT_PUBLIC_BACKEND_API_URL
   }/charts/patients`;
 
-  url += `?timeframe=${params.timeFrame || timeFrame}`;
+
+  url += `?timeFrame=${params.timeFrame || timeFrame}`;
 
 // if id passed display it
   if (params?.id) {
   url += `&association_id=${params.id}`;
   } 
 
-console.log(url)
 
   try {
     const charts: Response = await fetchServer({

@@ -1,7 +1,6 @@
 "use client";
 
-import fetchClient from "@/lib/fetch-client";
-import { redirect, useRouter, useSearchParams } from "next/navigation";
+import { redirect } from "next/navigation";
 import toast from "react-hot-toast";
 import { SubmitButton } from "../ui/SubmitButton";
 import { useState } from "react";
@@ -16,12 +15,15 @@ export default function SendEmailVerificationForm() {
     const { error, success }: any = await sendEmailVerification();
 
     if (success) {
+      console.log(success);
       // if email already verified  send user to dashboard
       if (success.includes("already")) {
         redirect("/dashboard");
+        
       } else {
         setCanResendEmail(true);
         toast.success(success);
+        return;
       }
     }
 
@@ -33,6 +35,7 @@ export default function SendEmailVerificationForm() {
       return;
     } else {
       toast.success("there is a problem try again");
+      return;
     }
   }
 

@@ -36,13 +36,9 @@ export default async function middleware(req: any) {
 //get session <data user auth>
   const session = await getSession();
 
-
+  const redirectUrl = new URL("/login", req.nextUrl.origin);
 // if try visit auth routes
-    if (
-      !session?.token &&
-      (isAuthRoute || isVerifyRoute)
-    ) {
-      const redirectUrl = new URL("/login", req.nextUrl.origin);
+    if (!session?.token && (isAuthRoute || isVerifyRoute)) {
       return NextResponse.redirect(redirectUrl);
     }
 
@@ -66,7 +62,7 @@ export default async function middleware(req: any) {
       return NextResponse.redirect(new URL("/dashboard", req.nextUrl.origin));
     }
 
-    if (isGuestRoute || isVerifyRoute) {
+    if (session?.email_verified_at && (isGuestRoute || isVerifyRoute)) {
       return NextResponse.redirect(new URL("/dashboard", req.nextUrl.origin));
     }
   }
@@ -79,13 +75,13 @@ const authRoutesSuperAdmin = [
   "/(ar|fr)/dashboard/illnesses",
   "/dashboard/illnesses/*",
   "/(ar|fr)/dashboard/patients",
-  "/dashboard/patients",
+
 
   "/(ar|fr)/dashboard/associations/*",
 ];
 const authRoutesAssociation = [
   "/(ar|fr)/dashboard/patients",
-  "/dashboard/patients",
+
   "/dashboard/patients/create",
   "/(ar|fr)/dashboard/patients/create",
 ];

@@ -1,11 +1,8 @@
 import { fetchAssociations } from "@/actions/associations";
+import AssociationTable from "@/components/Table/Association/AssociationTable";
+import FilterTable from "@/components/Table/Association/FilterTable";
 import PaginationControls from "@/components/Table/PaginationControls";
-import AssociationCardSkeleton from "@/components/skeletons/AssociationCardSkeleton";
-import AssociationCard from "@/components/ui/AssociationCard";
-import { SearchBar } from "@/components/ui/SearchBar";
-import TitlePage from "@/components/ui/TitlePage";
-import { delay } from "@/lib/delay";
-import { AssociationType, ResponseAssociationData } from "@/types/association";
+
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 import React from "react";
@@ -30,6 +27,7 @@ export default async function Associations({
   const { success, error } = await fetchAssociations(
     combinedParams
   );
+  console.log(success);
 
   if (!success || error) {
     throw new Error(error.toString());
@@ -37,36 +35,22 @@ export default async function Associations({
   }
 
 
-
   const t = await getTranslations("ui");
   return (
-    <>
-      <div className="bg-white/60 rounded-md py-3 w-full flex flex-col md:flex-row justify-between px-2">
-        <PaginationControls
-          hasNextPage={success?.current_page! < success?.total_pages!}
-          hasPrevPage={success?.current_page! > 1}
-          totalPages={success?.total_pages!}
-          currentPage={success?.current_page!}
-        />
-        {/* <SearchBar/> */}
-        
-        <Link
-          href="/dashboard/associations/create"
-          className=" bg-theme-color min-w-24 text-center px-2 py-3 rounded-md text-white "
-        >
-          {t("create")}
-        </Link>
+    <section className="bg-gray-50 dark:bg-gray-900 ">
+      <div className="mx-auto max-w-screen-xl ">
+        <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden min-h-90">
+          <FilterTable />
+          <AssociationTable associations={success.data} />
+          <PaginationControls
+            hasNextPage={success?.current_page! < success?.total_pages!}
+            hasPrevPage={success?.current_page! > 1}
+            totalPages={success?.total_pages!}
+            currentPage={success?.current_page!}
+          />
+        </div>
       </div>
-      <div className=" mt-4 flex gap-6 flex-wrap justify-center md:justify-start">
-        {success.data.length === 0 ? (
-          <h2>No Assosoations</h2>
-        ) : (
-          success.data.map((item: AssociationType) => (
-            <AssociationCard key={item.id} association={item} />
-          ))
-        )}
-      </div>
-    </>
+    </section>
   );
 };
 

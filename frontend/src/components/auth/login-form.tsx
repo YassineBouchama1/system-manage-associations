@@ -1,5 +1,5 @@
 "use client";
-import {  login } from "@/actions/auth/login";
+import { login } from "@/actions/auth/login";
 import { logout } from "@/actions/auth/profile";
 import { SubmitButton } from "@/components/ui/SubmitButton";
 import { redirect } from "next/navigation";
@@ -16,45 +16,48 @@ const initialState: any = {
 };
 
 export default function LoginForm() {
-
   const t = useTranslations("auth");
-    const [isPending, startTransition] = useTransition();
+  const [isPending, startTransition] = useTransition();
 
-
-
-    
-    //send request to api useing server action
+  //send request to api useing server action
   async function onLogin(formData: FormData) {
-    const { errorZod ,error,success} :any = await login(formData);
-  
+    const { errorZod, error, success }: any = await login(formData);
 
-if (success?.includes("email")) {
-  redirect("/request-email-verification");
-}
+    if (success) {
+      console.log(success);
+      // if email need verification  send user to request-email-verification
+      if (success === "email") {
+        console.log("need verefection");
+        redirect("/request-email-verification");
+
+      } else {
+        //if not send them to dashboard
+        toast.success("Logined Successfully ");
+        redirect("/dashboard");
+      }
+    }
 
     // handle erros from api
     if (error) {
-   
       toast.error(error);
+        return;
+
     }
 
     //handle zod errors
     else if (errorZod) {
-     
       Object.keys(errorZod).forEach((key: string) => {
         toast.error(`${key} ${errorZod[key]}`);
+        return;
+
       });
-      
     } else {
-     
-      toast.success("Logined Successfully ");
-    redirect("/dashboard");
+      toast.success("there is a problem try again");
+        return;
+
     }
   }
 
-
-
-  
   return (
     <form action={onLogin} className="space-y-4 md:space-y-6">
       {/* {state?.type === "error" && (
@@ -63,15 +66,15 @@ if (success?.includes("email")) {
         </p>
       )} */}
       <FormFieldAuth id="email" name="email" type="email" title={t("email")} />
-      
-        <FormFieldAuth
-          id="password"
-          name="password"
-          type="password"
-          placeholder={"*******"}
-          title={t("password")}
-        />
-    
+
+      <FormFieldAuth
+        id="password"
+        name="password"
+        type="password"
+        placeholder={"*******"}
+        title={t("password")}
+      />
+
       <div className="flex items-center justify-between">
         <Link
           href="/forgot-password"

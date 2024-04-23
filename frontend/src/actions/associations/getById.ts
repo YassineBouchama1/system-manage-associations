@@ -6,7 +6,7 @@ interface AssociationsQueryParams {
   id: number | string;
 }
 
-export const fetchAssociationById = async (id: string | number) => {
+export const fetchAssociationById = async (id?: string | number) => {
   // build url
   let url = `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/associations/${id}`;
 

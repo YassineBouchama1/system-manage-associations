@@ -36,6 +36,8 @@ if (params.deleted) {
 
     const associationsData : ResponseAssociationData  = await associations.json();
 
+
+    console.log(associationsData);
     return {
       success: associationsData,
       error:null

@@ -6,6 +6,7 @@ export interface AssociationType {
   city: string;
   illness_id: number;
   email?: string;
+  illness: string;
   phone?: string;
   status: "active" | "inactive" | "suspended" | "deleted";
   deleted_at: string | null;

@@ -1,6 +1,5 @@
 import { logout } from "@/actions/auth/profile";
 import SendEmailVerificationForm from "@/components/auth/SendEmailVerificationForm";
-import VerifyEmailForm from "@/components/auth/VerifyEmailForm";
 import { getSession } from "@/lib/getSessions";
 import { redirect } from "next/navigation";
 
@@ -13,7 +12,7 @@ export default async function Page() {
   }
 
   // if already verefied redirect to dashboard
-  if (session?.email_verified_at) {
+  if (session?.email_verified_at != null) {
     redirect("/dashboard");
   }
 

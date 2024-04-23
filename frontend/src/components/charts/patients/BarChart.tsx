@@ -87,7 +87,7 @@ const timeFrameOptions: TimeframeOption[] = [
 // change  time frame 
   const handleSelectNewDate = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedTimeframe = event.target.value as string;
-    router.push(`${pathname}/?timeframe=${selectedTimeframe}`);
+    router.push(`${pathname}/?timeFrame=${selectedTimeframe}`);
   };
 
   // for download img of charts
@@ -108,7 +108,7 @@ const timeFrameOptions: TimeframeOption[] = [
         </button>
         <select
           onChange={handleSelectNewDate}
-          value={searchParams.get("timeframe") || ""}
+          value={searchParams.get("timeFrame") || ""}
         >
           {timeFrameOptions.map((option) => (
             <option key={option.value} value={option.value}>

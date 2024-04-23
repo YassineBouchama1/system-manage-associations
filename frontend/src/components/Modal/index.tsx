@@ -29,7 +29,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose,children }) => {
           animate="visible"
           exit="exit"
           onClick={() => onClose()}
-          className="fixed inset-0 bg-gray-500 bg-opacity-75 overflow-y-auto h-screen flex justify-center items-center z-50"
+          className="fixed  inset-0 bg-gray-500 bg-opacity-75 overflow-y-auto h-screen flex justify-center items-center z-50"
         >
           <motion.div
             variants={modalVariants}
@@ -37,7 +37,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose,children }) => {
             animate="visible"
             exit="exit"
             onClick={(e) => e.stopPropagation()}
-            className="bg-white rounded-lg shadow-md p-4 max-w-sm"
+            className="bg-white rounded-lg shadow-md p-4 max-w-auto"
           >
             {children}
             <button

@@ -17,11 +17,12 @@ import { redirect, useParams } from "next/navigation";
 import cities from "../../lib/cities.json";
 import { updateAssociation } from "@/actions/associations/update";
 import { updatePatient } from "@/actions/patients/update";
-import { PatienType } from "@/types/patiens";
+import { PatientType } from "@/types/patients";
+import { getFormattedDateNow } from "@/lib/getFormattedDateNow";
 
 interface PatientFormsProps {
   associationsList?: any[];
-  patient:PatienType
+  patient:PatientType
 }
 
 const PatientsFormUpdate: FC<PatientFormsProps> = ({patient}) => {
@@ -142,6 +143,7 @@ const colorStatus = (status: string) => {
               type="date"
               placeholder={t("date_of_birth")}
               title={t("date_of_birth")}
+              max={getFormattedDateNow()}
               defaultValue={patient.date_of_birth}
             />
 

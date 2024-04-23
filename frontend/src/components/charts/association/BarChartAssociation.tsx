@@ -70,21 +70,24 @@ export default function BarChartAssociation({ chartData }:{chartData:any}) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  interface TimeframeOption {
-    value: string;
-    label: string;
-  }
-  const timeframeOptions: TimeframeOption[] = [
-    { value: "last30days", label: t("chart_30_days") },
-    { value: "last90days", label: t("chart_90_days") },
-    { value: "lastWeek", label: t("chart_7_days") },
-    { value: "allTime", label: t("chart_All_time") },
-  ];
 
-  const handleSelectNewDate = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedTimeframe = event.target.value as string; // Type casting for safety
-    router.push(`${pathname}/?timeframe=${selectedTimeframe}`);
-  };
+interface TimeframeOption {
+  value: string;
+  label: string;
+}
+const timeFrameOptions: TimeframeOption[] = [
+  { value: "last30days", label: t("chart_30_days") },
+  { value: "last90days", label: t("chart_90_days") },
+  { value: "lastWeek", label: t("chart_7_days") },
+  { value: "allTime", label: t("chart_All_time") },
+];
+
+// change  time frame
+const handleSelectNewDate = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const selectedTimeframe = event.target.value as string;
+  router.push(`${pathname}/?timeFrame=${selectedTimeframe}`);
+};
+
 
   function handleDownload() {
     if (chartRef.current) {
@@ -106,9 +109,9 @@ export default function BarChartAssociation({ chartData }:{chartData:any}) {
         </button>
         <select
           onChange={handleSelectNewDate}
-          value={searchParams.get("timeframe") || ""}
+          value={searchParams.get("timeFrame") || ""}
         >
-          {timeframeOptions.map((option) => (
+          {timeFrameOptions.map((option) => (
             <option key={option.value} value={option.value}>
               {option.label}
             </option>

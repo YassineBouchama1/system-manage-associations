@@ -1,7 +1,6 @@
 "use server";
 import fetchServer from "@/lib/fetch-server";
-import { AssociationType, ResponseAssociationData } from "@/types/association";
-import { PatienType } from "@/types/patiens";
+import { PatientType } from "@/types/patients";
 
 interface AssociationsQueryParams {
   id: number | string;
@@ -18,7 +17,7 @@ export const fetchPatientById = async (id: string | number) => {
     });
 
 
-    const patientsData: PatienType = await patients.json();
+    const patientsData: PatientType = await patients.json();
 
     //after successfully created return msg success
     return { success: patientsData, error: null };

@@ -31,7 +31,7 @@ export const changeRole = async () => {
 export const changeVerifyEmail = async (isActive:boolean) => {
   const session = await getSession();
 
-  session.email_verified_at = isActive;
+  session.email_verified_at = null;
   await session.save();
 
 };

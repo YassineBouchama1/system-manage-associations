@@ -13,7 +13,7 @@ export default async function pageDashboard({
 }) {
   const combinedParams = {
     ...searchParams,
-    timeFrame: searchParams.timeframe?.toString() || timeFrame.toString(),
+    timeFrame: searchParams.timeFrame?.toString() || timeFrame.toString(),
   };
 
   const { success, error } = await fetchStatistics();
@@ -24,7 +24,6 @@ export default async function pageDashboard({
     throw new Error(error.toString());
   }
   
-  console.log("chart dashboard", chartData);
   return (
     <>
       <main className="h-full w-full ">

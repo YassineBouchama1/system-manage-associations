@@ -4,7 +4,7 @@ import { ResponseAssociationData } from "@/types/association";
 import { ResponseIllnessType } from "@/types/illness";
 import { redirect } from "next/navigation";
 import { logout } from "../auth/profile";
-import { ResponsePatienData } from "@/types/patiens";
+import { ResponsePatientData } from "@/types/patients";
 
 
 const DEFAULT_PAGE = 1;
@@ -12,6 +12,8 @@ const DEFAULT_PER_PAGE = 10;
 interface PatientsQueryParams {
   page?: string;
   per_page?: string;
+  query?: string;
+  deleted?: string;
 }
 
 export const fetchPatients = async (params: PatientsQueryParams) => {
@@ -21,13 +23,20 @@ export const fetchPatients = async (params: PatientsQueryParams) => {
     params.per_page || DEFAULT_PER_PAGE
   }`;
 
+
+  if (params.query) {
+    url += `&q=${params?.query}`;
+  }
+  if (params.deleted) {
+    url += `&deleted=${params?.deleted}`;
+  }
   try {
     const patients: Response = await fetchServer({
       url,
     });
 
 
-    const patientsData: ResponsePatienData = await patients.json();
+    const patientsData: ResponsePatientData = await patients.json();
 
     //after successfully created return msg success
     return { success: patientsData, error: null };

@@ -45,7 +45,7 @@ export const login = async (formData: FormData) => {
     session.email = data.user.email;
     session.role = data.user.role_id;
     session.roleName = data.user.role;
-    session.email_verified_at = data.user.email_verified_at ? true:false;
+    session.email_verified_at = data.user.email_verified_at;
     session.isLoggedIn = true;
     session.permissions = ["create", "delete"];
     session.token = data?.access_token;
@@ -53,8 +53,9 @@ export const login = async (formData: FormData) => {
 
     //if user dosnt verify block him
     if (!data.user.email_verified_at) {
-      return { success: "email" };
+      return { success: "email", error: null };
     }
+
     //after successfully
     return {
       success: "login",

@@ -6,13 +6,13 @@ import { SubmitButton } from './SubmitButton';
 import { AssociationType } from '@/types/association';
 import toast from 'react-hot-toast';
 import Link from 'next/link';
-import { PatienType } from '@/types/patiens';
 import { deleteAction } from '@/actions/patients/delete';
 import { useTranslations } from 'next-intl';
 import { restoreAction } from '@/actions/patients/restore';
+import { PatientType } from '@/types/patients';
 
 interface PatientCardProps {
-  patient: PatienType;
+  patient: PatientType;
 }
 
 const PatientCard: FC<PatientCardProps> = ({ patient }) => {
@@ -28,6 +28,7 @@ const PatientCard: FC<PatientCardProps> = ({ patient }) => {
     }
   }
 
+  
   // delete illness
   async function onDelete(format: FormData) {
     //sending request to action <server action>

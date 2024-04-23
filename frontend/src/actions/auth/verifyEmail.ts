@@ -3,10 +3,13 @@
 import fetchServer from "@/lib/fetch-server";
 import { schemaEmail, schemaverifyEmail } from "@/lib/validations";
 import { changeVerifyEmail } from "./profile";
+import { getSession } from "@/lib/getSessions";
 
 // this action for verify email
 
 export const verifyEmail = async (url: string, signature: string) => {
+
+  const session = await getSession()
   // //2-validation
   const validatedFields = schemaverifyEmail.safeParse({
     url,
@@ -33,8 +36,11 @@ export const verifyEmail = async (url: string, signature: string) => {
     });
 
     const success = await response.json();
+console.log(success)
+    // changeVerifyEmail(true);
+session.email_verified_at = success.verified_at;
+await session.save()
 
-    changeVerifyEmail(true);
     //after successfully
     return {
       success: success.message,

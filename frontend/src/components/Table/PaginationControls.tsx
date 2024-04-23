@@ -2,7 +2,6 @@
 
 import { FC } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { navigate } from "@/actions/auth/navigate";
 
 interface PaginationControlsProps {
   hasNextPage: boolean;
@@ -24,20 +23,39 @@ const PaginationControls: FC<PaginationControlsProps> = ({
   const page = searchParams.get("page") ?? "1";
   const per_page = searchParams.get("per_page") ?? "10";
 
+
+   const deleted =  searchParams.get("deleted") ?? ""
+   const query =  searchParams.get("query") ?? ""
+  
+
+  
+// const updateUrl =async ()=>{
+//   if (searchParams) {
+//     const queries = await Object.keys(searchParams)
+//       .map((key) => `${key}=${searchParams[key]}`)
+//       .join("&");
+//   const url =   pathname + `?${queries}`;
+//   }
+//    router.push(`${pathname}/?page=${Number(page) + 1}&per_page=${per_page}`);
+// }
+
   return (
-    <div className="rounded-b-lg border-t border-gray-200 px-4 py-2">
-      <ol className="flex justify-end gap-1 text-xs font-medium">
+    <div className="rounded-b-lg border-t border-gray-200 px-4 py-2 flex items-center justify-between">
+      <h4>Showing 1-10 of 100</h4>
+      <ol className="flex justify-end gap-1 text-xs font-medium ">
         <li>
           <button
             disabled={!hasNextPage}
             onClick={() => {
               router.push(
-                `${pathname}/?page=${Number(page) + 1}&per_page=${per_page}`
+                `${pathname}/?page=${Number(page) + 1}&per_page=${per_page}${
+                  deleted && "&deleted=true"
+                }&query=${query}`
               );
             }}
             className={`${
               !hasNextPage && "opacity-25 bg-gray-300"
-            } inline-flex size-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180`}
+            } inline-flex size-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 ltr:rotate-0 rtl:rotate-180`}
           >
             <span className="sr-only">Prev Page</span>
             <svg
@@ -62,12 +80,14 @@ const PaginationControls: FC<PaginationControlsProps> = ({
             disabled={!hasPrevPage}
             onClick={() => {
               router.push(
-                `${pathname}/?page=${Number(page) - 1}&per_page=${per_page}`
+                `${pathname}/?page=${Number(page) - 1}&per_page=${per_page}${
+                  deleted && "&deleted=true"
+                }&query=${query}`
               );
             }}
             className={`${
               !hasPrevPage && "opacity-25 bg-gray-300"
-            } inline-flex size-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180`}
+            } inline-flex size-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 ltr:rotate-0 rtl:rotate-180`}
           >
             <span className="sr-only">Next Page</span>
             <svg

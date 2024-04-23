@@ -9,17 +9,22 @@ import BarChartAssociation from '@/components/charts/association/BarChartAssocia
 import AssociationProfile from '@/components/ui/AssociationProfile';
 import type { FC } from 'react';
 //defuakt value for chart
-const timeFrame = "last30days";
+const timeFrame = "last90days";
 
 
 export default async function Associations({
+  searchParams,
   params,
 }: {
+  searchParams: { [key: string]: string | string[] | undefined };
   params: { id: string | number; timeframe: string };
 }) {
+
+
   const combinedParams = {
-    ...params,
-    timeFrame: params.timeframe?.toString() || timeFrame.toString(),
+    ...searchParams,
+    timeFrame: searchParams.timeFrame?.toString() || timeFrame.toString(),
+    id: params.id
   };
 
   //bring statistic data
@@ -33,25 +38,22 @@ export default async function Associations({
     combinedParams
   );
 
-
   // handle errors  if fetching Failed
   if (!associationData || errorAssociation) {
     throw new Error(errorAssociation.toString());
   }
 
-  
   return (
     <main className="h-full w-full ">
       <CardStatus itemCards={success} />
       <div className="flex gap-4 flex-col lg:flex-row mt-6">
         <SectionWrapper styles="md:px-20 flex items-center flex-col gap-2">
-
-        <AssociationProfile association={associationData} />
+          <AssociationProfile association={associationData} />
         </SectionWrapper>
-      <SectionWrapper styles="md:px-6">
-        <h2>charts</h2>
-        <BarChartAssociation chartData={chartData} />
-      </SectionWrapper>
+        <SectionWrapper styles="md:px-6">
+          <h2>charts</h2>
+          <BarChartAssociation chartData={chartData} />
+        </SectionWrapper>
       </div>
     </main>
   );
