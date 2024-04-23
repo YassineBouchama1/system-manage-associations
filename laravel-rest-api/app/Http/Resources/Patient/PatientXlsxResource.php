@@ -24,11 +24,12 @@ class PatientResource extends JsonResource
             $illnessName =  Illness::withTrashed()->find($this->association->illness_id)->name;
         }
 
-        // $association =
-        // dd($this->association->illness_id);
+        $selectedColumnsString = $request->query('columns', '');
+        $selectedColumns = !empty($selectedColumnsString) ? explode(',', $selectedColumnsString) : [];
+
+
         return [
             'id' => $this->id,
-            'association_id' => $this->association_id,
             'illness' => $illnessName,
             'association' => $this->association ? $this->association->name : null,
             'first_name' => $this->first_name,

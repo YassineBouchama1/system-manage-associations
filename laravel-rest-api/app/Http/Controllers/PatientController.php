@@ -271,12 +271,14 @@ class PatientController extends Controller
             $patients = $patients->select('*');
         }
 
-        // join with associations table
-        $patients = $patients->join('associations', 'patients.association_id', '=', 'associations.id')
-            ->orderBy('patients.created_at', 'desc')
-            ->select('patients.*', "associations.name AS nameAssociation");
+        // // join with associations table
+        // $patients = $patients
+        //     ->join('associations', 'patients.association_id', '=', 'associations.id')
+        //     ->join('illnesses', 'associations.illness_id', '=', 'illnesses.id')
+        //     ->orderBy('patients.created_at', 'desc')
+        //     ->select('patients.*', "associations.name AS nameAssociation", "illnesses.name AS illness");
 
-            
+
         // Consider pagination if needed
         $patients = $patients->paginate($perPage);
 
