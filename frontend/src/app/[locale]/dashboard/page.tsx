@@ -32,7 +32,7 @@ export default async function pageDashboard({
 
         <div className=" flex lg:flex-col  flex-col gap-2">
           {chartData ? <BarChart chartData={chartData} /> : <h3>error</h3>}
-          {/* <MapChart/> */}
+          <MapChart/>
         </div>
       </main>
     </>

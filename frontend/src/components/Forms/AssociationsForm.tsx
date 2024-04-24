@@ -24,12 +24,6 @@ interface AssociationsFormProps {
 const AssociationsForm: FC<AssociationsFormProps> = ({ illnesses }) => {
   const t = useTranslations("ui");
 
-  // dumy data of cities
-  // const cities: Option[] = [
-  //   { id: "safi", name: "Safi" },
-  //   { id: "marrakech", name: "Marrakech" },
-  //   { id: "casablanca", name: "Casablanca" },
-  // ];
 
 
   // ref linked with from
@@ -140,11 +134,13 @@ const AssociationsForm: FC<AssociationsFormProps> = ({ illnesses }) => {
           </div>
           {/* forms PERSONAL INFORMATION  */}
         </div>
+        
+
         {/* end forms  */}
-        <div className="w-full my-6 flex justify-center">
+        <div className="w-full my-6 flex justify-center ">
           <SubmitButton
             title={t("create")}
-            style='bg-theme-color w-52 px-2 py-3 rounded-md text-white text-end"'
+            style="bg-theme-color w-52 px-2 py-3 rounded-md text-white hover:bg-theme-color/80 duration-150"
           />
         </div>
       </form>

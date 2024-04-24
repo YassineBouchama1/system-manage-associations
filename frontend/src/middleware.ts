@@ -33,6 +33,7 @@ export default async function middleware(req: any) {
     const isAssociationRoute = authRoutesAssociation.some((route) =>
       req.nextUrl.pathname.startsWith(route)
     );
+
 //get session <data user auth>
   const session = await getSession();
 
@@ -42,30 +43,38 @@ export default async function middleware(req: any) {
       return NextResponse.redirect(redirectUrl);
     }
 
-  if (session?.token) {
-    // protect if user dosnt verified
-    if (!session?.email_verified_at && isAuthRoute) {
-      const redirectUrl = new URL(
-        "/request-email-verification",
-        req.nextUrl.origin
-      );
-      return NextResponse.redirect(redirectUrl);
-    }
 
-    // if try visit auth routes for super admin
-    if (session.role === 2 && isSuperAdminRoute) {
-      return NextResponse.redirect(new URL("/dashboard", req.nextUrl.origin));
-    }
+    
+      if (session?.token) {
+        // protect if user dosnt verified
+        if (!session?.email_verified_at && isAuthRoute) {
+          const redirectUrl = new URL(
+            "/request-email-verification",
+            req.nextUrl.origin
+          );
+          return NextResponse.redirect(redirectUrl);
+        }
 
-    // if try visit auth routes for association admin
-    if (session.role === 1 && isAssociationRoute) {
-      return NextResponse.redirect(new URL("/dashboard", req.nextUrl.origin));
-    }
+        // if try visit auth routes for super admin
+        if (session.role === 2 && isSuperAdminRoute) {
+          return NextResponse.redirect(
+            new URL("/dashboard", req.nextUrl.origin)
+          );
+        }
 
-    if (session?.email_verified_at && (isGuestRoute || isVerifyRoute)) {
-      return NextResponse.redirect(new URL("/dashboard", req.nextUrl.origin));
-    }
-  }
+        // if try visit auth routes for association admin
+        if (session.role === 1 && isAssociationRoute) {
+          return NextResponse.redirect(
+            new URL("/dashboard", req.nextUrl.origin)
+          );
+        }
+
+        if (session?.email_verified_at && (isGuestRoute || isVerifyRoute)) {
+          return NextResponse.redirect(
+            new URL("/dashboard", req.nextUrl.origin)
+          );
+        }
+      }
   return NextIntlMiddleware(req);
 
 }

@@ -108,11 +108,40 @@ const PatientForms: FC<PatientFormsProps> = () => {
           </div>
           {/* forms PERSONAL INFORMATION  */}
         </div>
+
+        <FormHeader title={"files Related"} />
+
+        <div className="flex  gap-10 mt-10 flex-wrap justify-start ">
+          <div className="font-[sans-serif]  mx-auto">
+            <label className="text-base text-gray-500 font-semibold mb-2 block">
+              Upload file
+            </label>
+            <input
+              type="file"
+              className="w-full text-gray-400 font-semibold text-sm bg-white border file:cursor-pointer cursor-pointer file:border-0 file:py-3 file:px-4 file:mr-4 file:bg-gray-100 file:hover:bg-gray-200 file:text-gray-500 rounded"
+            />
+            <p className="text-xs text-gray-400 mt-2">
+              PNG, JPG SVG, WEBP, and GIF are Allowed.
+            </p>
+          </div>
+          <div className="font-[sans-serif]  mx-auto">
+            <label className="text-base text-gray-500 font-semibold mb-2 block">
+              Upload file
+            </label>
+            <input
+              type="file"
+              className="w-full text-gray-400 font-semibold text-sm bg-white border file:cursor-pointer cursor-pointer file:border-0 file:py-3 file:px-4 file:mr-4 file:bg-gray-100 file:hover:bg-gray-200 file:text-gray-500 rounded"
+            />
+            <p className="text-xs text-gray-400 mt-2">
+              PNG, JPG SVG, WEBP, and GIF are Allowed.
+            </p>
+          </div>
+        </div>
         {/* end forms  */}
         <div className="w-full my-6 flex justify-center">
           <SubmitButton
             title={t("create")}
-            style='bg-theme-color text-white w-52 px-2 py-3 rounded-md'
+            style="bg-theme-color text-white w-52 px-2 py-3 rounded-md"
           />
         </div>
       </form>
