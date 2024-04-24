@@ -10,12 +10,15 @@ use App\Http\Requests\Associations\CreateAssociationRequest;
 use App\Http\Requests\Associations\UpdateAssociationRequest;
 use App\Http\Resources\Association\AssociationResource;
 
+use App\Http\Resources\Association\AssociationXlsxResource;
 use App\Models\Association;
 use App\Models\Illness;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class AssociationController extends Controller
@@ -47,16 +50,17 @@ class AssociationController extends Controller
             $associations->withTrashed();
         }
 
+        $associations = $associations
+            ->withCount('patients')
+            ->join('illnesses', 'associations.illness_id', '=', 'illnesses.id')
+            ->orderBy('associations.created_at', 'desc')
+            ->select('associations.*', "illnesses.name AS illness");
+
         // Pagination
         $associations = $associations->paginate($perPage);
         $totalPages = $associations->lastPage();
         $currentPage = $associations->currentPage();
 
-
-        //Chekc if there is no data send empty array
-        // if ($associations->isEmpty()) {
-        //     return response()->json([], 200); // No content
-        // }
 
 
         return response()->json([
@@ -244,7 +248,7 @@ class AssociationController extends Controller
         }
         return response()->json(['message' => 'succefully', "patients" =>  $association->patients, 'association' => new AssociationResource($association)], 200);
 
-        return response()->json(new AssociationResource($association), 200);
+        // return response()->json(new AssociationResource($association), 200);
     }
 
 
@@ -294,5 +298,58 @@ class AssociationController extends Controller
         $association->restore();
 
         return response()->json(null, 204); // No content on successful deletion
+    }
+
+
+
+    // function for export data for xlsx
+    public function fetchDataForXlsx(Request $request)
+    {
+        $associations = Association::latest();
+
+        // Filter by search query
+        $deleted = $request->query('deleted', null);
+        $perPage = $request->query('per_page', 10);
+        $now = Carbon::now();
+        $startDate = $request->query('startDate', '1000-01-01');
+        $endDate = $request->query('endDate', strval($now->format('Y-m-d')));
+
+        // Get the association ID of the authed user
+        $user = Auth::user();
+
+
+        // protect this that only super admin can do it <we will use police>
+        if ($user->role_id != 1) {
+            return response()->json(['message' => 'unauthed only super admin can do this'], 404);
+        }
+
+
+        // Apply soft deletes if requested
+        if ($deleted) {
+            $associations = $associations->withTrashed();
+        }
+
+
+        // Filter by date range with validation
+        $startDate = Carbon::parse($startDate);
+        $endDate = Carbon::parse($endDate);
+        $associations = $associations->whereBetween('associations.created_at', [$startDate, $endDate]);
+
+
+        // Retrieve patients associated with the authenticated user's association, including soft deleted patients
+        $associations = $associations
+
+            ->join('illnesses', 'associations.illness_id', '=', 'illnesses.id')
+            // ->join('patients', 'associations.id', '=', 'patients.association_id')
+            ->orderBy('associations.created_at', 'desc')
+            ->select('associations.*', "illnesses.name AS illness");
+
+
+
+
+        // Consider pagination if needed
+        $associations = $associations->paginate($perPage);
+
+        return response()->json(AssociationXlsxResource::collection($associations), 200);
     }
 }

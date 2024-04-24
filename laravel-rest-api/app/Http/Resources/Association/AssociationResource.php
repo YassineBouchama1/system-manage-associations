@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Association;
 
 use App\Models\Illness;
+use App\Models\Patient;
 use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Storage;
@@ -19,10 +20,7 @@ class AssociationResource extends JsonResource
         // add frontend url to image
         $imageUrl = asset('associations/' . $this->logo);
 
-        // get illness name for each association
-        $illness = Illness::withTrashed()->find($this->illness_id)->name;
-
-        // $illness = $this->illness ? $this->illness->name : null;
+        $patient_count = Patient::where('association_id', $this->id)->count();
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -30,12 +28,12 @@ class AssociationResource extends JsonResource
             'logo' => $imageUrl,
             'city' => $this->city,
             'illness_id' => $this->illness_id,
-            'illness' =>  $illness,
+            'illness' =>  $this->illness,
             'email' => $admin ? $admin->email : null,
+            'patient_count' => $patient_count ? $patient_count : null,
             'phone' =>  $admin ? $admin->phone : null,
             'status' => $this->status,
             'deleted_at' => $this->deleted_at,
-
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),
             'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
         ];

@@ -17,25 +17,16 @@ class PatientResource extends JsonResource
     {
         $imageUrl = asset('patients/' . $this->avatar);
 
-        // get illness patient
 
-        $illnessName = '';
-        if ($this->association && $this->association->illness_id) {
-            $illnessName =  Illness::withTrashed()->find($this->association->illness_id)->name;
-        }
-
-        // $association =
-        // dd($this->association->illness_id);
         return [
             'id' => $this->id,
             'association_id' => $this->association_id,
-            'illness' => $illnessName,
-            'association' => $this->association ? $this->association->name : null,
+            'illness' => $this->illness ? $this->illness : null,
+            'association' => $this->association ? $this->association : null,
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
             'city' => $this->city,
             'current_address' => $this->current_address,
-            // 'birth_address' => $this->birth_address,
             'phone' => $this->phone,
             'avatar' => $imageUrl,
             'status' => $this->status,

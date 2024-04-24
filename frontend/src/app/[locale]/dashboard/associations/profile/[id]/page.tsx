@@ -35,7 +35,7 @@ export default async function Associations({
     combinedParams
   );
 
-  console.log(params);
+
 
   // handle errors  if fetching Failed
   if (!associationData || errorAssociation) {

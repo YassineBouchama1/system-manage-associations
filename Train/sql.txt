@@ -1,3 +1,11 @@
 SELECT associations.name , COUNT(users.email) AS sum FROM `associations`  
 INNER JOIN users ON associations.id = users.association_id
 GROUP BY associations.name
+
+
+
+SELECT associations.id AS association_id, associations.name, COUNT(*) AS num_patients
+FROM associations
+LEFT JOIN patients ON associations.id = patients.association_id
+GROUP BY associations.id
+ORDER BY  num_patients DESC;

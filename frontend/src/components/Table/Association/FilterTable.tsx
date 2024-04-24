@@ -6,6 +6,8 @@ import useDebounce from "@/hooks/useDebounce";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
+import Modal from "@/components/Modal";
+import ExporterXlsx from "./ExporterXlsx";
 
 interface FilterTableProps {}
 
@@ -14,6 +16,7 @@ const FilterTable: FC<FilterTableProps> = ({}) => {
 
 
 const [toggleFilter,setToggleFilter] = useState<boolean>(true)
+  const [isOpen, setIsOpen] = useState<boolean>(false); 
 
 const t = useTranslations('ui')
   const router = useRouter();
@@ -86,11 +89,17 @@ const t = useTranslations('ui')
         <div className="flex items-center space-x-3 w-full md:w-auto">
           <button
             type="button"
+            onClick={() => setIsOpen(true)}
             className="flex items-center justify-center flex-shrink-0 px-3 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg focus:outline-none hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
           >
             <MoveUp className="w-4 h-4 mr-2" />
             Export
           </button>
+          {isOpen && (
+            <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+              <ExporterXlsx />
+            </Modal>
+          )}
 
           <button
             className={` relative w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700`}

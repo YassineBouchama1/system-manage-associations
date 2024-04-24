@@ -55,6 +55,12 @@ class PatientController extends Controller
             $patients->withTrashed();
         }
         // Retrieve patients associated with the authenticated user's association, including soft deleted patients
+        $patients = $patients
+            ->join('associations', 'patients.association_id', '=', 'associations.id')
+            ->join('illnesses', 'associations.illness_id', '=', 'illnesses.id')
+            ->orderBy('patients.created_at', 'desc')
+            ->select('patients.*', "associations.name AS association", "illnesses.name AS illness");
+
 
 
         // Pagination
@@ -258,26 +264,12 @@ class PatientController extends Controller
 
 
 
-
-
-
-
-        // Select specific columns
-        // $selectedColumnsString = $request->query('columns', '');
-        // $selectedColumns = !empty($selectedColumnsString) ? explode(',', $selectedColumnsString) : [];
-        // if ($selectedColumns) {
-        //     $patients = $patients->select($selectedColumns);
-        // } else {
-        //     // Select all columns
-        //     $patients = $patients->select('*');
-        // }
-
-        // // join with associations table
-        // $patients = $patients
-        //     ->join('associations', 'patients.association_id', '=', 'associations.id')
-        //     ->join('illnesses', 'associations.illness_id', '=', 'illnesses.id')
-        //     ->orderBy('patients.created_at', 'desc')
-        //     ->select('patients.*', "associations.name AS nameAssociation", "illnesses.name AS illness");
+        // join with associations table
+        $patients = $patients
+            ->join('associations', 'patients.association_id', '=', 'associations.id')
+            ->join('illnesses', 'associations.illness_id', '=', 'illnesses.id')
+            ->orderBy('patients.created_at', 'desc')
+            ->select('patients.*', "associations.name AS association", "illnesses.name AS illness");
 
 
         // Consider pagination if needed

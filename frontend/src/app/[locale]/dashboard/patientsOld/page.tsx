@@ -1,13 +1,11 @@
-import { fetchAssociations } from "@/actions/associations";
 import { fetchPatients } from "@/actions/patients";
 import PaginationControls from "@/components/Table/PaginationControls";
-import AssociationCardSkeleton from "@/components/skeletons/AssociationCardSkeleton";
-import AssociationCard from "@/components/ui/AssociationCard";
+
 import PatientCard from "@/components/ui/PatientCard";
-import TitlePage from "@/components/ui/TitlePage";
-import { delay } from "@/lib/delay";
+
 import { getSession } from "@/lib/getSessions";
 import { AssociationType } from "@/types/association";
+import { PatientType } from "@/types/patients";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 import React from "react";
@@ -64,7 +62,7 @@ export default async function Associations({
         {success.data.length === 0 ? (
           <h2>No patiens</h2>
         ) : (
-          success.data.map((item: PatienType) => (
+          success.data.map((item: PatientType) => (
             <PatientCard key={item.id} patient={item} />
           ))
         )}
