@@ -112,7 +112,7 @@ const PatientForms: FC<PatientFormsProps> = () => {
         <div className="w-full my-6 flex justify-center">
           <SubmitButton
             title={t("create")}
-            style='bg-theme-color w-52 px-2 py-3 rounded-md text-white text-end"'
+            style='bg-theme-color text-white w-52 px-2 py-3 rounded-md'
           />
         </div>
       </form>

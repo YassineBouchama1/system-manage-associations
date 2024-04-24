@@ -2,6 +2,7 @@ import { fetchPatients } from "@/actions/patients";
 import PaginationControls from "@/components/Table/PaginationControls";
 import FilterTable from "@/components/Table/Patinet/FilterTable";
 import PatinetsTable from "@/components/Table/Patinet/PatinetsTable";
+import { delay } from "@/lib/delay";
 
 import { getSession } from "@/lib/getSessions";
 
@@ -18,6 +19,8 @@ export default async function Associations({
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
+
+  // await delay(6000)
   // fetching illness  & passing query {page,per_page}
   const combinedParams = {
     ...searchParams,

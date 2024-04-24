@@ -26,6 +26,7 @@ const FormFieldSelect: React.FC<SelectProps> = ({
         <option value="">Select</option>
         {options.map((option) => (
           <option
+            className="py-2.5 px-4 hover:bg-blue-50 text-black text-sm cursor-pointer"
             selected={defaultValue === option.id}
             key={option.id}
             value={option.id}

@@ -3,6 +3,7 @@ import { fetchStatistics } from "@/actions/dashboard";
 import { patientsCharts } from "@/actions/dashboard/patientsCharts";
 import BarChart from "@/components/charts/patients/BarChart";
 import PieChart from "@/components/charts/cities/PieChart";
+import MapChart from "@/components/charts/cities/MapChart";
 
 const timeFrame = "last30days";
 
@@ -29,9 +30,9 @@ export default async function pageDashboard({
       <main className="h-full w-full ">
         <CardStatus itemCards={success} />
 
-        <div className=" flex lg:flex-row  flex-col gap-2">
+        <div className=" flex lg:flex-col  flex-col gap-2">
           {chartData ? <BarChart chartData={chartData} /> : <h3>error</h3>}
-          {/* {chartData ? <PieChart chartData={chartData} /> : <h3>error</h3>} */}
+          {/* <MapChart/> */}
         </div>
       </main>
     </>
