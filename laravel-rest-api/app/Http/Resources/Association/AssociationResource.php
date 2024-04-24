@@ -20,7 +20,11 @@ class AssociationResource extends JsonResource
         // add frontend url to image
         $imageUrl = asset('associations/' . $this->logo);
 
-        $patient_count = Patient::where('association_id', $this->id)->count();
+
+        // get number of patients  for each association
+        $patients_count = Patient::where('association_id', $this->id)->count();
+
+
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -30,7 +34,7 @@ class AssociationResource extends JsonResource
             'illness_id' => $this->illness_id,
             'illness' =>  $this->illness,
             'email' => $admin ? $admin->email : null,
-            'patient_count' => $patient_count ? $patient_count : null,
+            'patients_count' => $patients_count  ? $patients_count    : null,
             'phone' =>  $admin ? $admin->phone : null,
             'status' => $this->status,
             'deleted_at' => $this->deleted_at,

@@ -56,13 +56,13 @@ const AssociationTable: FC<AssociationTableProps> = ({ associations }) => {
             <th scope="col" className="px-4 py-3">
               City
             </th>
-
+     
             <th scope="col" className="px-4 py-3">
               Status
             </th>
             <th scope="col" className="px-4 py-3">
               <span className="sr-only">Actions</span>
-          </th>
+            </th>
           </tr>
         </thead>
         <tbody className="ltr:text-left rtl:text-right">

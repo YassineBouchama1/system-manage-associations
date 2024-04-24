@@ -87,7 +87,8 @@ const BodyTable: FC<BodyTableProps> = ({association}) => {
         />
         <Link
           href={`/dashboard/associations/profile/${association.id}`}
-          className="ps-3 hover:scale-105 duration-100"
+          className="ps-3 hover:scale-105 duration-100
+          "
         >
           <div className="text-base font-semibold">{association.name}</div>
           <div className="font-normal text-gray-500">

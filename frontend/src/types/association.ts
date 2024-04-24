@@ -5,6 +5,7 @@ export interface AssociationType {
   logo: string;
   city: string;
   illness_id: number;
+  patients_count?: number;
   email?: string;
   illness: string;
   phone?: string;
