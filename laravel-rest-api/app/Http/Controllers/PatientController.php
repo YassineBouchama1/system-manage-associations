@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Patients\CreatePatientRequest;
 use App\Http\Requests\Patients\UpdatePatientRequest;
 use App\Http\Resources\Patient\PatientResource;
+use App\Http\Resources\Patient\PatientXlsxResource;
 use App\Models\Patient;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -262,14 +263,14 @@ class PatientController extends Controller
 
 
         // Select specific columns
-        $selectedColumnsString = $request->query('columns', '');
-        $selectedColumns = !empty($selectedColumnsString) ? explode(',', $selectedColumnsString) : [];
-        if ($selectedColumns) {
-            $patients = $patients->select($selectedColumns);
-        } else {
-            // Select all columns
-            $patients = $patients->select('*');
-        }
+        // $selectedColumnsString = $request->query('columns', '');
+        // $selectedColumns = !empty($selectedColumnsString) ? explode(',', $selectedColumnsString) : [];
+        // if ($selectedColumns) {
+        //     $patients = $patients->select($selectedColumns);
+        // } else {
+        //     // Select all columns
+        //     $patients = $patients->select('*');
+        // }
 
         // // join with associations table
         // $patients = $patients
@@ -282,6 +283,6 @@ class PatientController extends Controller
         // Consider pagination if needed
         $patients = $patients->paginate($perPage);
 
-        return response()->json($patients, 200);
+        return response()->json(PatientXlsxResource::collection($patients), 200);
     }
 }
