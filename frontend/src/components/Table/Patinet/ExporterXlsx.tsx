@@ -31,8 +31,8 @@ const columns: { key: string; value: string }[] = [
 
 const fetchDataToExport = async (formData: FormData) => {
 //shrink all inputs
-setToggleColumns(false)
-setToggleFilter(false)
+setToggleColumns(true)
+setToggleFilter(true);
 
   //join all columns 
 formData.append("columns", selectedColumns.join(",")); 

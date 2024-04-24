@@ -14,12 +14,14 @@ const timeFrame = "last30days";
 
 export default async function Associations({
   params,
+  searchParams,
 }: {
   params: { id: string | number; timeframe: string };
+  searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const combinedParams = {
     ...params,
-    timeFrame: params.timeframe?.toString() || timeFrame.toString(),
+    timeFrame: searchParams.timeFrame?.toString() || timeFrame.toString(),
   };
 
   //bring statistic data
@@ -33,25 +35,24 @@ export default async function Associations({
     combinedParams
   );
 
+  console.log(params);
 
   // handle errors  if fetching Failed
   if (!associationData || errorAssociation) {
     throw new Error(errorAssociation.toString());
   }
 
-  
   return (
     <main className="h-full w-full ">
       <CardStatus itemCards={success} />
       <div className="flex gap-4 flex-col lg:flex-row mt-6">
         <SectionWrapper styles="md:px-20 flex items-center flex-col gap-2">
-
-        <AssociationProfile association={associationData} />
+          <AssociationProfile association={associationData} />
         </SectionWrapper>
-      <SectionWrapper styles="md:px-6">
-        <h2>charts</h2>
-        <BarChartAssociation chartData={chartData} />
-      </SectionWrapper>
+        <SectionWrapper styles="md:px-6">
+          <h2>charts</h2>
+          <BarChartAssociation chartData={chartData} />
+        </SectionWrapper>
       </div>
     </main>
   );

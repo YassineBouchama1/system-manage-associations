@@ -10,11 +10,6 @@ import * as XLSX from "xlsx";
 
 const DEFAULT_PAGE = 1;
 const DEFAULT_PER_PAGE = 10;
-interface PatientsQueryParams {
-  page?: string;
-  per_page?: string;
-  deleted?: string;
-}
 
 export const fetchPatientsForXlsx = async (formData: FormData) => {
   // build url
@@ -49,7 +44,7 @@ export const fetchPatientsForXlsx = async (formData: FormData) => {
     const patientsData: any = await patients.json();
 
     //after successfully created return msg success
-    return { success: patientsData?.data, error: null };
+    return { success: patientsData, error: null };
   } catch (error: any) {
     return {
       success: null,

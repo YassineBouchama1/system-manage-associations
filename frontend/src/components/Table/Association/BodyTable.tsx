@@ -85,19 +85,22 @@ const BodyTable: FC<BodyTableProps> = ({association}) => {
           height="200"
           className="w-10 h-10 rounded-full"
         />
-        <div className="ps-3">
+        <Link
+          href={`/dashboard/associations/profile/${association.id}`}
+          className="ps-3 hover:scale-105 duration-100"
+        >
           <div className="text-base font-semibold">{association.name}</div>
           <div className="font-normal text-gray-500">
             {association && association.email}
           </div>
-        </div>
+        </Link>
       </th>
       <td className="px-4 py-3"> {association && association.illness} </td>
       <td className="px-4 py-3">{association && association.city}</td>
       <td className="px-4 py-3">{colorStatus(association.status)}</td>
       <td className="px-4 py-3 flex items-center justify-end">
         {association.deleted_at ? (
-          <form action={onRestore} >
+          <form action={onRestore}>
             <input hidden type="number" name="id" value={association.id} />
             <SubmitButton
               style="text-blue-500  py-2 text-xs font-medium hover:text-blue-700  duration-150"
@@ -109,8 +112,9 @@ const BodyTable: FC<BodyTableProps> = ({association}) => {
           <div
             className={`w-auto px-2   flex items-center justify-center gap-x-2`}
           >
-            <Link href={`/dashboard/associations/${association.id}`}
-            className='text-green-500'
+            <Link
+              href={`/dashboard/associations/${association.id}`}
+              className="text-green-500"
             >
               Edit
             </Link>

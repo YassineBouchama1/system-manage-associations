@@ -23,7 +23,7 @@ export default async function Associations({
 
 
   // handle errors  if fetching Failed
-  if (errorAssociation) {
+  if  (!associationData || errorAssociation) {
     throw new Error(errorAssociation.toString());
   }
   if (errorIllnesses) {
