@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Validator;
 class AssociationController extends Controller
 {
 
-    public function index(Request $request) // Use Request for potential filtering
+    public function index(Request $request)
     {
 
 
@@ -35,28 +35,56 @@ class AssociationController extends Controller
         // $associations = Association::query();
         $associations = Association::latest();
 
-        // Filter by search query (if applicable)
+        // Filter by search query
         $searchTerm = $request->query('q');
-        $deleted = $request->query('deleted', null);
-        $perPage = $request->query('per_page', 10); // Default per page results (optional)
-        // Limit maximum per page
-        $perPage = min($perPage, 30);
-
         if ($searchTerm) {
             $associations->where('name', 'like', "%{$searchTerm}%");
         }
-        // if user passed deleted treu bring all deleted associations
+
+        // Handle deleted associations
+        $deleted = $request->query('deleted', null);
         if ($deleted) {
             $associations->withTrashed();
         }
 
+        // Filter by city
+        $city = $request->query('city', null);
+        if ($city) {
+            $associations->where("city", "=", $city);
+        }
+
+        // Filter by illness id
+        $illness = $request->query('illness', null);
+        if ($illness) {
+            $associations->where("illness_id", "=", $illness);
+        }
+
+
+        //  load patients count
+        $associations = $associations->withCount('patients');
+        // join illnesses table for illness name
         $associations = $associations
-            ->withCount('patients')
             ->join('illnesses', 'associations.illness_id', '=', 'illnesses.id')
-            ->orderBy('associations.created_at', 'desc')
             ->select('associations.*', "illnesses.name AS illness");
 
+
+
+
+
+
+        // filter by  correct order by patients
+        $orderByPatients = $request->query('orderByPatients', null);
+        if ($orderByPatients === 'asc') {
+            $associations->orderBy('patients_count');
+        } else if ($orderByPatients === 'desc') {
+            $associations->orderByRaw('patients_count DESC');
+        }
+
+
         // Pagination
+        $perPage = $request->query('per_page', 10);
+        // Limit maximum per page
+        $perPage = min($perPage, 30);
         $associations = $associations->paginate($perPage);
         $totalPages = $associations->lastPage();
         $currentPage = $associations->currentPage();

@@ -22,7 +22,7 @@ class AssociationResource extends JsonResource
 
 
         // get number of patients  for each association
-        $patients_count = Patient::where('association_id', $this->id)->count();
+        // $patients_count = Patient::where('association_id', $this->id)->count();
 
 
         return [
@@ -33,8 +33,9 @@ class AssociationResource extends JsonResource
             'city' => $this->city,
             'illness_id' => $this->illness_id,
             'illness' =>  $this->illness,
+            'patients_count' =>  $this->patients->count(),
             'email' => $admin ? $admin->email : null,
-            'patients_count' => $patients_count  ? $patients_count    : null,
+            // 'patients_count' => $patients_count  ? $patients_count    : null,
             'phone' =>  $admin ? $admin->phone : null,
             'status' => $this->status,
             'deleted_at' => $this->deleted_at,
