@@ -25,6 +25,8 @@ const MapChart: FC<MapChartProps> = ({}) => {
   const [activeCity, setActiveCity] = useState(false);
 
 
+
+  
   /* function determining what should happen onmouseover, this function updates our state*/
   const highlightFeature = (e: any) => {
     var layer = e.target;
@@ -52,13 +54,10 @@ const MapChart: FC<MapChartProps> = ({}) => {
 
 
   const whenClick = (e: any) => {
-
     e.target.setStyle(styleHover(e.target.feature));
-  
-
   };
 
-  console.log(onselect);
+
   // this function is called when a feature in the map is hovered over or when a mouse moves out of it, the function calls two functions
   const onEachFeature = (feature: any, layer: any) => {
     layer.on({
@@ -107,6 +106,8 @@ const MapChart: FC<MapChartProps> = ({}) => {
     };
   };
 
+
+  // style map 
   const mapStyle = {
     height: "60VH",
     width: "100%",
@@ -127,18 +128,15 @@ const MapChart: FC<MapChartProps> = ({}) => {
     return L.marker(latlng, { icon: customMarkerIcon(properties.region) });
   };
 
+
+
+
   const feature = statesData.features.map((feature) => {
 ;
     return feature;
   });
 
-  const coordinate = statesData.features.map((feature) => {
-    const coordinates = feature.geometry.coordinates[0].map((item) => [
-      item[0],
-      item[1],
-    ]);
-    return coordinates;
-  });
+
 
   return (
     <div className="z-10 flex justify-center flex-col lg:w-1/2  w-full   h-auto bg-white rounded-md my-4 p-4">
@@ -162,6 +160,8 @@ const MapChart: FC<MapChartProps> = ({}) => {
           url="https://{s}.basemaps.cartocdn.com/rastertiles/light_nolabels/{z}/{x}/{y}.png"
         />
 
+
+
         {cities.map((city, index) => {
           return (
             <Marker
@@ -176,15 +176,6 @@ const MapChart: FC<MapChartProps> = ({}) => {
           );
         })}
 
-        {/* // Popup  */}
-
-        {/* {activeCity && (
-          <Popup position={center as any} minWidth={90}>
-            <span>Marker is 
-              {onselect && onselect?.region }
-              </span>
-          </Popup>
-        )} */}
 
         {statesData.features.map((city, index) => {
           const coordinates = city.geometry.coordinates[0].map((item) => [

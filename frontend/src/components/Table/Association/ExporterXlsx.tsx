@@ -44,11 +44,20 @@ formData.append("columns", selectedColumns.join(","));
 
 
   //after susccessfully fetch data export it  as xlsx
-  if (success) {
-    await GetExportXlsx("association", "AssociationExport", success);
-    toast.success("Exported Successfully ");
-    return
-  }
+
+
+    if (success) {
+      // if there is no data dont export it
+      if (success.length > 0) {
+        await GetExportXlsx("association", "AssociationExport", success);
+        toast.success("Exported Successfully ");
+  
+        return;
+      } else {
+        toast.error("there is no data");
+        return;
+      }
+    }
 
   // handle erros from api
   if (apiError) {
