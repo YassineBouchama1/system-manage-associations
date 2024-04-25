@@ -8,7 +8,9 @@ import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import Modal from "@/components/Modal";
 import ExporterXlsx from "./ExporterXlsx";
-
+import FormFieldSelectSearch from "@/components/Forms/FormFieldSelectSearch";
+import cities from "../../../lib/cities.json";
+import { SubmitButton } from "@/components/ui/SubmitButton";
 interface FilterTableProps {}
 
 const FilterTable: FC<FilterTableProps> = ({}) => {
@@ -28,6 +30,15 @@ const t = useTranslations('ui')
   const [checkedDeleted, setCheckedDeleted] = useState<string>(
     searchParams.get("deleted") ?? ""
   );
+
+    // const [selectedCity, setSelectedCity] = useState<string>(
+    //   searchParams.get("city") ?? ""
+    // );
+  const [selectedCityValue, setSelectedCityValue] = useState<string | null>(
+    null
+  ); // for handle value select of city
+
+
   const per_page: string = searchParams.get("per_page") ?? "10";
 
   const [query, setQuery] = useState(searchParams.get("query") ?? "");
@@ -35,13 +46,26 @@ const t = useTranslations('ui')
   // Function to handle checkbox change
   const onDeletedChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.checked ? "true" : "";
-    router.push(
-      `${pathname}?page=${Number(
-        page
-      )}&per_page=${per_page}&query=${query}&deleted=${newValue}`
-    );
     setCheckedDeleted(newValue);
+    // router.push(
+    //   `${pathname}?page=${Number(
+    //     page
+    //   )}&per_page=${per_page}&query=${query}&deleted=${newValue}`
+    // );
   };
+
+
+const handleClickBtnFilter = ()=>{
+    
+      router.push(
+        `${pathname}?page=${Number(
+          page
+        )}&per_page=${per_page}&query=${query}&deleted=${checkedDeleted}&city=${
+          selectedCityValue ? selectedCityValue : ""
+        }`
+      );
+    
+}
 
   // Function to handle search input change
   const onSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,6 +78,24 @@ const t = useTranslations('ui')
     setQuery(newQuery);
   };
 
+type DataList = { [key: string]: string };
+
+
+
+// convert data of cities to become map
+     const dataList: DataList = cities.reduce((acc, city) => {
+       acc[city.id] = city.name;
+       return acc;
+     }, {});
+
+
+
+       const handleSelectCityChange = (value: string | null) => {
+         setSelectedCityValue(value);
+       };
+
+
+    const defaultSelectedKey = "AX";
   return (
     <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
       <div className="w-full md:w-1/2">
@@ -102,7 +144,7 @@ const t = useTranslations('ui')
           )}
 
           <button
-            className={` relative w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700`}
+            className={`  w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700`}
             type="button"
             onClick={() => setToggleFilter(!toggleFilter)}
           >
@@ -140,6 +182,23 @@ const t = useTranslations('ui')
                 </label>
               </li>
             </ul>
+
+            {/* Selector City  */}
+            <FormFieldSelectSearch
+              // defaultSelectedKey={selectedCity}
+              dataList={dataList}
+              nameInput="city"
+              onSelectChange={handleSelectCityChange}
+            />
+<div className="w-full flex justify-center my-6">
+
+            <button
+              onClick={() => handleClickBtnFilter()}
+              className="bg-theme-color w-auto px-2 rounded-md text-white"
+              >
+              filter
+            </button>
+              </div>
           </div>
         </div>
       </div>

@@ -12,6 +12,7 @@ interface AssociationsQueryParams {
   per_page?: string;
   query?: string;
   deleted?: string;
+  city?: string;
 }
 
 export const fetchAssociations = async (params: AssociationsQueryParams) => {
@@ -24,11 +25,14 @@ export const fetchAssociations = async (params: AssociationsQueryParams) => {
 if(params.query){
     url += `&q=${params?.query}`;
 }
-if (params.deleted) {
-  url += `&deleted=${params?.deleted}`;
+if (params.city) {
+  url += `&city=${params?.deleted}`;
 }
 
 
+if (params.deleted) {
+  url += `&deleted=${params?.deleted}`;
+}
   try {
     const associations:  Response = await fetchServer({
       url,
