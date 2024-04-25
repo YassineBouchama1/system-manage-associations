@@ -76,6 +76,8 @@ interface TimeframeOption {
   value: string;
   label: string; 
 }
+
+//list of time frame
 const timeFrameOptions: TimeframeOption[] = [
   { value: "last30days", label: t("chart_30_days") },
   { value: "last90days", label: t("chart_90_days") },
@@ -101,7 +103,7 @@ const timeFrameOptions: TimeframeOption[] = [
     }
   }
   return (
-    <div className="flex justify-center flex-col w-[100%]   h-auto bg-white rounded-md my-4 p-4">
+    <div className="flex justify-center flex-col lg:w-1/2  w-full   h-auto bg-white rounded-md my-4 p-4">
       <div className=" p-4 flex justify-between">
         <button onClick={handleDownload}>
           <Download size={20} className="text-theme-color" />
