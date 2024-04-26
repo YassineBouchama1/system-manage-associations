@@ -8,8 +8,6 @@ import toast from 'react-hot-toast';
 import { restoreAction } from '@/actions/patients/restore';
 import { deleteAction } from '@/actions/patients/delete';
 import { PatientType } from '@/types/patients';
-import { ExporterPdf } from '@/lib/ExporterPdf';
-import PatientPdf from '@/components/PDFsTemplate/PatientPdf';
 
 interface BodyTableProps {
   patient: PatientType;
@@ -87,11 +85,17 @@ const BodyTable: FC<BodyTableProps> = ({ patient }) => {
           height="200"
           className="w-10 h-10 rounded-full"
         />
-        <div className="ps-3">
-          <div className="text-base font-semibold truncate">
-            {patient.first_name + " " + patient.last_name}
+        <Link
+          href={`/dashboard/patients/profile/${patient.id}`}
+          className="ps-3 hover:scale-105 hover:text-theme-color duration-100
+          "
+        >
+          <div className="ps-3">
+            <div className="text-base font-semibold truncate">
+              {patient.first_name + " " + patient.last_name}
+            </div>
           </div>
-        </div>
+        </Link>
       </th>
       <td className="px-4 py-3"> {patient && patient.illness} </td>
       <td className="px-4 py-3">{patient && patient.city}</td>
@@ -127,7 +131,6 @@ const BodyTable: FC<BodyTableProps> = ({ patient }) => {
                 loadingForm={t("deleting") + "..."}
               />
             </form>
-      
           </div>
         )}
       </td>

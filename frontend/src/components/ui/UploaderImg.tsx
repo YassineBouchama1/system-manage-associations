@@ -41,7 +41,12 @@ const UploaderImg: FC<UploaderImgProps> = ({
           width="200"
           height="200"
         />
-        {!disabled && <p className="text-theme-color">{text && text}</p>}
+        {!disabled && (
+          <p className="text-theme-color">
+            {text && text}
+            <span className="text-red-500">*</span>
+          </p>
+        )}
       </label>
 
       <input
@@ -50,7 +55,7 @@ const UploaderImg: FC<UploaderImgProps> = ({
         type="file"
         accept="image/*"
         name={name}
-        disabled
+        disabled={disabled}
         onChange={handleImageChange}
       ></input>
     </div>

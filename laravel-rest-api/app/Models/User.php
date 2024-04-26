@@ -59,4 +59,9 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     {
         return optional($this->role)->name;
     }
+
+    public function timeLines()
+    {
+        return $this->hasMany(Timeline::class,);
+    }
 }

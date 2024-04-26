@@ -15,6 +15,7 @@ const FormFieldSelect: React.FC<SelectProps> = ({
     <div className="flex flex-col">
       <label className="mr-1" htmlFor={rest.id}>
         {title}
+        <span className="text-red-500">*</span>
       </label>
       <select
         {...rest}

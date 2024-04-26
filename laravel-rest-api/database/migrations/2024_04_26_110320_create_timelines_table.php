@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('timelines', function (Blueprint $table) {
             $table->id();
-            $table->forgstring('patient_id')->constrained('patients');
-            $table->forgstring('patient_id')->constrained('patients');
+            $table->foreignId('patient_id')->constrained('patients')->onDelete('cascade');
+            $table->foreignId('responsable_id')->constrained('users'); // id the persone who create this timeline
+            $table->text('description');
+            $table->text('file_url')->nullable();
             $table->timestamps();
         });
     }

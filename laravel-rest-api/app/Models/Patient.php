@@ -29,4 +29,10 @@ class Patient extends Model
     {
         return $this->belongsTo(Association::class, 'association_id');
     }
+
+
+    public function timeLines()
+    {
+        return $this->hasMany(Timeline::class,);
+    }
 }
