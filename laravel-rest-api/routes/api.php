@@ -14,6 +14,7 @@ require __DIR__ . '/association.php';
 require __DIR__ . '/patient.php';
 require __DIR__ . '/operator.php';
 require __DIR__ . '/charts.php';
+require __DIR__ . '/timeLine.php';
 require __DIR__ . '/xlsx.php'; // fetch data for excul advanced filters
 
 //@descRoles ids
@@ -34,8 +35,7 @@ Route::middleware(['auth:api'])->group(function () {
     Route::get('/user', [UserController::class, 'show'])
         ->name('user.show');
 
-        Route::get('/selectors', [SelectorsController::class, 'indexForSelectors']);
-
+    Route::get('/selectors', [SelectorsController::class, 'indexForSelectors']);
 });
 
 
