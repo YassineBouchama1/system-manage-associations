@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\IllnessController;
+use App\Http\Controllers\SelectorsController;
 use App\Http\Controllers\StatisticsController;
 use App\Http\Controllers\Users\UserController;
 use App\Http\Middleware\RoleMiddleware;
@@ -32,6 +33,9 @@ Route::fallback(function (Request $request) {
 Route::middleware(['auth:api'])->group(function () {
     Route::get('/user', [UserController::class, 'show'])
         ->name('user.show');
+
+        Route::get('/selectors', [SelectorsController::class, 'indexForSelectors']);
+
 });
 
 

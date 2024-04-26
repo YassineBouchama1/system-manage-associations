@@ -16,6 +16,12 @@ export interface Option {
 }
 
 
+export interface SelectorType {
+  id: string;
+  name: string;
+}
+
+
 // selector
 export interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   title: string;

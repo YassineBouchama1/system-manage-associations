@@ -3,23 +3,21 @@ import Image from 'next/image';
 import { useState, type FC } from 'react';
 
 interface UploaderImgProps {
-    text:string,
-    defaultImg?:string,
-    name:string
+  text: string;
+  defaultImg?: string;
+  name: string;
+  disabled?: boolean;
 }
 
 const UploaderImg: FC<UploaderImgProps> = ({
   text,
   defaultImg = "/imgUploader.png",
-  name
+  name,
+  disabled = false,
 }) => {
   const [imageUrl, setImageUrl] = useState<string>(defaultImg);
 
-
-
-
-
-  //onchange image 
+  //onchange image
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const uploadedFile = event.target.files?.[0];
     if (uploadedFile) {
@@ -43,7 +41,7 @@ const UploaderImg: FC<UploaderImgProps> = ({
           width="200"
           height="200"
         />
-        <p className="text-theme-color">{text && text}</p>
+        {!disabled && <p className="text-theme-color">{text && text}</p>}
       </label>
 
       <input
@@ -52,6 +50,7 @@ const UploaderImg: FC<UploaderImgProps> = ({
         type="file"
         accept="image/*"
         name={name}
+        disabled
         onChange={handleImageChange}
       ></input>
     </div>

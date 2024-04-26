@@ -4,40 +4,42 @@ import Link from "next/link";
 import type { FC } from "react";
 import useDebounce from "@/hooks/useDebounce";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { useTranslations } from "next-intl";
 import Modal from "@/components/Modal";
 import ExporterXlsx from "./ExporterXlsx";
 import FormFieldSelectSearch from "@/components/Forms/FormFieldSelectSearch";
 import cities from "../../../lib/cities.json";
-import { SubmitButton } from "@/components/ui/SubmitButton";
-interface FilterTableProps {}
+import { IllnessType } from "@/types/illness";
+interface FilterTableProps {
+  illnesses: IllnessType[];
+}
 
-const FilterTable: FC<FilterTableProps> = ({}) => {
+const FilterTable: FC<FilterTableProps> = ({ illnesses }) => {
+  const [toggleFilter, setToggleFilter] = useState<boolean>(true);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
-
-
-const [toggleFilter,setToggleFilter] = useState<boolean>(true)
-  const [isOpen, setIsOpen] = useState<boolean>(false); 
-
-const t = useTranslations('ui')
+  const t = useTranslations("ui");
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
-
 
   const page: string = searchParams.get("page") ?? "1";
   const [checkedDeleted, setCheckedDeleted] = useState<string>(
     searchParams.get("deleted") ?? ""
   );
 
-    // const [selectedCity, setSelectedCity] = useState<string>(
-    //   searchParams.get("city") ?? ""
-    // );
+  const [selectedCity, setSelectedCity] = useState<string>(
+    searchParams?.get("city") ?? ""
+  );
+
+  // const [selectedIllness, setSelectedIllness] = useState<string | null>(
+  //   searchParams?.get("illness") ?? null
+  // );
+
   const [selectedCityValue, setSelectedCityValue] = useState<string | null>(
     null
   ); // for handle value select of city
-
 
   const per_page: string = searchParams.get("per_page") ?? "10";
 
@@ -47,25 +49,17 @@ const t = useTranslations('ui')
   const onDeletedChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.checked ? "true" : "";
     setCheckedDeleted(newValue);
-    // router.push(
-    //   `${pathname}?page=${Number(
-    //     page
-    //   )}&per_page=${per_page}&query=${query}&deleted=${newValue}`
-    // );
   };
 
-
-const handleClickBtnFilter = ()=>{
-    
-      router.push(
-        `${pathname}?page=${Number(
-          page
-        )}&per_page=${per_page}&query=${query}&deleted=${checkedDeleted}&city=${
-          selectedCityValue ? selectedCityValue : ""
-        }`
-      );
-    
-}
+  const handleClickBtnFilter = () => {
+    router.push(
+      `${pathname}?page=${Number(
+        page
+      )}&per_page=${per_page}&query=${query}&deleted=${checkedDeleted}&city=${
+        selectedCityValue ? selectedCityValue : ""
+      }`
+    );
+  };
 
   // Function to handle search input change
   const onSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -78,24 +72,16 @@ const handleClickBtnFilter = ()=>{
     setQuery(newQuery);
   };
 
-type DataList = { [key: string]: string };
+  // function for change value of City selector
+  const handleSelectCityChange = (value: string | null) => {
+    setSelectedCityValue(value);
+  };
 
+  // // function for change value of illness selector
+  // const handleSelectIllnessChange = (value: string | null) => {
+  //   setSelectedIllness(value);
+  // };
 
-
-// convert data of cities to become map
-     const dataList: DataList = cities.reduce((acc, city) => {
-       acc[city.id] = city.name;
-       return acc;
-     }, {});
-
-
-
-       const handleSelectCityChange = (value: string | null) => {
-         setSelectedCityValue(value);
-       };
-
-
-    const defaultSelectedKey = "AX";
   return (
     <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
       <div className="w-full md:w-1/2">
@@ -185,20 +171,28 @@ type DataList = { [key: string]: string };
 
             {/* Selector City  */}
             <FormFieldSelectSearch
-              // defaultSelectedKey={selectedCity}
-              dataList={dataList}
+              defaultSelectedId={selectedCity}
+              dataList={cities}
               nameInput="city"
               onSelectChange={handleSelectCityChange}
             />
-<div className="w-full flex justify-center my-6">
 
-            <button
-              onClick={() => handleClickBtnFilter()}
-              className="bg-theme-color w-auto px-2 rounded-md text-white"
+            {/* Selector Illness  */}
+            {/* <FormFieldSelectSearch
+              defaultSelectedId={selectedIllness}
+              dataList={illnesses}
+              nameInput="illness"
+              onSelectChange={handleSelectIllnessChange}
+            /> */}
+
+            <div className="w-full flex justify-center my-6">
+              <button
+                onClick={() => handleClickBtnFilter()}
+                className="bg-theme-color w-auto px-2 rounded-md text-white"
               >
-              filter
-            </button>
-              </div>
+                filter
+              </button>
+            </div>
           </div>
         </div>
       </div>

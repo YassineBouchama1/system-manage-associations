@@ -10,7 +10,9 @@ use App\Http\Requests\Associations\CreateAssociationRequest;
 use App\Http\Requests\Associations\UpdateAssociationRequest;
 use App\Http\Resources\Association\AssociationResource;
 
+use App\Http\Resources\Association\AssociationSelectorsResource;
 use App\Http\Resources\Association\AssociationXlsxResource;
+use App\Http\Resources\Association\SelectorsResourceResource;
 use App\Models\Association;
 use App\Models\Illness;
 use App\Models\User;
@@ -97,6 +99,8 @@ class AssociationController extends Controller
             'current_page' => $currentPage,
         ], 200);
     }
+
+
 
 
     public function store(CreateAssociationRequest $request, CreateUser $createUser): JsonResponse

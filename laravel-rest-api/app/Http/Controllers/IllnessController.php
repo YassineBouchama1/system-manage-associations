@@ -34,16 +34,7 @@ class IllnessController extends Controller
         ], 200);
     }
 
-    public function indexForSelectors()
-    {
 
-        $illnesses = Illness::latest()->get();
-
-        // dd($illnesses);
-        return response()->json([
-            "data" => IllnessResource::collection($illnesses)
-        ], 200);
-    }
 
     public function store(CreateIllnessRequest $request)
     {

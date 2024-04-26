@@ -54,6 +54,16 @@ class PatientController extends Controller
         if ($deleted) {
             $patients->withTrashed();
         }
+
+
+        // Filter by association
+        $association = $request->query('association', null);
+        if ($association) {
+            $patients->where("association_id", "=", $association);
+        }
+
+
+        
         // Retrieve patients associated with the authenticated user's association, including soft deleted patients
         $patients = $patients
             ->join('associations', 'patients.association_id', '=', 'associations.id')

@@ -13,6 +13,7 @@ interface AssociationsQueryParams {
   query?: string;
   deleted?: string;
   city?: string;
+  illness?: string;
 }
 
 export const fetchAssociations = async (params: AssociationsQueryParams) => {
@@ -26,13 +27,20 @@ if(params.query){
     url += `&q=${params?.query}`;
 }
 if (params.city) {
-  url += `&city=${params?.deleted}`;
+  params?.city === "All" ? (url += `&city=`) : (url += `&city=${params?.city}`);
+  
 }
 
+// if (params.illness) {
+//   params?.illness === "all"
+//     ? (url += `&illness=`)
+//     : (url += `&illness=${params?.illness}`);
+// }
 
 if (params.deleted) {
   url += `&deleted=${params?.deleted}`;
 }
+
   try {
     const associations:  Response = await fetchServer({
       url,

@@ -1,3 +1,4 @@
+import { fetchSelectors } from "@/actions/fetchFiltersSelectors/fetchSelectors";
 import { fetchPatients } from "@/actions/patients";
 import PaginationControls from "@/components/Table/PaginationControls";
 import FilterTable from "@/components/Table/Patinet/FilterTable";
@@ -19,7 +20,6 @@ export default async function Associations({
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
-
   // await delay(6000)
   // fetching illness  & passing query {page,per_page}
   const combinedParams = {
@@ -28,24 +28,25 @@ export default async function Associations({
     per_page: searchParams.per_page?.toString() || DEFAULT_PER_PAGE.toString(),
   };
 
-  
+  //fetch list of selectors <illnesses - association>  id - name
+  const { success: selectorsData, error: selectorsError } =
+    await fetchSelectors();
+
   const { success, error } = await fetchPatients(combinedParams);
 
- if (!success || error) {
-   throw new Error(error.toString());
- }
-
+  if (!success || error) {
+    throw new Error(error.toString());
+  }
 
   const t = await getTranslations("ui");
 
-    const session = await getSession();
+  const session = await getSession();
 
-   
   return (
     <section className="bg-gray-50 dark:bg-gray-900 ">
       <div className="mx-auto max-w-screen-xl ">
         <div className="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden min-h-90">
-          <FilterTable />
+          <FilterTable associations={selectorsData.associations} />
           <PatinetsTable patients={success.data} />
           <PaginationControls
             hasNextPage={success?.current_page! < success?.total_pages!}

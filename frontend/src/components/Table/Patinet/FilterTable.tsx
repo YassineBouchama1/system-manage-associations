@@ -7,19 +7,28 @@ import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import Modal from "@/components/Modal";
 import ExporterXlsx from "./ExporterXlsx";
+import FormFieldSelectSearch from "@/components/Forms/FormFieldSelectSearch";
+import { SelectorType } from "@/types/generale";
 
 interface FilterTableProps {
+  associations: SelectorType[];
 }
 
-const FilterTable: FC<FilterTableProps> = ({  }) => {
-  const [toggleFilter, setToggleFilter] = useState<boolean>(true);
-  const [isOpen, setIsOpen] = useState<boolean >(false); 
+const FilterTable: FC<FilterTableProps> = ({ associations }) => {
 
   const t = useTranslations("ui");
 
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
+
+  const [toggleFilter, setToggleFilter] = useState<boolean>(true);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [selectedAssociationValue, setSelectedAssociationValue] = useState<
+    string | null
+  >(searchParams.get("association") ?? null); // for handle value select of asscociation
+
+
 
   const page: string = searchParams.get("page") ?? "1";
   const [checkedDeleted, setCheckedDeleted] = useState<string>(
@@ -29,28 +38,34 @@ const FilterTable: FC<FilterTableProps> = ({  }) => {
 
   const [query, setQuery] = useState(searchParams.get("query") ?? "");
 
-// Function to handle checkbox change
+  // Function to handle checkbox change
   const onDeletedChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.checked ? "true" : "";
-    router.push(
-      `${pathname}?page=${Number(
-        page
-      )}&per_page=${per_page}&query=${query}&deleted=${newValue}`
-    );
     setCheckedDeleted(newValue);
   };
 
   // Function to handle search input change
   const onSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newQuery = e.target.value;
-    router.push(
-      `${pathname}?page=${Number(
-        page
-      )}&per_page=${per_page}&query=${newQuery}&deleted=${checkedDeleted}`
-    );
+    
     setQuery(newQuery);
   };
 
+  // function for change value of City selector
+  const handleSelectAssociationChange = (value: string | null) => {
+    setSelectedAssociationValue(value);
+  };
+
+  const handleClickBtnFilter = () => {
+    router.push(
+      `${pathname}?page=${Number(
+        page
+      )}&per_page=${per_page}&query=${query}&deleted=${checkedDeleted}&association=${
+        selectedAssociationValue ? selectedAssociationValue : ""
+      }`
+    );
+   
+  };
 
 
   return (
@@ -96,7 +111,7 @@ const FilterTable: FC<FilterTableProps> = ({  }) => {
           </button>
           {isOpen && (
             <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-              <ExporterXlsx/>
+              <ExporterXlsx />
             </Modal>
           )}
           <button
@@ -138,6 +153,30 @@ const FilterTable: FC<FilterTableProps> = ({  }) => {
                 </label>
               </li>
             </ul>
+            {/* Selector City  */}
+            <FormFieldSelectSearch
+              defaultSelectedId={selectedAssociationValue}
+              dataList={associations}
+              nameInput="Associations"
+              onSelectChange={handleSelectAssociationChange}
+            />
+
+            {/* Selector Illness  */}
+            {/* <FormFieldSelectSearch
+              defaultSelectedId={selectedIllness}
+              dataList={illnesses}
+              nameInput="illness"
+              onSelectChange={handleSelectIllnessChange}
+            /> */}
+
+            <div className="w-full flex justify-center my-6">
+              <button
+                onClick={() => handleClickBtnFilter()}
+                className="bg-theme-color w-auto px-2 rounded-md text-white"
+              >
+                filter
+              </button>
+            </div>
           </div>
         </div>
       </div>
