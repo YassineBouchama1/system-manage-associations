@@ -1,0 +1,38 @@
+<?php
+
+class Animal {
+
+    protected $name;
+
+  public  function __contracter($name){
+      $this->name = $name;
+}
+
+    public function makeAnimale (){
+        echo 'make sound';
+    }
+}
+
+class Dog extends Animal {
+
+    public function makeAnimale(){
+        echo 'haw haw <br>' ;
+    }
+}
+
+class Cat extends Animal {
+
+    public function makeAnimale(){
+        echo ' Miew miew <br>' ;
+    }
+}
+
+function makeSounds (Animal $animal){
+    $animal->makeAnimale();
+}
+$dog = new Dog('olga');
+$cat = new Cat('kira');
+
+makeSounds($dog);
+makeSounds($cat);
+
