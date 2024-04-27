@@ -129,6 +129,9 @@ const Sidebar = ({ session }: { session: SessionData}) => {
           >
             <X />
           </button>
+          <Link
+          className="cursor-pointer"
+          href={'/dashboard'}>
           <Image
             className=" h-10 w-fit "
             src="/logo.png"
@@ -136,6 +139,7 @@ const Sidebar = ({ session }: { session: SessionData}) => {
             width="100"
             height="100"
           />
+         </Link>
         </div>
 
         <div className="flex flex-col space-y-2">

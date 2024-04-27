@@ -84,7 +84,7 @@ const TimeLine: FC<TimeLineProps> = () => {
   }
 
   return (
-    <div className="w-full h-[450px] p-4 overflow-x-auto ">
+    <div className="w-full md:min-w-[700px]   h-[450px] p-4 overflow-x-auto ">
       <div className="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent">
         {timeLInesData.map((item: TimeLineType, index) => (
           <div
@@ -104,16 +104,16 @@ const TimeLine: FC<TimeLineProps> = () => {
 
             <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-4 rounded border border-slate-200 shadow">
               <div className="flex items-center justify-between space-x-2 mb-1">
-                <div className="font-bold text-slate-900">
+                <div className="font-bold text-slate-900 w-full">
                   {item.responsible}
-                  <span className="text-xs font-light text-gray-400 ml-2">
+                  {/* <span className="text-xs font-light text-gray-400 ml-2">
                     opened the request
-                  </span>
+                  </span> */}
                 </div>
                 <time
                   className={`${
                     index === 0 ? "text-amber-500" : "text-indigo-500"
-                  } font-caveat font-medium`}
+                  } font-caveat font-medium w-full`}
                 >
                   {item.time}
                 </time>
@@ -144,7 +144,6 @@ const TimeLine: FC<TimeLineProps> = () => {
           </div>
         ))}
         {isLoading && <div className="text-center">Loading...</div>}
-      
       </div>
       {/* form create new timeline  */}
 

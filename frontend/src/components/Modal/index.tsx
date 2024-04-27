@@ -37,7 +37,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose,children }) => {
             animate="visible"
             exit="exit"
             onClick={(e) => e.stopPropagation()}
-            className="bg-white rounded-lg shadow-md p-4 w-auto"
+            className="bg-white rounded-lg shadow-md p-4 w-auto mx-auto"
           >
             {children}
             <button
