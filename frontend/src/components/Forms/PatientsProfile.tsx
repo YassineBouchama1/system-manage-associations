@@ -62,6 +62,7 @@ const colorStatus = (status: string) => {
 
   return (
     <SectionWrapper styles="md:px-20">
+      {/* <PatientPdf patient={patient} /> */}
       <div className="w-auto flex-col items-start">
         <div className="flex gap-2 justify-between">
           <button
