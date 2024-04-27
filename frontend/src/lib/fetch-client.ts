@@ -9,15 +9,15 @@ interface fetchClientProps {
 
 async function fetchClient({ method = "GET", url, body = "", token }: fetchClientProps) {
   try {
-    const session = 'await getSession()';
-    const accessToken = token || session;
+    // const session = "await getSession()";
+    // const accessToken = token || session;
 
     const response = await fetch(url.toString(), {
       method: method,
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: "Bearer" + accessToken,
+        Authorization: "Bearer" + token,
       },
       body: body || undefined,
     });
@@ -27,20 +27,12 @@ async function fetchClient({ method = "GET", url, body = "", token }: fetchClien
     }
 
     return response;
-  } catch (error) {
-    if (error instanceof Response) {
-      if (error.status === 401) {
-       logout();
-      }
- 
-      if (error.status === 409) {
-        window.location.href = "/request-email-verification";
-      }
-
-      throw error;
-    }
-
-    throw new Error("Failed to fetch data", { cause: error });
+  } catch (error: any) {
+    const responseBody = await error.text();
+    const errorObject: any = JSON.parse(responseBody);
+    console.log(typeof error);
+    console.log(errorObject);
+    throw new Error(errorObject?.message || error.message);
   }
 }
 

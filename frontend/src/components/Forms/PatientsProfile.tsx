@@ -4,21 +4,18 @@ import { useRef, useState, type FC } from "react";
 
 import FormHeader from "./FormHeader";
 import { FormField } from "./FormField";
-import Image from "next/image";
-import { cn } from "@/lib/utils";
+
 import FormFieldSelect from "./FormFieldSelect";
-import { Option } from "@/types/generale";
-import { SubmitButton } from "../ui/SubmitButton";
+
 import SectionWrapper from "../Wrappers/SectionWrapper";
 import UploaderImg from "../ui/UploaderImg";
 
-import toast from "react-hot-toast";
-import { redirect, useParams } from "next/navigation";
+
+import {  useParams } from "next/navigation";
 import cities from "../../lib/cities.json";
-import { updateAssociation } from "@/actions/associations/update";
-import { updatePatient } from "@/actions/patients/update";
+
 import { PatientType } from "@/types/patients";
-import { getFormattedDateNow } from "@/lib/getFormattedDateNow";
+
 import TimeLine from "../ui/TimeLine";
 import Modal from "../Modal";
 
@@ -59,37 +56,7 @@ const colorStatus = (status: string) => {
   }
 };
 
-//dummy data timeline
-const timeLineData = [
-  {
-    description:
-      " Pretium lectus quam id leo. Urna et pharetra aliquam vestibulum morbi blandit cursus risus.",
-    time: "12/08/2000",
-    responsable: "Yassine",
-    file: "Yassine",
-  },
-  {
-    description:
-      " Pretium lectus quam id leo. Urna et pharetra aliquam vestibulum morbi blandit cursus risus.",
-    time: "12/08/2023",
-    responsable: "ahmed",
-    file: null,
-  },
-  {
-    description:
-      " Pretium lectus quam id leo. Urna et pharetra aliquam vestibulum morbi blandit cursus risus.",
-    time: "12/08/2023",
-    responsable: "alex",
-    file: null,
-  },
-  {
-    description:
-      " Pretium lectus quam id leo. Urna et pharetra aliquam vestibulum morbi blandit cursus risus.",
-    time: "12/08/2000",
-    responsable: "Yassine",
-    file: "Yassine",
-  },
-];
+
 
   return (
     <SectionWrapper styles="md:px-20">
@@ -102,9 +69,10 @@ const timeLineData = [
           >
             TimeLine
           </button>
+        
           {isOpen && (
             <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-              <TimeLine data={timeLineData} />
+              <TimeLine  />
             </Modal>
           )}
           <p

@@ -2,6 +2,7 @@ import { fetchAssociationById } from '@/actions/associations/getById';
 import { fetchStatistics } from '@/actions/dashboard';
 import { patientsCharts } from '@/actions/dashboard/patientsCharts';
 import { fetchIllnessForSelectors } from '@/actions/illnesses/fetchIllnessForSelectors';
+import { fetchTimeLines } from '@/actions/timeLine';
 import CardStatus from '@/components/CardStatus';
 import AssociationsFormUpdate from '@/components/Forms/AssociationsFormUpdate';
 import SectionWrapper from '@/components/Wrappers/SectionWrapper';

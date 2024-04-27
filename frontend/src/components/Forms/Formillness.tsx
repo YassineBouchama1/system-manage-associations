@@ -1,10 +1,8 @@
 'use client'
 import { useState, type FC, useRef } from 'react';
 import { useTranslations } from 'next-intl';
-import UploaderImg from '../ui/UploaderImg';
 import { FormField } from './FormField';
 import { SubmitButton } from '../ui/SubmitButton';
-import Modal from '../Modal';
 import { createIllness } from '@/actions/illnesses/create';
 import toast from 'react-hot-toast';
 
@@ -39,10 +37,9 @@ const Formillness: FC<FormillnessProps> = ({}) => {
   return (
     <form
       action={onCreate}
+      ref={fromRef}
       className="flex w-auto  flex-col   gap-2  items-center  "
     >
-
-
       <FormField
         id="name"
         name="name"
@@ -53,7 +50,7 @@ const Formillness: FC<FormillnessProps> = ({}) => {
       <div className="w-full my-6 flex justify-center">
         <SubmitButton
           title={t("create")}
-          style='bg-theme-color w-52 px-2 py-3 rounded-md text-white '
+          style="bg-theme-color w-52 px-2 py-3 rounded-md text-white "
         />
       </div>
     </form>

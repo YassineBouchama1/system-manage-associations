@@ -1,9 +1,8 @@
-import { fetchAssociationById } from '@/actions/associations/getById';
-import { fetchIllnessForSelectors } from '@/actions/illnesses/fetchIllnessForSelectors';
+
 import { fetchPatientById } from '@/actions/patients/getById';
-import AssociationsFormUpdate from '@/components/Forms/AssociationsFormUpdate';
-import PatientsFormUpdate from '@/components/Forms/PatientsFormUpdate';
+
 import PatientsProfile from '@/components/Forms/PatientsProfile';
+import { getSession } from '@/lib/getSessions';
 import type { FC } from 'react';
 
 
@@ -13,28 +12,25 @@ export default async function Associations({
 }: {
   params: { id: string | number };
 }) {
-
+const session = await getSession()
 
   //fetch association by id
-  const { success: patientData, error: errorpatient } = await fetchPatientById(
+  const { success: patientData, error: errorPatient } = await fetchPatientById(
     params.id
   );
 
-  //fetch list of illnesses
-  // const { success: illnessesData, error: errorIllnesses } =
-  //   await fetchIllnessForSelectors();
+  //fetch timelines by id
+  // const { success: timeLInesData, error: timeLInesError } =
+  //   await fetchTimeLines(params.id);
 
-
-    // handle errors  if fetching Failed
- if (!patientData || errorpatient) {
-   throw new Error(errorpatient.toString());
- }
-
-
+  // handle errors  if fetching Failed
+  if (!patientData || errorPatient) {
+    throw new Error(errorPatient.toString());
+  }
 
   return (
     <div className="mt-4">
-      <PatientsProfile patient={patientData} />
+      <PatientsProfile patient={patientData}  />
     </div>
   );
 };

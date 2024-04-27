@@ -1,11 +1,9 @@
 "use client";
 import { login } from "@/actions/auth/login";
-import { logout } from "@/actions/auth/profile";
 import { SubmitButton } from "@/components/ui/SubmitButton";
 import { redirect } from "next/navigation";
 import { useEffect, useTransition } from "react";
 import Link from "next/link";
-import { useFormState } from "react-dom";
 import { useTranslations } from "next-intl";
 import toast from "react-hot-toast";
 import { FormFieldAuth } from "./FormFieldAuth";
@@ -58,13 +56,10 @@ export default function LoginForm() {
     }
   }
 
+
   return (
     <form action={onLogin} className="space-y-4 md:space-y-6">
-      {/* {state?.type === "error" && (
-        <p aria-live="polite" className=" text-red-500 ">
-          {state.message}
-        </p>
-      )} */}
+
       <FormFieldAuth id="email" name="email" type="email" title={t("email")} />
 
       <FormFieldAuth

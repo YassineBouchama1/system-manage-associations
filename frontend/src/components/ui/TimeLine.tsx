@@ -1,23 +1,108 @@
-import type { FC } from 'react';
-import { FormField } from '../Forms/FormField';
-import FormHeader from '../Forms/FormHeader';
+"use client";
+import { createTimeLIneAction } from "@/actions/timeLine/createTimeLIneAction";
+import { useParams, useRouter } from "next/navigation";
+import { useEffect, useLayoutEffect, useRef, useState, type FC } from "react";
+import toast from "react-hot-toast";
+import { SubmitButton } from "./SubmitButton";
+import { fetchTimeLines } from "@/actions/timeLine";
+import { TimeLineType } from "@/types/timeLine";
+import Link from "next/link";
 
 interface TimeLineProps {
-  data: {
-    description: string;
-    time: string;
-    file: string | null;
-    responsable: string;
-  }[];
+
 }
 
-const TimeLine: FC<TimeLineProps> = ({ data }) => {
+const TimeLine: FC<TimeLineProps> = () => {
+  const [timeLInesData, setTimeLinesData] = useState<TimeLineType[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  // ref linked with from
+  const fromRef = useRef<HTMLFormElement>(null);
+
+  const params = useParams();
+
+
+
+  useEffect(() => {
+    const getTimeLines = async () => {
+      setIsLoading(true);
+      const { success, error } = await fetchTimeLines(params.id as string);
+      setIsLoading(false);
+      if (success) {
+        setTimeLinesData(success);
+      } else {
+        console.error("Error fetching timelines:", error);
+      }
+    };
+    getTimeLines();
+  }, [params.id]); // re loaidng if id changed
+
+
+
+
+
+
+
+  //createing card useing server action
+  async function onCreateTimeLIne(formData: FormData) {
+
+    
+    const currentScrollPosition = window.scrollY; 
+    window.scrollTo(0, currentScrollPosition); // stop scroll to the top
+
+
+    const result: any = await createTimeLIneAction(
+      formData,
+      params.id as string // id of patient want create timeline for it
+    );
+   
+
+    if (result.success) {
+            toast.success("Added New Illness Successfully ");
+
+            fromRef.current?.reset();
+
+          setIsLoading(true);
+          const { success, error } = await fetchTimeLines(params.id as string);
+          setIsLoading(false);
+        
+          if (success) {
+            setTimeLinesData(success);
+            
+      return;
+          } else {
+           
+            toast.success("Error fetching timelines:", error); 
+          }
+      return
+    }
+
+    if (result?.error) {
+      // handle erros from api
+      toast.error(result?.error);
+      return
+    }
+
+
+    //handle zod errors
+    else if (result?.errorZod) {
+      Object.keys(result.errorZod).forEach((key: string) => {
+        toast.error(`${key} ${result.errorZod[key]}`);
+      });
+      return;
+    } else {
+      toast.success(" unspected error");
+      return;
+    }
+  }
+
+
+
   return (
-    <div className="w-full h-[450px] p-4 overflow-x-auto  mx-auto ">
+    <div className="w-full h-[450px] p-4 overflow-x-auto ">
       <div className="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent">
-        {data.map((item, index) => (
+        {timeLInesData.map((item: TimeLineType, index) => (
           <div
-            key={index}
+            key={item.id}
             className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active"
           >
             <div className="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-slate-300 group-[.is-active]:bg-emerald-500 text-slate-500 group-[.is-active]:text-emerald-50 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2">
@@ -34,7 +119,7 @@ const TimeLine: FC<TimeLineProps> = ({ data }) => {
             <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-4 rounded border border-slate-200 shadow">
               <div className="flex items-center justify-between space-x-2 mb-1">
                 <div className="font-bold text-slate-900">
-                  {item.responsable}{" "}
+                  {item.responsible}{" "}
                   <span className="text-xs font-extralight text-gray-400 ">
                     opened the request
                   </span>
@@ -50,8 +135,10 @@ const TimeLine: FC<TimeLineProps> = ({ data }) => {
 
               <div className="text-slate-500">{item.description}</div>
               {item.file && (
-                <a
-                  href="#"
+                <Link
+                  target="_blank"
+                  href={item && item.file}
+                  download
                   className="mt-4 inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-100 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700"
                 >
                   <svg
@@ -64,20 +151,26 @@ const TimeLine: FC<TimeLineProps> = ({ data }) => {
                     <path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z" />
                     <path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z" />
                   </svg>{" "}
-                  Download ZIP
-                </a>
+                  Download FILE
+                </Link>
               )}
             </div>
           </div>
         ))}
+        {isLoading && <div>Loading...</div>}
       </div>
       {/* form create new timeline  */}
 
-      <div className="relative  w-full mt-6  ">
+      <form
+        ref={fromRef}
+        action={onCreateTimeLIne}
+        className="relative  w-full mt-6  "
+      >
         <hr className="my-8 "></hr>
         <div className="relative w-full min-w-[200px]">
           <textarea
             rows={8}
+            name="description"
             className="peer h-full min-h-[100px] w-full !resize-none  rounded-[7px] border border-blue-gray-200  bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:resize-none disabled:border-0 disabled:bg-blue-gray-50"
             placeholder=" "
           ></textarea>
@@ -88,19 +181,19 @@ const TimeLine: FC<TimeLineProps> = ({ data }) => {
         <div className="flex w-full  flex-col md:flex-row items-center justify-between py-1.5 gap-4">
           <input
             type="file"
+            name="file"
             className="w-full mx-2  md:w-1/2 text-gray-500 font-medium text-sm bg-gray-100 file:cursor-pointer cursor-pointer file:border-0 file:py-2 file:px-4 file:mr-4 file:bg-gray-800 file:hover:bg-gray-700 file:text-white rounded"
           />
 
           <div className="flex gap-2">
-            <button
-              className="select-none rounded-md bg-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-              type="button"
-            >
-              Add Comment
-            </button>
+            <SubmitButton
+              title="create"
+              loadingForm={"creating..."}
+              style="select-none rounded-md bg-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            />
           </div>
         </div>
-      </div>
+      </form>
 
       {/* form create new timeline  */}
     </div>

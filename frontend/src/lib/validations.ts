@@ -16,7 +16,12 @@ export const schemaIllness = z.object({
 export const schemaIllnessUpdate = z.object({
   name: z.string().min(5).optional(),
 });
-;
+
+export const schemaTimeLine = z.object({
+  description: z.string().min(5),
+  patient_id: z.string(),
+});
+
 
 // change password
 export const schemaChangePassword = z.object({

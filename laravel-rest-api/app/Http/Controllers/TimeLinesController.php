@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TimeLines\TimeLineRequest;
+use App\Http\Resources\TimeLines\TimeLineResource;
 use App\Models\Patient;
 use App\Models\Timeline;
 use Illuminate\Http\Request;
@@ -13,13 +14,16 @@ class TimeLinesController extends Controller
     public function index(Request $request)
     {
 
-        $idPatient = $request->input("idPatient");
+        $idPatient = $request->query("idPatient");
 
         if ($idPatient) {
 
-            $TimeLines = Timeline::where("patient_id", $idPatient)->latest()->get();
+            $TimeLines = Timeline::where("patient_id", $idPatient);
 
-            return response()->json($TimeLines, 200);
+            $TimeLines->join("users", "timelines.responsable_id", "=", "users.id")
+                ->select('timelines.*', 'users.name AS responsable');
+
+            return response()->json(TimeLineResource::collection($TimeLines->get()), 200);
         } else {
             return response()->json(['message' => __('id patient is required')], 404);
         }
