@@ -1,7 +1,7 @@
 export function TableSkeleton() {
   return (
-    <section className="bg-gray-50 dark:bg-gray-900 shadow-md">
-      <div className="mx-auto max-w-screen-xl ">
+    <section className="bg-gray-50 dark:bg-gray-900 shadow-md ">
+      <div className=" animate-pulse mx-auto max-w-screen-xl ">
         <div className="bg-white dark:bg-gray-800   sm:rounded-lg overflow-hidden min-h-90 mx-6">
           <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
             <div className="w-full md:w-1/2">
@@ -10,9 +10,7 @@ export function TableSkeleton() {
                   Search
                 </label>
                 <div className="relative w-full">
-                  <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                    
-                  </div>
+                  <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"></div>
                   <input
                     disabled
                     name="query"

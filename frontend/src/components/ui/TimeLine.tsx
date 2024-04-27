@@ -7,36 +7,38 @@ import { SubmitButton } from "./SubmitButton";
 import { fetchTimeLines } from "@/actions/timeLine";
 import { TimeLineType } from "@/types/timeLine";
 import Link from "next/link";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
-interface TimeLineProps {
-
-}
+interface TimeLineProps {}
 
 const TimeLine: FC<TimeLineProps> = () => {
   const [timeLInesData, setTimeLinesData] = useState<TimeLineType[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+
   // ref linked with from
   const fromRef = useRef<HTMLFormElement>(null);
 
   const params = useParams();
 
 
+  const fetchEntries = async () => {
+    setIsLoading(true);
+    const { success, error } = await fetchTimeLines(params.id as string);
+    setIsLoading(false);
+    if (success) {
+      setTimeLinesData(success);
+    } else {
+      toast.error("Error fetching timelines:", error);
+    }
+  };
+
+
 
   useEffect(() => {
-    const getTimeLines = async () => {
-      setIsLoading(true);
-      const { success, error } = await fetchTimeLines(params.id as string);
-      setIsLoading(false);
-      if (success) {
-        setTimeLinesData(success);
-      } else {
-        console.error("Error fetching timelines:", error);
-      }
-    };
-    getTimeLines();
+    fetchEntries();
   }, [params.id]); // re loaidng if id changed
-
-
 
 
 
@@ -44,42 +46,27 @@ const TimeLine: FC<TimeLineProps> = () => {
 
   //createing card useing server action
   async function onCreateTimeLIne(formData: FormData) {
-
-    
-    const currentScrollPosition = window.scrollY; 
+    const currentScrollPosition = window.scrollY;
     window.scrollTo(0, currentScrollPosition); // stop scroll to the top
-
 
     const result: any = await createTimeLIneAction(
       formData,
       params.id as string // id of patient want create timeline for it
     );
-   
+
+
 
     if (result.success) {
-            toast.success("Added New Illness Successfully ");
-
-            fromRef.current?.reset();
-
-          setIsLoading(true);
-          const { success, error } = await fetchTimeLines(params.id as string);
-          setIsLoading(false);
-        
-          if (success) {
-            setTimeLinesData(success);
-            
+      toast.success("Added New Illness Successfully ");
+      fromRef.current?.reset();
+      await fetchEntries(); // refetch items again
       return;
-          } else {
-           
-            toast.success("Error fetching timelines:", error); 
-          }
-      return
     }
 
     if (result?.error) {
       // handle erros from api
       toast.error(result?.error);
-      return
+      return;
     }
 
 
@@ -89,13 +76,12 @@ const TimeLine: FC<TimeLineProps> = () => {
         toast.error(`${key} ${result.errorZod[key]}`);
       });
       return;
+
     } else {
       toast.success(" unspected error");
       return;
     }
   }
-
-
 
   return (
     <div className="w-full h-[450px] p-4 overflow-x-auto ">
@@ -103,7 +89,7 @@ const TimeLine: FC<TimeLineProps> = () => {
         {timeLInesData.map((item: TimeLineType, index) => (
           <div
             key={item.id}
-            className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active"
+            className="w-full relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active"
           >
             <div className="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-slate-300 group-[.is-active]:bg-emerald-500 text-slate-500 group-[.is-active]:text-emerald-50 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2">
               <svg
@@ -119,8 +105,8 @@ const TimeLine: FC<TimeLineProps> = () => {
             <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-4 rounded border border-slate-200 shadow">
               <div className="flex items-center justify-between space-x-2 mb-1">
                 <div className="font-bold text-slate-900">
-                  {item.responsible}{" "}
-                  <span className="text-xs font-extralight text-gray-400 ">
+                  {item.responsible}
+                  <span className="text-xs font-light text-gray-400 ml-2">
                     opened the request
                   </span>
                 </div>
@@ -157,7 +143,8 @@ const TimeLine: FC<TimeLineProps> = () => {
             </div>
           </div>
         ))}
-        {isLoading && <div>Loading...</div>}
+        {isLoading && <div className="text-center">Loading...</div>}
+      
       </div>
       {/* form create new timeline  */}
 
