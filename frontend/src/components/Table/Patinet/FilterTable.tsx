@@ -47,7 +47,11 @@ const FilterTable: FC<FilterTableProps> = ({ associations }) => {
   // Function to handle search input change
   const onSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newQuery = e.target.value;
-    
+      router.push(
+        `${pathname}?page=1&per_page=${per_page}&query=${newQuery}&deleted=${checkedDeleted}&association=${
+          selectedAssociationValue ? selectedAssociationValue : ""
+        }`
+      );
     setQuery(newQuery);
   };
 

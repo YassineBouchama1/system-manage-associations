@@ -33,9 +33,6 @@ const FilterTable: FC<FilterTableProps> = ({ illnesses }) => {
     searchParams?.get("city") ?? ""
   );
 
-  // const [selectedIllness, setSelectedIllness] = useState<string | null>(
-  //   searchParams?.get("illness") ?? null
-  // );
 
   const [selectedCityValue, setSelectedCityValue] = useState<string | null>(
     null
@@ -65,9 +62,7 @@ const FilterTable: FC<FilterTableProps> = ({ illnesses }) => {
   const onSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newQuery = e.target.value;
     router.push(
-      `${pathname}?page=${Number(
-        page
-      )}&per_page=${per_page}&query=${newQuery}&deleted=${checkedDeleted}`
+      `${pathname}?page=1&per_page=${per_page}&query=${newQuery}&deleted=${checkedDeleted}`
     );
     setQuery(newQuery);
   };

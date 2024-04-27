@@ -9,12 +9,15 @@ import { TimeLineType } from "@/types/timeLine";
 import Link from "next/link";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { getSessionClient } from "@/actions/auth/profile";
+import { SessionData } from "@/lib/optionsSessions";
 
 interface TimeLineProps {}
 
 const TimeLine: FC<TimeLineProps> = () => {
   const [timeLInesData, setTimeLinesData] = useState<TimeLineType[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [session, setSession] = useState<null | SessionData>(null);
 
 
   // ref linked with from
@@ -25,6 +28,8 @@ const TimeLine: FC<TimeLineProps> = () => {
 
   const fetchEntries = async () => {
     setIsLoading(true);
+    const sessionFetched = await getSessionClient()
+    setSession(sessionFetched);
     const { success, error } = await fetchTimeLines(params.id as string);
     setIsLoading(false);
     if (success) {
@@ -146,12 +151,13 @@ const TimeLine: FC<TimeLineProps> = () => {
         {isLoading && <div className="text-center">Loading...</div>}
       </div>
       {/* form create new timeline  */}
+      {session?.role == 2 && (
 
-      <form
+        <form
         ref={fromRef}
         action={onCreateTimeLIne}
         className="relative  w-full mt-6  "
-      >
+        >
         <hr className="my-8 "></hr>
         <div className="relative w-full min-w-[200px]">
           <textarea
@@ -176,10 +182,11 @@ const TimeLine: FC<TimeLineProps> = () => {
               title="create"
               loadingForm={"creating..."}
               style="select-none rounded-md bg-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-            />
+              />
           </div>
         </div>
       </form>
+            )}
 
       {/* form create new timeline  */}
     </div>

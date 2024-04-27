@@ -73,7 +73,7 @@ const BodyTable: FC<BodyTableProps> = ({association}) => {
   };
 
   return (
-    <tr className="border-b dark:border-gray-700">
+    <tr className="border-b dark:border-gray-700 ">
       <th
         scope="row"
         className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white"
@@ -99,7 +99,7 @@ const BodyTable: FC<BodyTableProps> = ({association}) => {
       <td className="px-4 py-3"> {association && association.illness} </td>
       <td className="px-4 py-3">{association && association.city}</td>
       <td className="px-4 py-3">{colorStatus(association.status)}</td>
-      <td className="px-4 py-3 flex items-center justify-end">
+      <td className="px-4 py-3 flex  justify-center items-center">
         {association.deleted_at ? (
           <form action={onRestore}>
             <input hidden type="number" name="id" value={association.id} />
@@ -111,7 +111,7 @@ const BodyTable: FC<BodyTableProps> = ({association}) => {
           </form>
         ) : (
           <div
-            className={`w-auto px-2   flex items-center justify-center gap-x-2`}
+            className={`w-auto px-2  flex items-center justify-center gap-x-2`}
           >
             <Link
               href={`/dashboard/associations/${association.id}`}

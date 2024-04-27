@@ -38,6 +38,7 @@ class PatientController extends Controller
             $patients->where(function ($query) use ($searchTerm) {
                 $query->where('first_name', 'like', "%$searchTerm%")
                     ->orWhere('last_name', 'like', "%$searchTerm%");
+                // ->orWhere('id', 'like', "%$searchTerm%");
             });
         }
 
@@ -63,7 +64,7 @@ class PatientController extends Controller
         }
 
 
-        
+
         // Retrieve patients associated with the authenticated user's association, including soft deleted patients
         $patients = $patients
             ->join('associations', 'patients.association_id', '=', 'associations.id')

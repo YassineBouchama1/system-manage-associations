@@ -43,8 +43,8 @@ const AssociationTable: FC<AssociationTableProps> = ({ associations }) => {
   }
 
   return (
-    <div className="overflow-x-auto">
-      <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400  min-h-[300px]">
+    <div className="overflow-x-auto min-h-[300px]">
+      <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400  ">
         <thead className="ltr:text-left rtl:text-right text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             <th scope="col" className="px-6 py-4">

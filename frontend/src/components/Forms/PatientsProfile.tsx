@@ -18,6 +18,8 @@ import { PatientType } from "@/types/patients";
 
 import TimeLine from "../ui/TimeLine";
 import Modal from "../Modal";
+import { ExporterPDF} from "@/lib/ExporterPDF";
+import PatientPdf from "../PDFsTemplate/PatientPdf";
 
 interface PatientsProfileProps {
 
@@ -69,10 +71,10 @@ const colorStatus = (status: string) => {
           >
             TimeLine
           </button>
-        
+          <ExporterPDF page={<PatientPdf patient={patient} />} />
           {isOpen && (
             <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-              <TimeLine  />
+              <TimeLine />
             </Modal>
           )}
           <p

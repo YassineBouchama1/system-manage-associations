@@ -16,6 +16,7 @@ export const changeName = async (formData: FormData) => {
 
 export const getSessionClient = async () => {
   const session = await getSession();
+  if(!session)return null
 
 return session;
 };

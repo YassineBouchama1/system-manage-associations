@@ -37,10 +37,21 @@ class AssociationController extends Controller
         // $associations = Association::query();
         $associations = Association::latest();
 
+
+        //  load patients count
+        $associations = $associations->withCount('patients');
+        // join illnesses table for illness name
+        $associations = $associations
+            ->join('illnesses', 'associations.illness_id', '=', 'illnesses.id')
+            ->select('associations.*', "illnesses.name AS illness");
+
+
+
+
         // Filter by search query
         $searchTerm = $request->query('q');
         if ($searchTerm) {
-            $associations->where('name', 'like', "%{$searchTerm}%");
+            $associations->where('associations.name', 'like', "%{$searchTerm}%");
         }
 
         // Handle deleted associations
@@ -60,14 +71,6 @@ class AssociationController extends Controller
         if ($illness) {
             $associations->where("illness_id", "=", $illness);
         }
-
-
-        //  load patients count
-        $associations = $associations->withCount('patients');
-        // join illnesses table for illness name
-        $associations = $associations
-            ->join('illnesses', 'associations.illness_id', '=', 'illnesses.id')
-            ->select('associations.*', "illnesses.name AS illness");
 
 
 

@@ -2,3 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
+
+/* this  custom class for every item want print */
+.print-hidden {
+    @apply hidden print:block;
+}

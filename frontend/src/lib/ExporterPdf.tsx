@@ -1,42 +1,85 @@
-// "use client";
-// import jsPDF from "jspdf";
-// import html2canvas from "html2canvas";
-// import { useRef } from "react";
+import * as React from "react";
+import { useReactToPrint } from "react-to-print";
 
-// interface ExporterPdfProps {
-//   children: React.ReactNode;
-// }
+interface PrintContentRef {
+  current: HTMLElement | null;
+}
 
-// export const ExporterPdf = async ({ children }: ExporterPdfProps) => {
-//   const pdfRef = useRef<HTMLDivElement>(null);
+interface PropsType {
+  page: React.ReactNode;
+}
 
-//   const handleGeneratePdf = async () => {
-//     const inputData : HTMLDivElement | null = pdfRef.current;
+export const ExporterPDF = ({ page }: PropsType) => {
+  const componentRef: any = React.useRef<PrintContentRef>(null);
 
+  const onBeforeGetContentResolve = React.useRef<(() => void) | null>(null);
 
-//     try {
-//       const canvas = await html2canvas(inputData);
-//       const imgData = canvas.toDataURL("image/png");
-//       const pdf = new jsPDF({
-//         orientation: "portrait",
-//         unit: "px",
-//         format: "a4",
-//       });
+  const [loading, setLoading] = React.useState(false);
+  const [text, setText] = React.useState("old boring text");
 
-//       const width = pdf.internal.pageSize.getWidth();
-//       const height = pdf.internal.pageSize.getHeight();
+  const handleAfterPrint = React.useCallback(() => {
+    console.log("`onAfterPrint` called");
+  }, []);
 
-//       pdf.addImage(imgData, "PNG", 0, 0, width, height);
-//       pdf.save("pdffile.pdf");
-//     } catch (error) {
-//       console.error("Error in export:", error); // Improved error handling
-//     }
-//   };
+  const handleBeforePrint = React.useCallback(() => {
+    console.log("`onBeforePrint` called");
+  }, []);
 
-//   return (
-//     <>
-//       <div ref={pdfRef}>{children}</div>
-//       <button onClick={handleGeneratePdf}>Export</button>
-//     </>
-//   );
-// };
+  const handleOnBeforeGetContent = React.useCallback(() => {
+    console.log("`onBeforeGetContent` called");
+    setLoading(true);
+    setText("Loading new text...");
+
+    return new Promise<void>((resolve) => {
+      onBeforeGetContentResolve.current = resolve;
+
+      setTimeout(() => {
+        setLoading(false);
+        setText("New, Updated Text!");
+        resolve();
+      }, 2000);
+    });
+  }, [setLoading, setText]);
+
+  const reactToPrintContent = React.useCallback(() => {
+    return componentRef.current;
+  }, [componentRef.current]);
+
+  const handlePrint = useReactToPrint({
+    content: reactToPrintContent,
+    documentTitle: "AwesomeFileName",
+    onBeforeGetContent: handleOnBeforeGetContent,
+    onBeforePrint: handleBeforePrint,
+    onAfterPrint: handleAfterPrint,
+    removeAfterPrint: true,
+  });
+
+  React.useEffect(() => {
+    if (
+      text === "New, Updated Text!" &&
+      typeof onBeforeGetContentResolve.current === "function"
+    ) {
+      onBeforeGetContentResolve.current();
+    }
+  }, [onBeforeGetContentResolve.current, text]);
+
+  return (
+    <div>
+      {loading ? (
+        <p className="indicator inline-block rounded text-blue-600  py-2 text-xs font-medium hover:text-blue-700  duration-150">
+          Loading...
+        </p>
+      ) : (
+        <button
+          onClick={handlePrint}
+          className="inline-block rounded text-blue-600  py-2 text-xs font-medium hover:text-blue-700  duration-150">
+          Print
+        </button>
+      )}
+
+      <div ref={componentRef} className="print-hidden">
+        {page}
+      </div>
+    </div>
+  );
+};

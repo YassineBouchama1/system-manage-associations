@@ -8,6 +8,8 @@ import toast from 'react-hot-toast';
 import { restoreAction } from '@/actions/patients/restore';
 import { deleteAction } from '@/actions/patients/delete';
 import { PatientType } from '@/types/patients';
+import { ExporterPDF } from '@/lib/ExporterPDF';
+import PatientPdf from '@/components/PDFsTemplate/PatientPdf';
 
 interface BodyTableProps {
   patient: PatientType;
@@ -131,6 +133,7 @@ const BodyTable: FC<BodyTableProps> = ({ patient }) => {
                 loadingForm={t("deleting") + "..."}
               />
             </form>
+            <ExporterPDF page={<PatientPdf patient={patient} />} />
           </div>
         )}
       </td>
