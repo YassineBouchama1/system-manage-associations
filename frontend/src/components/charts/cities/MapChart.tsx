@@ -16,17 +16,36 @@ import L, { divIcon } from "leaflet";
 import MapInfo from "./MapInfo";
 import { useTranslations } from "next-intl";
 
-interface MapChartProps {}
 
-const MapChart: FC<MapChartProps> = ({}) => {
+interface MapDataType {
+  
+        "number_patients": number,
+        "region": string
+}
+interface MapChartProps {
+  mapData: MapDataType[];
+  errorMap: any;
+}
+
+const MapChart: FC<MapChartProps> = ({ mapData ,errorMap}) => {
+
+
+
+
   // Center coordinates (Number[])
   const center: number[] = [28.996643486255092, -9.707703872193896]; // Selected region state (useState)
 
-  const [onselect, setOnselect] = useState<{ patients: number } | null>(null); // -0 that mean null // Function for highlighting features on mouseover
+  const [onselect, setOnselect] = useState<{ patients: number } | null>(null); 
+  // if (errorMap) {
+  //   return <div>Error fetching map</div>;
+  // }
+  
+  const t = useTranslations("ui");
+
   const highlightFeature = (e: any) => {
     const layer = e.target as L.GeoJSON;
     layer.setStyle(styleHover());
-    const result = dataPatient.filter(
+    const result = mapData.filter(
       (item) => item.region === e.target.feature.properties.name
     );
     setOnselect({
@@ -34,16 +53,6 @@ const MapChart: FC<MapChartProps> = ({}) => {
     });
   }; // Data for patients per region
 
-  const dataPatient: { region: string; number_patients: number }[] = [
-    {
-      number_patients: 50,
-      region: "Casablanca-Settat",
-    },
-    {
-      number_patients: 2,
-      region: "Marrakech-Safi",
-    },
-  ]; // Function for resetting highlight on mouseout
 
   const resetHighlight = (e: any) => {
     setOnselect(null);
@@ -52,7 +61,7 @@ const MapChart: FC<MapChartProps> = ({}) => {
 
   const whenClick = (e: any) => {
     e.target.setStyle(styleHover());
-    const result = dataPatient.filter(
+    const result = mapData.filter(
       (item) => item.region == e.target.feature.properties.name
     );
 
@@ -70,9 +79,7 @@ const MapChart: FC<MapChartProps> = ({}) => {
   }; // Function to determine color based on patient count
 
   const getColorForRegion = (properties: any) => {
-    const result = dataPatient.filter(
-      (item) => item.region === properties.name
-    );
+    const result = mapData.filter((item) => item.region === properties.name);
     const number_patients = result.length > 0 ? result[0].number_patients : 0;
 
     return number_patients > 150
@@ -138,9 +145,10 @@ const MapChart: FC<MapChartProps> = ({}) => {
     shadowUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-shadow.png",
   });
 
+ 
 
 
-  const t = useTranslations('ui')
+
   return (
     <div className="relative z-10 flex justify-center flex-col lg:w-1/2   h-auto bg-white rounded-md my-4 p-4">
       <div

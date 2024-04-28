@@ -7,9 +7,9 @@ interface ChartsParams {
 
 }
 
-export const patientsOfregion = async (params: ChartsParams) => {
+export const patientsRegion = async (params: ChartsParams) => {
   // build url
-  let url = `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/charts/patientsOfregion`;
+  let url = `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/charts/patientsRegion`;
 
   url += `?timeFrame=${params.timeFrame || timeFrame}`;
 

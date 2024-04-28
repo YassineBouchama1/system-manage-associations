@@ -4,6 +4,7 @@ import { patientsCharts } from "@/actions/dashboard/patientsCharts";
 import BarChart from "@/components/charts/patients/BarChart";
 import PieChart from "@/components/charts/cities/PieChart";
 import MapChart from "@/components/charts/cities/MapChart";
+import { patientsRegion } from "@/actions/dashboard/patientsRegion";
 
 const timeFrame = "last30days";
 
@@ -21,6 +22,14 @@ export default async function pageDashboard({
   const { success: chartData, error: errorChart } = await patientsCharts(
     combinedParams
   );
+
+
+  // fetching number of patienf of  resgion
+  const { success: mapData, error: mapError } = await patientsRegion(
+    combinedParams
+  );
+
+  
   if (error) {
     throw new Error(error.toString());
   }
@@ -32,7 +41,7 @@ export default async function pageDashboard({
 
         <div className=" flex lg:flex-row  flex-col gap-2">
           {chartData ? <BarChart chartData={chartData} /> : <h3>error</h3>}
-          <MapChart/>
+          <MapChart mapData={mapData} errorMap={error} />
         </div>
       </main>
     </>
