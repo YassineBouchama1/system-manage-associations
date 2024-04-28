@@ -1,4 +1,5 @@
 import { fetchAssociationById } from '@/actions/associations/getById';
+import { fetchSelectors } from '@/actions/fetchFiltersSelectors/fetchSelectors';
 import { fetchIllnessForSelectors } from '@/actions/illnesses/fetchIllnessForSelectors';
 import AssociationsFormUpdate from '@/components/Forms/AssociationsFormUpdate';
 import type { FC } from 'react';
@@ -17,8 +18,8 @@ export default async function Associations({
     await fetchAssociationById(params.id);
 
   //fetch list of illnesses
-  const { success: illnessesData, error: errorIllnesses } =
-    await fetchIllnessForSelectors();
+  const { success: selectoresData, error: errorIllnesses } =
+    await fetchSelectors();
 
 
 
@@ -33,7 +34,7 @@ export default async function Associations({
     <div className="mt-4">
       <AssociationsFormUpdate
         association={associationData}
-        illnesses={illnessesData.data}
+        illnesses={selectoresData.illnesses}
       />
     </div>
   );

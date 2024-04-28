@@ -20,6 +20,7 @@ class CreateAssociationRequest extends FormRequest
             'address' => 'required|string',
             'logo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust allowed types and size limits as needed
             'city' => 'required|string',
+            'region' => 'required|string',
             'status' => 'in:active,inactive,suspended,deleted',
             'illness_id' => 'required|exists:illnesses,id',
             'role_id' => 'required|exists:roles,id',

@@ -4,6 +4,7 @@ import fetchServerFormData from "@/lib/fetch-server-formData";
 import { schemaAssociation } from "@/lib/validations";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import cities from "../../lib/cities.json";
 
 export const createAssociation = async (formData: FormData) => {
   const name = formData.get("name");
@@ -39,6 +40,13 @@ export const createAssociation = async (formData: FormData) => {
       errorZod: validatedFields.error.flatten().fieldErrors,
     };
   }
+
+
+  // just for this time  insert region depand of city
+const region = cities.find(item => item.id == city);
+formData.append("region", region?.region as string);
+
+
 
   // sending data to api
   try {

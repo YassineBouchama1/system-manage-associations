@@ -11,7 +11,7 @@ class Association extends Model
     use HasFactory, SoftDeletes;
 
 
-    protected $fillable = ['name', 'address', 'logo', 'status', 'city', 'illness_id'];
+    protected $fillable = ['name', 'address', 'logo', 'status', 'city', 'illness_id', 'region'];
 
     public function users()
     {

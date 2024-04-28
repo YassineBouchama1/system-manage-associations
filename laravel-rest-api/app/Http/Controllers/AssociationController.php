@@ -138,6 +138,10 @@ class AssociationController extends Controller
 
 
 
+
+
+
+
         $association = Association::create($associationData);
 
         // Check if association creation was successful

@@ -14,6 +14,7 @@ Route::group(['prefix' => 'charts', 'middleware' => 'auth:api'], function () {
     // // Public routes (no role check)
     // Route::get('/', [ChartsController::class, 'index']);
 
+    Route::get('/patientsOfregion', [StatisticsController::class, 'patientsOfCity']);
 
     // Admin routes (require admin role)
     Route::group(['middleware' => 'role:1,2'], function () {

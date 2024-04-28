@@ -6,7 +6,7 @@
     "lng": "-7.5833",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Casablanca-Settat",
+    "region": "Casablanca-Settat",
     "capital": "admin",
     "population": "3499000",
     "population_proper": "3499000"
@@ -18,7 +18,7 @@
     "lng": "-5.0033",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Fès-Meknès",
+    "region": "Fès-Meknès",
     "capital": "admin",
     "population": "1112072",
     "population_proper": "1112072"
@@ -30,7 +30,7 @@
     "lng": "-8.0089",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Marrakech-Safi",
+    "region": "Marrakech-Safi",
     "capital": "admin",
     "population": "966987",
     "population_proper": "966987"
@@ -42,7 +42,7 @@
     "lng": "-5.8039",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Tanger-Tétouan-Al Hoceïma",
+    "region": "Tanger-Tétouan-Al Hoceïma",
     "capital": "admin",
     "population": "947952",
     "population_proper": "947952"
@@ -54,7 +54,7 @@
     "lng": "-6.8000",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Rabat-Salé-Kénitra",
+    "region": "Rabat-Salé-Kénitra",
     "capital": "",
     "population": "850403",
     "population_proper": "850403"
@@ -66,7 +66,7 @@
     "lng": "-6.8416",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Rabat-Salé-Kénitra",
+    "region": "Rabat-Salé-Kénitra",
     "capital": "primary",
     "population": "572717",
     "population_proper": "572717"
@@ -78,7 +78,7 @@
     "lng": "-5.5547",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Fès-Meknès",
+    "region": "Fès-Meknès",
     "capital": "",
     "population": "520428",
     "population_proper": "520428"
@@ -90,7 +90,7 @@
     "lng": "-1.9114",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Oriental",
+    "region": "Oriental",
     "capital": "admin",
     "population": "494252",
     "population_proper": "494252"
@@ -102,7 +102,7 @@
     "lng": "-6.5833",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Rabat-Salé-Kénitra",
+    "region": "Rabat-Salé-Kénitra",
     "capital": "",
     "population": "431282",
     "population_proper": "431282"
@@ -114,7 +114,7 @@
     "lng": "-9.6000",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Souss-Massa",
+    "region": "Souss-Massa",
     "capital": "admin",
     "population": "421844",
     "population_proper": "421844"
@@ -126,7 +126,7 @@
     "lng": "-5.3667",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Tanger-Tétouan-Al Hoceïma",
+    "region": "Tanger-Tétouan-Al Hoceïma",
     "capital": "",
     "population": "380787",
     "population_proper": "380787"
@@ -138,7 +138,7 @@
     "lng": "-2.8850",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Oriental",
+    "region": "Oriental",
     "capital": "",
     "population": "321876",
     "population_proper": "321876"
@@ -150,7 +150,7 @@
     "lng": "-6.9122",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Rabat-Salé-Kénitra",
+    "region": "Rabat-Salé-Kénitra",
     "capital": "",
     "population": "313510",
     "population_proper": "313510"
@@ -162,7 +162,7 @@
     "lng": "-9.2333",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Marrakech-Safi",
+    "region": "Marrakech-Safi",
     "capital": "",
     "population": "308508",
     "population_proper": "308508"
@@ -174,7 +174,7 @@
     "lng": "-5.6675",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Béni Mellal-Khénifra",
+    "region": "Béni Mellal-Khénifra",
     "capital": "",
     "population": "228567",
     "population_proper": "117510"
@@ -186,7 +186,7 @@
     "lng": "-8.5000",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Casablanca-Settat",
+    "region": "Casablanca-Settat",
     "capital": "",
     "population": "220181",
     "population_proper": "220181"
@@ -198,7 +198,7 @@
     "lng": "-13.2033",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Laâyoune-Sakia El Hamra",
+    "region": "Laâyoune-Sakia El Hamra",
     "capital": "",
     "population": "217732",
     "population_proper": "217732"
@@ -210,7 +210,7 @@
     "lng": "-7.3833",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Casablanca-Settat",
+    "region": "Casablanca-Settat",
     "capital": "",
     "population": "208612",
     "population_proper": "208612"
@@ -222,7 +222,7 @@
     "lng": "-6.9167",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Béni Mellal-Khénifra",
+    "region": "Béni Mellal-Khénifra",
     "capital": "",
     "population": "196196",
     "population_proper": "196196"
@@ -234,7 +234,7 @@
     "lng": "-6.3608",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Béni Mellal-Khénifra",
+    "region": "Béni Mellal-Khénifra",
     "capital": "admin",
     "population": "192676",
     "population_proper": "192676"
@@ -246,7 +246,7 @@
     "lng": "-9.4972",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Souss-Massa",
+    "region": "Souss-Massa",
     "capital": "",
     "population": "171847",
     "population_proper": "171847"
@@ -258,7 +258,7 @@
     "lng": "-2.9333",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Oriental",
+    "region": "Oriental",
     "capital": "",
     "population": "161726",
     "population_proper": "161726"
@@ -270,7 +270,7 @@
     "lng": "-4.0167",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Fès-Meknès",
+    "region": "Fès-Meknès",
     "capital": "",
     "population": "148456",
     "population_proper": "148456"
@@ -282,7 +282,7 @@
     "lng": "-7.6167",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Casablanca-Settat",
+    "region": "Casablanca-Settat",
     "capital": "",
     "population": "142250",
     "population_proper": "142250"
@@ -294,7 +294,7 @@
     "lng": "-7.5833",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Casablanca-Settat",
+    "region": "Casablanca-Settat",
     "capital": "",
     "population": "136634",
     "population_proper": "136634"
@@ -306,7 +306,7 @@
     "lng": "-6.0667",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Rabat-Salé-Kénitra",
+    "region": "Rabat-Salé-Kénitra",
     "capital": "",
     "population": "131542",
     "population_proper": "131542"
@@ -318,7 +318,7 @@
     "lng": "-9.5381",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Souss-Massa",
+    "region": "Souss-Massa",
     "capital": "",
     "population": "130333",
     "population_proper": "130333"
@@ -330,7 +330,7 @@
     "lng": "-5.9000",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Tanger-Tétouan-Al Hoceïma",
+    "region": "Tanger-Tétouan-Al Hoceïma",
     "capital": "",
     "population": "126617",
     "population_proper": "126617"
@@ -342,7 +342,7 @@
     "lng": "-9.4800",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Souss-Massa",
+    "region": "Souss-Massa",
     "capital": "",
     "population": "126512",
     "population_proper": "126512"
@@ -354,7 +354,7 @@
     "lng": "-6.1500",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Tanger-Tétouan-Al Hoceïma",
+    "region": "Tanger-Tétouan-Al Hoceïma",
     "capital": "",
     "population": "125008",
     "population_proper": "125008"
@@ -366,7 +366,7 @@
     "lng": "-10.0667",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Guelmim-Oued Noun",
+    "region": "Guelmim-Oued Noun",
     "capital": "admin",
     "population": "118318",
     "population_proper": "118318"
@@ -378,7 +378,7 @@
     "lng": "-2.3167",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Oriental",
+    "region": "Oriental",
     "capital": "",
     "population": "109237",
     "population_proper": "109237"
@@ -390,7 +390,7 @@
     "lng": "-15.9456",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Dakhla-Oued Ed-Dahab",
+    "region": "Dakhla-Oued Ed-Dahab",
     "capital": "",
     "population": "106277",
     "population_proper": "106277"
@@ -402,7 +402,7 @@
     "lng": "-7.6486",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Casablanca-Settat",
+    "region": "Casablanca-Settat",
     "capital": "",
     "population": "103026",
     "population_proper": "103026"
@@ -414,7 +414,7 @@
     "lng": "-6.5333",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Béni Mellal-Khénifra",
+    "region": "Béni Mellal-Khénifra",
     "capital": "",
     "population": "102019",
     "population_proper": "102019"
@@ -426,7 +426,7 @@
     "lng": "-6.5667",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Béni Mellal-Khénifra",
+    "region": "Béni Mellal-Khénifra",
     "capital": "",
     "population": "95267",
     "population_proper": "95267"
@@ -438,7 +438,7 @@
     "lng": "-5.9200",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Rabat-Salé-Kénitra",
+    "region": "Rabat-Salé-Kénitra",
     "capital": "",
     "population": "92989",
     "population_proper": "92989"
@@ -450,7 +450,7 @@
     "lng": "-4.4244",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Drâa-Tafilalet",
+    "region": "Drâa-Tafilalet",
     "capital": "admin",
     "population": "92374",
     "population_proper": "92374"
@@ -462,7 +462,7 @@
     "lng": "-3.3667",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Oriental",
+    "region": "Oriental",
     "capital": "",
     "population": "90880",
     "population_proper": "90880"
@@ -474,7 +474,7 @@
     "lng": "-9.2167",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Souss-Massa",
+    "region": "Souss-Massa",
     "capital": "",
     "population": "89387",
     "population_proper": "89387"
@@ -486,7 +486,7 @@
     "lng": "-7.9500",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Marrakech-Safi",
+    "region": "Marrakech-Safi",
     "capital": "",
     "population": "88626",
     "population_proper": "88626"
@@ -498,7 +498,7 @@
     "lng": "-4.8300",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Fès-Meknès",
+    "region": "Fès-Meknès",
     "capital": "",
     "population": "79887",
     "population_proper": "79887"
@@ -510,7 +510,7 @@
     "lng": "-5.3500",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Tanger-Tétouan-Al Hoceïma",
+    "region": "Tanger-Tétouan-Al Hoceïma",
     "capital": "",
     "population": "77436",
     "population_proper": "77436"
@@ -522,7 +522,7 @@
     "lng": "-5.7000",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Rabat-Salé-Kénitra",
+    "region": "Rabat-Salé-Kénitra",
     "capital": "",
     "population": "75672",
     "population_proper": "75672"
@@ -534,7 +534,7 @@
     "lng": "-9.7167",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Souss-Massa",
+    "region": "Souss-Massa",
     "capital": "",
     "population": "74699",
     "population_proper": "74699"
@@ -546,7 +546,7 @@
     "lng": "-8.5883",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Casablanca-Settat",
+    "region": "Casablanca-Settat",
     "capital": "",
     "population": "74671",
     "population_proper": "74671"
@@ -558,7 +558,7 @@
     "lng": "-8.5333",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Marrakech-Safi",
+    "region": "Marrakech-Safi",
     "capital": "",
     "population": "67628",
     "population_proper": "67628"
@@ -570,7 +570,7 @@
     "lng": "-5.2667",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Tanger-Tétouan-Al Hoceïma",
+    "region": "Tanger-Tétouan-Al Hoceïma",
     "capital": "",
     "population": "64355",
     "population_proper": "64355"
@@ -582,7 +582,7 @@
     "lng": "-7.4483",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Casablanca-Settat",
+    "region": "Casablanca-Settat",
     "capital": "",
     "population": "62420",
     "population_proper": "62420"
@@ -594,7 +594,7 @@
     "lng": "-6.7007",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Béni Mellal-Khénifra",
+    "region": "Béni Mellal-Khénifra",
     "capital": "",
     "population": "60076",
     "population_proper": "60076"
@@ -606,7 +606,7 @@
     "lng": "-7.0300",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Rabat-Salé-Kénitra",
+    "region": "Rabat-Salé-Kénitra",
     "capital": "",
     "population": "59775",
     "population_proper": "59775"
@@ -618,7 +618,7 @@
     "lng": "-5.5833",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Tanger-Tétouan-Al Hoceïma",
+    "region": "Tanger-Tétouan-Al Hoceïma",
     "capital": "",
     "population": "59606",
     "population_proper": "59606"
@@ -630,7 +630,7 @@
     "lng": "-6.8831",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Rabat-Salé-Kénitra",
+    "region": "Rabat-Salé-Kénitra",
     "capital": "",
     "population": "57790",
     "population_proper": "57790"
@@ -642,7 +642,7 @@
     "lng": "-3.9322",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Tanger-Tétouan-Al Hoceïma",
+    "region": "Tanger-Tétouan-Al Hoceïma",
     "capital": "",
     "population": "56716",
     "population_proper": "56716"
@@ -654,7 +654,7 @@
     "lng": "-5.3253",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Tanger-Tétouan-Al Hoceïma",
+    "region": "Tanger-Tétouan-Al Hoceïma",
     "capital": "",
     "population": "56227",
     "population_proper": "56227"
@@ -666,7 +666,7 @@
     "lng": "-4.7300",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Drâa-Tafilalet",
+    "region": "Drâa-Tafilalet",
     "capital": "",
     "population": "55304",
     "population_proper": "55304"
@@ -678,7 +678,7 @@
     "lng": "-5.2247",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Fès-Meknès",
+    "region": "Fès-Meknès",
     "capital": "",
     "population": "54350",
     "population_proper": "54350"
@@ -690,7 +690,7 @@
     "lng": "-7.4083",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Marrakech-Safi",
+    "region": "Marrakech-Safi",
     "capital": "",
     "population": "51404",
     "population_proper": "51404"
@@ -702,7 +702,7 @@
     "lng": "-6.7922",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Rabat-Salé-Kénitra",
+    "region": "Rabat-Salé-Kénitra",
     "capital": "",
     "population": "49816",
     "population_proper": "49816"
@@ -714,7 +714,7 @@
     "lng": "-7.3221",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Casablanca-Settat",
+    "region": "Casablanca-Settat",
     "capital": "",
     "population": "48338",
     "population_proper": "48338"
@@ -726,7 +726,7 @@
     "lng": "-7.5333",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Casablanca-Settat",
+    "region": "Casablanca-Settat",
     "capital": "",
     "population": "47719",
     "population_proper": "47719"
@@ -738,7 +738,7 @@
     "lng": "-3.0311",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Oriental",
+    "region": "Oriental",
     "capital": "",
     "population": "47599",
     "population_proper": "47599"
@@ -750,7 +750,7 @@
     "lng": "-6.2667",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Béni Mellal-Khénifra",
+    "region": "Béni Mellal-Khénifra",
     "capital": "",
     "population": "47343",
     "population_proper": "47343"
@@ -762,7 +762,7 @@
     "lng": "-6.4000",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Béni Mellal-Khénifra",
+    "region": "Béni Mellal-Khénifra",
     "capital": "",
     "population": "46893",
     "population_proper": "46893"
@@ -774,7 +774,7 @@
     "lng": "-2.1636",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Oriental",
+    "region": "Oriental",
     "capital": "",
     "population": "43506",
     "population_proper": "43506"
@@ -786,7 +786,7 @@
     "lng": "-5.5667",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Béni Mellal-Khénifra",
+    "region": "Béni Mellal-Khénifra",
     "capital": "",
     "population": "42730",
     "population_proper": "42730"
@@ -798,7 +798,7 @@
     "lng": "-2.5056",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Oriental",
+    "region": "Oriental",
     "capital": "",
     "population": "41832",
     "population_proper": "41832"
@@ -810,7 +810,7 @@
     "lng": "-8.3422",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Casablanca-Settat",
+    "region": "Casablanca-Settat",
     "capital": "",
     "population": "40920",
     "population_proper": "40920"
@@ -822,7 +822,7 @@
     "lng": "-9.4140",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Souss-Massa",
+    "region": "Souss-Massa",
     "capital": "",
     "population": "40780",
     "population_proper": "40780"
@@ -834,7 +834,7 @@
     "lng": "-5.8381",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Drâa-Tafilalet",
+    "region": "Drâa-Tafilalet",
     "capital": "",
     "population": "40067",
     "population_proper": "40067"
@@ -846,7 +846,7 @@
     "lng": "-7.6628",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Marrakech-Safi",
+    "region": "Marrakech-Safi",
     "capital": "",
     "population": "39108",
     "population_proper": "39108"
@@ -858,7 +858,7 @@
     "lng": "-6.5694",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Béni Mellal-Khénifra",
+    "region": "Béni Mellal-Khénifra",
     "capital": "",
     "population": "38520",
     "population_proper": "38520"
@@ -870,7 +870,7 @@
     "lng": "-6.3058",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Rabat-Salé-Kénitra",
+    "region": "Rabat-Salé-Kénitra",
     "capital": "",
     "population": "37979",
     "population_proper": "37979"
@@ -882,7 +882,7 @@
     "lng": "-9.3708",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Souss-Massa",
+    "region": "Souss-Massa",
     "capital": "",
     "population": "37933",
     "population_proper": "37933"
@@ -894,7 +894,7 @@
     "lng": "-2.7333",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Oriental",
+    "region": "Oriental",
     "capital": "",
     "population": "35806",
     "population_proper": "35806"
@@ -906,7 +906,7 @@
     "lng": "-5.8333",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Béni Mellal-Khénifra",
+    "region": "Béni Mellal-Khénifra",
     "capital": "",
     "population": "35626",
     "population_proper": "35626"
@@ -918,7 +918,7 @@
     "lng": "-5.3711",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Fès-Meknès",
+    "region": "Fès-Meknès",
     "capital": "",
     "population": "35282",
     "population_proper": "35282"
@@ -930,7 +930,7 @@
     "lng": "-3.0000",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Oriental",
+    "region": "Oriental",
     "capital": "",
     "population": "34025",
     "population_proper": "34025"
@@ -942,7 +942,7 @@
     "lng": "-3.8500",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Tanger-Tétouan-Al Hoceïma",
+    "region": "Tanger-Tétouan-Al Hoceïma",
     "capital": "",
     "population": "33852",
     "population_proper": "33852"
@@ -954,7 +954,7 @@
     "lng": "-7.4822",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Casablanca-Settat",
+    "region": "Casablanca-Settat",
     "capital": "",
     "population": "32782",
     "population_proper": "32782"
@@ -966,7 +966,7 @@
     "lng": "-5.9500",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Rabat-Salé-Kénitra",
+    "region": "Rabat-Salé-Kénitra",
     "capital": "",
     "population": "31497",
     "population_proper": "31497"
@@ -978,7 +978,7 @@
     "lng": "-7.3125",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Marrakech-Safi",
+    "region": "Marrakech-Safi",
     "capital": "",
     "population": "30315",
     "population_proper": "30315"
@@ -990,7 +990,7 @@
     "lng": "-7.0361",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Béni Mellal-Khénifra",
+    "region": "Béni Mellal-Khénifra",
     "capital": "",
     "population": "29504",
     "population_proper": "29504"
@@ -1002,7 +1002,7 @@
     "lng": "-4.2328",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Drâa-Tafilalet",
+    "region": "Drâa-Tafilalet",
     "capital": "",
     "population": "29279",
     "population_proper": "29279"
@@ -1014,7 +1014,7 @@
     "lng": "-8.1000",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Marrakech-Safi",
+    "region": "Marrakech-Safi",
     "capital": "",
     "population": "28978",
     "population_proper": "28978"
@@ -1026,7 +1026,7 @@
     "lng": "-1.9650",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Oriental",
+    "region": "Oriental",
     "capital": "",
     "population": "28846",
     "population_proper": "28846"
@@ -1038,7 +1038,7 @@
     "lng": "-8.5000",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Casablanca-Settat",
+    "region": "Casablanca-Settat",
     "capital": "",
     "population": "28733",
     "population_proper": "28733"
@@ -1050,7 +1050,7 @@
     "lng": "-5.5169",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Rabat-Salé-Kénitra",
+    "region": "Rabat-Salé-Kénitra",
     "capital": "",
     "population": "28681",
     "population_proper": "28681"
@@ -1062,7 +1062,7 @@
     "lng": "-6.6500",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Rabat-Salé-Kénitra",
+    "region": "Rabat-Salé-Kénitra",
     "capital": "",
     "population": "28636",
     "population_proper": "28636"
@@ -1074,7 +1074,7 @@
     "lng": "-5.2167",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Fès-Meknès",
+    "region": "Fès-Meknès",
     "capital": "",
     "population": "28288",
     "population_proper": "28288"
@@ -1086,7 +1086,7 @@
     "lng": "-8.7667",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Marrakech-Safi",
+    "region": "Marrakech-Safi",
     "capital": "",
     "population": "27869",
     "population_proper": "27869"
@@ -1098,7 +1098,7 @@
     "lng": "-4.4200",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Fès-Meknès",
+    "region": "Fès-Meknès",
     "capital": "",
     "population": "27729",
     "population_proper": "27729"
@@ -1110,7 +1110,7 @@
     "lng": "-6.3333",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Béni Mellal-Khénifra",
+    "region": "Béni Mellal-Khénifra",
     "capital": "",
     "population": "27476",
     "population_proper": "27476"
@@ -1122,7 +1122,7 @@
     "lng": "-6.2933",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Rabat-Salé-Kénitra",
+    "region": "Rabat-Salé-Kénitra",
     "capital": "",
     "population": "26608",
     "population_proper": "26608"
@@ -1134,7 +1134,7 @@
     "lng": "-2.9667",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Oriental",
+    "region": "Oriental",
     "capital": "",
     "population": "26582",
     "population_proper": "26582"
@@ -1146,7 +1146,7 @@
     "lng": "-3.9833",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Fès-Meknès",
+    "region": "Fès-Meknès",
     "capital": "",
     "population": "25584",
     "population_proper": "25584"
@@ -1158,7 +1158,7 @@
     "lng": "-5.9206",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Béni Mellal-Khénifra",
+    "region": "Béni Mellal-Khénifra",
     "capital": "",
     "population": "25388",
     "population_proper": "25388"
@@ -1170,7 +1170,7 @@
     "lng": "-6.7333",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Rabat-Salé-Kénitra",
+    "region": "Rabat-Salé-Kénitra",
     "capital": "",
     "population": "25255",
     "population_proper": "25255"
@@ -1182,7 +1182,7 @@
     "lng": "-4.9954",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Fès-Meknès",
+    "region": "Fès-Meknès",
     "capital": "",
     "population": "24594",
     "population_proper": "24594"
@@ -1194,7 +1194,7 @@
     "lng": "-8.4750",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Souss-Massa",
+    "region": "Souss-Massa",
     "capital": "",
     "population": "24288",
     "population_proper": "24288"
@@ -1206,7 +1206,7 @@
     "lng": "-8.0002",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Casablanca-Settat",
+    "region": "Casablanca-Settat",
     "capital": "",
     "population": "24136",
     "population_proper": "24136"
@@ -1218,7 +1218,7 @@
     "lng": "-10.5670",
     "country": "Morocco",
     "iso2": "MA",
-    "admin_name": "Laâyoune-Sakia El Hamra",
+    "region": "Laâyoune-Sakia El Hamra",
     "capital": "primary",
     "population": "3000",
     "population_proper": "3000"

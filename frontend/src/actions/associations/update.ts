@@ -3,7 +3,7 @@ import fetchServer from "@/lib/fetch-server";
 import fetchServerFormData from "@/lib/fetch-server-formData";
 import { schemaAssociation, schemaAssociationUpdate } from "@/lib/validations";
 import { revalidatePath } from "next/cache";
-import { string } from "zod";
+import cities from "../../lib/cities.json";
 
 export const updateAssociation = async (
   formData: FormData,
@@ -34,6 +34,12 @@ export const updateAssociation = async (
     illness,
     address,
   });
+
+
+
+const region = cities.find((item) => item.id == city);
+
+formData.append("region", region?.region as string);
 
   //check validation
   if (!validatedFields.success) {

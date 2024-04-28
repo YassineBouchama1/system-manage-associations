@@ -44,6 +44,16 @@ const MapChart: FC<MapChartProps> = ({}) => {
   };
 
 
+  const dataPatient = [
+    {
+      number_patients: 50,
+      region: "Casablanca-Settat",
+    },
+    {
+      number_patients: 2,
+      region: "Marrakech-Safi",
+    },
+  ];
 
   /*resets our state i.e no properties should be displayed when a feature is not clicked or hovered over */
   const resetHighlight = (e: any) => {
@@ -53,8 +63,19 @@ const MapChart: FC<MapChartProps> = ({}) => {
   };
 
 
+
   const whenClick = (e: any) => {
     e.target.setStyle(styleHover(e.target.feature));
+    const result = dataPatient.filter(
+      (item) => item.region == e.target.feature.properties.name
+    );
+
+  
+
+
+
+    console.log(result);
+ 
   };
 
 
@@ -66,6 +87,8 @@ const MapChart: FC<MapChartProps> = ({}) => {
       click: whenClick,
     });
   };
+
+
 
   const mapPolygonColorToDensity = (cartodb_id: number) => {
     return cartodb_id == 1
@@ -131,10 +154,10 @@ const MapChart: FC<MapChartProps> = ({}) => {
 
 
 
-  const feature = statesData.features.map((feature) => {
-;
-    return feature;
-  });
+//   const feature = statesData.features.map((feature) => {
+// ;
+//     return feature;
+//   });
 
 
 
@@ -162,7 +185,7 @@ const MapChart: FC<MapChartProps> = ({}) => {
 
 
 
-        {cities.map((city, index) => {
+        {/* {cities.map((city, index) => {
           return (
             <Marker
               key={index}
@@ -174,7 +197,7 @@ const MapChart: FC<MapChartProps> = ({}) => {
           
           
           );
-        })}
+        })} */}
 
 
         {statesData.features.map((city, index) => {
@@ -187,10 +210,10 @@ const MapChart: FC<MapChartProps> = ({}) => {
             <GeoJSON
               key={index}
               data={statesData.features as any}
-              // style={style}
+              style={style}
               onEachFeature={onEachFeature}
               pointToLayer={setIcon}
-              pathOptions={style as any}
+              // pathOptions={style as any}
             />
           );
         })}

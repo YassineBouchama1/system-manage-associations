@@ -28,7 +28,7 @@ const PatientPdf: FC<PatientPdfProps> = ({patient}) => {
                   className="w-20 h-auto"
                 />
                 <p className="">نموذج هوية المريض الإلكتروني</p>
-                <p className="">Formulaire d'identité Patient Électronique</p>
+                <p className="">Formulaire d identité Patient Électronique</p>
               </div>
               <div>
                 <img

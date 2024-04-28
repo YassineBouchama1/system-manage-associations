@@ -26,6 +26,7 @@ class UpdateAssociationRequest extends FormRequest
             // 'name' => 'nullable|string|unique:associations,name',
             'address' => 'nullable|string',
             'city' => 'nullable:method,PUT|string',
+            'region' => 'nullable:method,PUT|string',
             'status' => 'nullable|in:active,inactive,suspended,deleted',
             'illness_id' => 'nullable|exists:illnesses,id',
         ];

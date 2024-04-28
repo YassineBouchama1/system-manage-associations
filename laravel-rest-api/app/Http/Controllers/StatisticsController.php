@@ -7,6 +7,7 @@ use App\Models\Illness;
 use App\Models\Patient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class StatisticsController extends Controller
 {
@@ -65,5 +66,19 @@ class StatisticsController extends Controller
 
 
         return response()->json(['message' => 'succefully', "patients" => $patients, 'role' => 2], 200);
+    }
+
+
+    // get number of patnient for each city
+    public function patientsOfCity()
+    {
+
+        $patients = Patient::join('associations', 'patients.association_id', '=', 'associations.id')
+            ->select(DB::raw('COUNT(patients.id) AS number_patients'), 'associations.region')
+            ->groupBy('associations.region')
+            ->get();
+
+       return response()->json( $patients,200);
+
     }
 }
