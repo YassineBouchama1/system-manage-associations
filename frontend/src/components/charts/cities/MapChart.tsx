@@ -60,14 +60,14 @@ const MapChart: FC<MapChartProps> = ({ mapData ,errorMap}) => {
   }; // Function for handling feature clicks
 
   const whenClick = (e: any) => {
-    e.target.setStyle(styleHover());
     const result = mapData.filter(
       (item) => item.region == e.target.feature.properties.name
     );
-
+    
     setOnselect({
-      patients: result.length > 0 ? result[0].number_patients : 0,
-    });
+        patients: result.length > 0 ? result[0].number_patients : 0,
+      });
+      e.target.setStyle(styleHover());
   }; // Function for handling mouse events on features
 
   const onEachFeature = (feature: any, layer: L.GeoJSON) => {
