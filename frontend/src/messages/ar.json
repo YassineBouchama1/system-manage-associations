@@ -84,6 +84,7 @@
     "number_of_Illnesses": "عدد الأمراض ",
     "edit": "تعديل",
     "delete": "الحذف",
-    "status": "حالة"
+    "patient_map_chart": "عدد المرضى لكل جهة",
+    "click_map_chart": "انقر فوق المنطقة"
   }
 }

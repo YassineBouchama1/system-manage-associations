@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('city');
             $table->foreignId('illness_id')->constrained('illnesses')->cascadeOnDelete();;
             $table->enum('status', ['active', 'inactive', 'suspended', 'deleted'])->default('active'); // if driver auto inactive tell  add all
-
+            $table->text('region');
             $table->softDeletes();
             $table->timestamps();
         });

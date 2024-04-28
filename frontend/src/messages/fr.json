@@ -84,6 +84,8 @@
     "number_of_Association": "nombre d'associations",
     "number_of_Illnesses": "nombre de maladies",
     "edit": "edit",
-    "status": "status"
+    "status": "status",
+    "patient_map_chart": "Nombre de patients par entité",
+    "click_map_chart": "cliquez sur une région"
   }
 }
