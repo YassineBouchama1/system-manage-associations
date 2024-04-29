@@ -35,44 +35,57 @@ const MapChart: FC<MapChartProps> = ({ mapData ,errorMap}) => {
   // Center coordinates (Number[])
   const center: number[] = [28.996643486255092, -9.707703872193896]; // Selected region state (useState)
 
-  const [onselect, setOnselect] = useState<{ patients: number } | null>(null); 
+  const [onselect, setOnselect] = useState<{ patients: number ,region:string} | null>(null); 
   // if (errorMap) {
   //   return <div>Error fetching map</div>;
   // }
   
   const t = useTranslations("ui");
 
+
+
+
+
   const highlightFeature = (e: any) => {
     const layer = e.target as L.GeoJSON;
-    layer.setStyle(styleHover());
+    // layer.setStyle(styleHover());
     const result = mapData.filter(
       (item) => item.region === e.target.feature.properties.name
     );
     setOnselect({
       patients: result.length > 0 ? result[0].number_patients : 0,
+      region: e.target.feature.properties.name,
     });
   }; // Data for patients per region
 
 
+
   const resetHighlight = (e: any) => {
-    setOnselect(null);
     (e.target as L.GeoJSON).setStyle(style(e.target.feature));
+    setOnselect(null);
   }; // Function for handling feature clicks
 
+
   const whenClick = (e: any) => {
+    e.target.setStyle(styleHover());
     const result = mapData.filter(
       (item) => item.region == e.target.feature.properties.name
     );
     
-    setOnselect({
-        patients: result.length > 0 ? result[0].number_patients : 0,
-      });
-      e.target.setStyle(styleHover());
+// makeHoverOnLayer(result.length > 0 ? result[0].number_patients : 0,e.target.feature.properties.name);
+
   }; // Function for handling mouse events on features
 
+  const makeHoverOnLayer = (patients : number, region:string) => {
+    setOnselect({
+      patients,
+      region
+    });
+
+  };
   const onEachFeature = (feature: any, layer: L.GeoJSON) => {
     layer.on({
-      // mouseover: highlightFeature,
+      mouseover: highlightFeature,  
       mouseout: resetHighlight,
       click: whenClick,
     });
@@ -106,7 +119,7 @@ const MapChart: FC<MapChartProps> = ({ mapData ,errorMap}) => {
       opacity: 1,
       color: "white",
       dashArray: "",
-      fillOpacity: 0.5,
+      fillOpacity: 1,
     };
   };
 
@@ -117,7 +130,7 @@ const MapChart: FC<MapChartProps> = ({ mapData ,errorMap}) => {
       opacity: 1,
       color: "white",
       dashArray: "",
-      fillOpacity: 0.5,
+      fillOpacity: 1,
     };
   }; // style map
 
@@ -158,7 +171,10 @@ const MapChart: FC<MapChartProps> = ({ mapData ,errorMap}) => {
         <p className="text-xs font-semibold">{t("patient_map_chart")}</p> 
         <div className="text-center flex justify-center mt-[-13px]">
           {onselect ? (
-            <p>{onselect && onselect?.patients}</p>
+            <div className="flex flex-col justify-between">
+              <p>{onselect && onselect?.region}</p>
+              <p>{onselect && onselect?.patients}</p>
+            </div>
           ) : (
             <p className="text-xs pb-2">{t("click_map_chart")}</p>
           )}
@@ -184,8 +200,18 @@ const MapChart: FC<MapChartProps> = ({ mapData ,errorMap}) => {
         boxZoom={false}
         keyboard={false}
       >
+        {statesData && (
+          <GeoJSON
+            data={statesData.features as any}
+            style={style}
+            onEachFeature={onEachFeature}
+            pointToLayer={setIcon}
+          />
+        )}
+
+
                        {" "}
-        {statesData.features.map(
+        {/* {statesData.features.map(
           (
             city: { geometry: { coordinates: any[][] } },
             index: Key | null | undefined
@@ -205,7 +231,7 @@ const MapChart: FC<MapChartProps> = ({ mapData ,errorMap}) => {
               />
             );
           }
-        )}
+        )} */}
         <TileLayer
           attribution="yassine" // url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           url="https://{s}.basemaps.cartocdn.com/rastertiles/light_nolabels/{z}/{x}/{y}.png"

@@ -85,6 +85,10 @@
     "edit": "تعديل",
     "delete": "الحذف",
     "patient_map_chart": "عدد المرضى لكل جهة",
-    "click_map_chart": "انقر فوق المنطقة"
+    "click_map_chart": "انقر فوق المنطقة",
+    "table_name": "الإ سم",
+    "table_city": "مدينة",
+    "table_status": "حالة",
+    "table_ASSOCIATION": "انقر فوق المنطقة"
   }
 }

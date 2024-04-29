@@ -10,7 +10,7 @@ import { notFound } from "next/navigation";
 import { GlobalThemeProvider } from "@/hooks/useTheme";
 import { Toaster } from "react-hot-toast";
 import ReduxProvider from "@/redux/ReduxProvider";
-import Favicon from "/public/favicon.png";
+import Favicon from "/public/logoMorocco.png";
 
 const inter = Inter({ subsets: ["latin"] });
 

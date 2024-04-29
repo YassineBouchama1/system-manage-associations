@@ -1300,11 +1300,30 @@
 									"model": {
 										"$ref": "AAAAAAGN7wiXbhtqLkw="
 									},
+									"subViews": [
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAGPKVNKd4c+3MU=",
+											"_parent": {
+												"$ref": "AAAAAAGN7wiXcBtzz+c="
+											},
+											"model": {
+												"$ref": "AAAAAAGPKVNKXYc71XQ="
+											},
+											"font": "Arial;13;0",
+											"left": 381,
+											"top": 557,
+											"width": 185.33984375,
+											"height": 13,
+											"text": "-Crud()",
+											"horizontalAlignment": 0
+										}
+									],
 									"font": "Arial;13;0",
 									"left": 376,
 									"top": 552,
 									"width": 195.33984375,
-									"height": 10
+									"height": 23
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
@@ -1741,8 +1760,8 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": -544,
-											"top": -752,
+											"left": -416,
+											"top": -688,
 											"height": 13
 										},
 										{
@@ -1752,8 +1771,8 @@
 												"$ref": "AAAAAAGOf2dMPqonazw="
 											},
 											"font": "Arial;13;1",
-											"left": 861,
-											"top": 39,
+											"left": 925,
+											"top": 71,
 											"width": 234.8251953125,
 											"height": 13,
 											"text": "Alliance des Maladies Rares au Maroc"
@@ -1766,8 +1785,8 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": -544,
-											"top": -752,
+											"left": -416,
+											"top": -688,
 											"width": 73.67724609375,
 											"height": 13,
 											"text": "(from Model)"
@@ -1780,15 +1799,15 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": -544,
-											"top": -752,
+											"left": -416,
+											"top": -688,
 											"height": 13,
 											"horizontalAlignment": 1
 										}
 									],
 									"font": "Arial;13;0",
-									"left": 856,
-									"top": 32,
+									"left": 920,
+									"top": 64,
 									"width": 244.8251953125,
 									"height": 25,
 									"stereotypeLabel": {
@@ -1814,8 +1833,8 @@
 										"$ref": "AAAAAAGOf2dMPqokt3o="
 									},
 									"font": "Arial;13;0",
-									"left": 856,
-									"top": 57,
+									"left": 920,
+									"top": 89,
 									"width": 244.8251953125,
 									"height": 10
 								},
@@ -1829,8 +1848,8 @@
 										"$ref": "AAAAAAGOf2dMPqokt3o="
 									},
 									"font": "Arial;13;0",
-									"left": 856,
-									"top": 67,
+									"left": 920,
+									"top": 99,
 									"width": 244.8251953125,
 									"height": 10
 								},
@@ -1845,8 +1864,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": -248,
-									"top": -320,
+									"left": -184,
+									"top": -288,
 									"width": 10,
 									"height": 10
 								},
@@ -1861,16 +1880,16 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": -248,
-									"top": -320,
+									"left": -184,
+									"top": -288,
 									"width": 10,
 									"height": 10
 								}
 							],
 							"font": "Arial;13;0",
 							"containerChangeable": true,
-							"left": 856,
-							"top": 32,
+							"left": 920,
+							"top": 64,
 							"width": 244.8251953125,
 							"height": 45,
 							"nameCompartment": {
@@ -2269,8 +2288,8 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": -1072,
-											"top": -320,
+											"left": -272,
+											"top": 48,
 											"height": 13
 										},
 										{
@@ -2280,8 +2299,8 @@
 												"$ref": "AAAAAAGOf2imHLNePpQ="
 											},
 											"font": "Arial;13;1",
-											"left": 941,
-											"top": 207,
+											"left": 1341,
+											"top": 391,
 											"width": 178.6611328125,
 											"height": 13,
 											"text": "Laboratoire d'Analyses Privé"
@@ -2294,8 +2313,8 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": -1072,
-											"top": -320,
+											"left": -272,
+											"top": 48,
 											"width": 73.67724609375,
 											"height": 13,
 											"text": "(from Model)"
@@ -2308,15 +2327,15 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": -1072,
-											"top": -320,
+											"left": -272,
+											"top": 48,
 											"height": 13,
 											"horizontalAlignment": 1
 										}
 									],
 									"font": "Arial;13;0",
-									"left": 936,
-									"top": 200,
+									"left": 1336,
+									"top": 384,
 									"width": 188.6611328125,
 									"height": 25,
 									"stereotypeLabel": {
@@ -2342,8 +2361,8 @@
 										"$ref": "AAAAAAGOf2imHLNb53Y="
 									},
 									"font": "Arial;13;0",
-									"left": 936,
-									"top": 225,
+									"left": 1336,
+									"top": 409,
 									"width": 188.6611328125,
 									"height": 10
 								},
@@ -2357,8 +2376,8 @@
 										"$ref": "AAAAAAGOf2imHLNb53Y="
 									},
 									"font": "Arial;13;0",
-									"left": 936,
-									"top": 235,
+									"left": 1336,
+									"top": 419,
 									"width": 188.6611328125,
 									"height": 10
 								},
@@ -2373,8 +2392,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": -536,
-									"top": -160,
+									"left": -136,
+									"top": 24,
 									"width": 10,
 									"height": 10
 								},
@@ -2389,16 +2408,16 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": -536,
-									"top": -160,
+									"left": -136,
+									"top": 24,
 									"width": 10,
 									"height": 10
 								}
 							],
 							"font": "Arial;13;0",
 							"containerChangeable": true,
-							"left": 936,
-							"top": 200,
+							"left": 1336,
+							"top": 384,
 							"width": 188.6611328125,
 							"height": 45,
 							"nameCompartment": {
@@ -2783,11 +2802,11 @@
 									},
 									"font": "Arial;13;0",
 									"left": 179,
-									"top": 287,
+									"top": 311,
 									"width": 19.5126953125,
 									"height": 13,
-									"alpha": 0.5235987755982988,
-									"distance": 25,
+									"alpha": 0.25518241558920196,
+									"distance": 47.53945729601885,
 									"hostEdge": {
 										"$ref": "AAAAAAGOrvke3IvRmfA="
 									},
@@ -4382,6 +4401,17 @@
 							"name": "name",
 							"visibility": "private",
 							"type": ""
+						}
+					],
+					"operations": [
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGPKVNKXYc71XQ=",
+							"_parent": {
+								"$ref": "AAAAAAGN7wiXbhtqLkw="
+							},
+							"name": "Crud",
+							"visibility": "private"
 						}
 					]
 				},
@@ -7910,7 +7940,7 @@
 											"top": 1099.5,
 											"width": 62,
 											"height": 13,
-											"text": "cases"
+											"text": "Patients"
 										},
 										{
 											"_type": "LabelView",
@@ -13332,7 +13362,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGN9FDxsSemkyI="
 					},
-					"name": "cases",
+					"name": "Patients",
 					"ownedElements": [
 						{
 							"_type": "UMLInclude",
