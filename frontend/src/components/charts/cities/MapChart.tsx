@@ -166,7 +166,7 @@ const MapChart: FC<MapChartProps> = ({ mapData ,errorMap}) => {
     <div className="relative z-10 flex justify-center flex-col lg:w-1/2   h-auto bg-white rounded-md my-4 p-4">
       <div
         style={{ zIndex: 800 }}
-        className="absolute top-7 left-7  bg-white rounded-md shadow-sm opacity-60  w-2/6 px-2 pt-4  h-auto "
+        className="absolute top-7 left-7  bg-white rounded-md shadow-sm opacity-60  w-2/6 px-2 pt-4  h-auto items-center text-center"
       >
         <p className="text-xs font-semibold">{t("patient_map_chart")}</p> 
         <div className="text-center flex justify-center mt-[-13px]">
