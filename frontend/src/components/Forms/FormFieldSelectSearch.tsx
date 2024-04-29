@@ -79,7 +79,7 @@ export default function FormFieldSelectSearch({
 
   return (
     <div className="relative text-black my-6">
-      <label id="selectfield" className="mb-4">
+      <label id="selectfield" className="mb-4 ">
         {nameInput && nameInput}
       </label>
       <input

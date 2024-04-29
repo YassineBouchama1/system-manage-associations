@@ -1,5 +1,6 @@
 import React, { Dispatch, ReactNode, SetStateAction, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 interface ModalProps {
   isOpen: boolean;
@@ -19,7 +20,10 @@ const modalVariants = {
   exit: { scale: 0, transition: { duration: 0.2 } },
 };
 
+
+
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose,children }) => {
+  const t = useTranslations('ui')
   return (
     <AnimatePresence>
       {isOpen && (
@@ -44,7 +48,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose,children }) => {
               onClick={() => onClose()}
               className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
             >
-              Close
+              {t("close")}
             </button>
           </motion.div>
         </motion.div>

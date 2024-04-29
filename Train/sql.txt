@@ -9,3 +9,10 @@ FROM associations
 LEFT JOIN patients ON associations.id = patients.association_id
 GROUP BY associations.id
 ORDER BY  num_patients DESC;
+
+
+ALTER TABLE my_table
+CHANGE old_column new_column column_definition;
+
+
+RENAME TABLE old_table TO new_table;

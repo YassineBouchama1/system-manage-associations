@@ -109,7 +109,7 @@ const FilterTable: FC<FilterTableProps> = ({ illnesses }) => {
           <Plus className="h-3.5 w-3.5 mr-2" />
           {t("create")}
         </Link>
-        <div className="flex items-center space-x-3 w-full md:w-auto">
+        <div className="flex items-center space-x-3 w-full md:w-auto gap-3">
           <button
             type="button"
             onClick={() => setIsOpen(true)}

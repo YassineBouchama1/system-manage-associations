@@ -3,6 +3,7 @@ import { SubmitButton } from '@/components/ui/SubmitButton';
 import { GetExportXlsx } from '@/lib/GetExportXlsx';
 import { getFormattedDateNow } from '@/lib/getFormattedDateNow';
 import { ChevronDown, Filter } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { useState, type FC } from 'react';
 import toast from 'react-hot-toast';
 
@@ -99,13 +100,13 @@ return;
       setSelectedColumns(selectedColumns.filter((column) => column !== value)); // Remove column from selection
     }
   };
-
+const t = useTranslations("ui");
   return (
     <form action={fetchDataToExport}>
-      <h2 className="text-stone-700 text-xl font-bold">Export Data Patients</h2>
-      <p className="mt-1 text-sm">
-        Use filters to further Which Data Want Export{" "}
-      </p>
+      <h2 className="text-stone-700 text-xl font-bold">
+        {t("export_text_header")}
+      </h2>
+      <p className="mt-1 text-sm">{t("export_paraghraph_header")}</p>
       <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         <div className="flex flex-col gap-2">
           <div className="flex flex-col relative">
@@ -113,7 +114,7 @@ return;
               htmlFor="name"
               className="text-stone-600 text-sm font-medium"
             >
-              Status
+              {t("status")}
             </label>
             <button
               className={` mt-2  w-full md:w-auto flex items-center justify-center py-3 px-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700`}
@@ -121,7 +122,8 @@ return;
               onClick={() => setToggleFilter(!toggleFilter)}
             >
               <Filter className="h-4 w-4 mr-2 text-gray-400" />
-              Filter
+              {t("filter")}
+
               <ChevronDown className="h-4 w-4 mr-2 text-gray-400" />
             </button>
             <div
@@ -131,7 +133,7 @@ return;
               }  scale-y-100 z-10 absolute top-16 w-48 p-3 bg-white rounded-lg shadow dark:bg-gray-700`}
             >
               <h6 className="mb-3 text-sm font-medium text-gray-900 dark:text-white">
-                Choose Filters
+                {t("choose_filter")}
               </h6>
               <ul
                 className="space-y-2 text-sm"
@@ -149,9 +151,9 @@ return;
                   />
                   <label
                     htmlFor="deleted"
-                    className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100"
+                    className="ml-2 text-sm font-medium rtl:mr-2 text-gray-900 dark:text-gray-100"
                   >
-                    Deleted
+                    {t("filter_deleted_items")}
                   </label>
                 </li>
               </ul>
@@ -164,7 +166,7 @@ return;
               htmlFor="name"
               className="text-stone-600 text-sm font-medium"
             >
-              Columns
+              {t("export_columns")}
             </label>
             <button
               className={` mt-2  w-full md:w-auto flex items-center justify-center  py-3 px-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700`}
@@ -182,7 +184,7 @@ return;
               }  scale-y-100 z-10 absolute top-16 w-48 p-3 bg-white rounded-lg shadow dark:bg-gray-700`}
             >
               <h6 className="mb-3 text-sm font-medium text-gray-900 dark:text-white">
-                Choose Filters
+                {t("choose_filter")}
               </h6>
               <ul
                 className="space-y-2 text-sm"
@@ -201,7 +203,7 @@ return;
                       onChange={handleSelectAll}
                       className="mr-2 w-4 h-4 bg-gray-100 border-gray-300 rounded text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                     />
-                    All
+                    {t("all")}
                   </label>
                 </li>
                 {/* destract a columns  */}
@@ -211,7 +213,7 @@ return;
                       <input
                         type="checkbox"
                         value={column.key}
-                        className="mr-2 w-4 h-4 bg-gray-100 border-gray-300 rounded text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                        className="mr-2 w-4 h-4 bg-gray-100 rtl:ml-2 border-gray-300 rounded text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                         onChange={handleCheckboxChange}
                         checked={selectedColumns.includes(column.key)}
                       />
@@ -226,7 +228,7 @@ return;
 
         <div className="flex flex-col">
           <label htmlFor="date" className="text-stone-600 text-sm font-medium">
-            Created Between
+            {t("export_created_between")}
           </label>
           <div className="flex flex-col gap-2">
             <input
@@ -265,7 +267,7 @@ return;
             htmlFor="status"
             className="text-stone-600 text-sm font-medium"
           >
-            Numbers of Patients
+            {t("export_number_of_items")}
           </label>
 
           <input
@@ -278,7 +280,7 @@ return;
 
       <div className="mt-6 grid w-full grid-cols-2 justify-end space-x-4 md:flex">
         <SubmitButton
-          title="Export"
+          title={t("export")}
           style="active:scale-95 rounded-lg bg-theme-color hover:bg-primary-700 px-8 py-2 font-medium text-white outline-none focus:ring hover:opacity-90"
         />
       </div>

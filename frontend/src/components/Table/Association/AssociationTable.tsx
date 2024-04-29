@@ -1,17 +1,13 @@
 'use client'
 import { useState, type FC } from "react";
-import { ResponseIllnessType } from "../ReusableTable";
-import { IllnessType } from "@/types/illness";
 
-import { SubmitButton } from "../../ui/SubmitButton";
+
 import { deleteAction } from "@/actions/illnesses/delete";
 import toast from "react-hot-toast";
 import { restoreAction } from "@/actions/illnesses/restore";
-import Modal from "../../Modal";
-import FormIllnessUpdate from "../../Forms/FormIllnessUpdate";
+
 import { useTranslations } from "next-intl";
-import { ChevronDown, Filter, MoveUp, Plus, Search } from "lucide-react";
-import PaginationControls from "../PaginationControls";
+
 import { AssociationType } from "@/types/association";
 import BodyTable from "./BodyTable";
 
@@ -48,20 +44,20 @@ const AssociationTable: FC<AssociationTableProps> = ({ associations }) => {
         <thead className="ltr:text-left rtl:text-right text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             <th scope="col" className="px-6 py-4">
-              Product name
+              {t("table_name")}{" "}
             </th>
             <th scope="col" className="px-4 py-3">
-              Category
+              {t("table_category")}
             </th>
             <th scope="col" className="px-4 py-3">
-              City
+              {t("table_city")}
             </th>
 
             <th scope="col" className="px-4 py-3">
-              Status
+              {t("table_status")}
             </th>
             <th scope="col" className="px-4 py-3">
-              <span className="sr-only">Actions</span>
+              <span className="sr-only">{t("table_actions")}</span>
             </th>
           </tr>
         </thead>

@@ -43,22 +43,22 @@ const PatinetsTable: FC<PatinetsTableProps> = ({ patients }) => {
         <thead className="ltr:text-left rtl:text-right text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             <th scope="col" className="px-6 py-4">
-              name
+              {t("table_name")}
             </th>
             <th scope="col" className="px-4 py-3">
-              Category
+              {t("table_category")}
             </th>
             <th scope="col" className="px-4 py-3">
-              City
+              {t("table_city")}
             </th>
             <th scope="col" className="px-4 py-3">
-              Association
+              {t("table_ASSOCIATION")}
             </th>
             <th scope="col" className="px-4 py-3">
-              Status
+              {t("table_status")}
             </th>
             <th scope="col" className="px-4 py-3">
-              <span className="sr-only">Actions</span>
+              <span className="sr-only">{t("table_actions")}</span>
             </th>
           </tr>
         </thead>

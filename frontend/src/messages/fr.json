@@ -49,6 +49,9 @@
     "title": "Chemins d'accès",
     "description": "<p>Les chemins d'accès sont également internationalisés.</p><p>Si vous utilisez la langue par défaut, l'anglais, vous verrez <code>/fr/chemins-d-accès</code> dans la barre d'adresse du navigateur sur cette page.</p><p>Si vous changez la langue en anglais, l'URL est localisée en conséquence (<code>/en/pathnames</code>).</p>"
   },
+  "header": {
+    "search": "Search"
+  },
   "ui": {
     "create": "Créer",
     "update": "Mettre à jour",
@@ -85,7 +88,29 @@
     "number_of_Illnesses": "nombre de maladies",
     "edit": "edit",
     "status": "status",
+    "table_name": "Nom",
+    "table_city": "Ville",
+    "table_category": "Catégorie",
+    "table_actions": "Actions",
+    "table_status": "Statut",
+    "table_ASSOCIATION": "Cliquez sur la zone",
     "patient_map_chart": "Nombre de patients par entité",
-    "click_map_chart": "cliquez sur une région"
+    "click_map_chart": "cliquez sur une région",
+    "home_page_main_text": "Centre des maladies rares",
+    "home_page_paraghraph_text": "Fournir des informations complètes et de qualité à la communauté sur les maladies rares",
+    "dashboard": "tableau de bord",
+    "login": "se connecter",
+    "search": "Rechercher",
+    "export": "Exporter",
+    "filter": "Filtrer",
+    "close": "Fermer",
+    "choose_filter": "Choisir un filtre",
+    "filter_deleted_items": "éléments supprimés",
+    "export_text_header": "Exporter les données de l'association",
+    "export_paraghraph_header": "Exporter les données de l'association",
+    "export_number_of_items": "Nombre d'éléments",
+    "export_created_between": "Créé entre",
+    "export_columns": "Colonnes",
+    "all": "الجميع"
   }
 }
