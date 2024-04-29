@@ -101,7 +101,7 @@ const FilterTable: FC<FilterTableProps> = ({ associations }) => {
           href="/dashboard/patients/create"
           className="flex items-center justify-center text-white bg-theme-color hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
         >
-          <Plus className="h-3.5 w-3.5 mr-2" />
+          <Plus className="h-3.5 w-3.5 mr-2  rtl:ml-2" />
           {t("create")}
         </Link>
         <div className="flex items-center space-x-3 w-full md:w-auto gap-3">
@@ -110,7 +110,7 @@ const FilterTable: FC<FilterTableProps> = ({ associations }) => {
             onClick={() => setIsOpen(true)}
             className="flex items-center justify-center flex-shrink-0 px-3 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg focus:outline-none hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
           >
-            <MoveUp className="w-4 h-4 mr-2" />
+            <MoveUp className="w-4 h-4 mr-2  rtl:ml-2" />
             {t("export")}
           </button>
           {isOpen && (
@@ -123,7 +123,7 @@ const FilterTable: FC<FilterTableProps> = ({ associations }) => {
             type="button"
             onClick={() => setToggleFilter(!toggleFilter)}
           >
-            <Filter className="h-4 w-4 mr-2 text-gray-400" />
+            <Filter className="h-4 w-4 mr-2 text-gray-400  rtl:ml-2" />
             {t("filter")}
             <ChevronDown className="h-4 w-4 mr-2 text-gray-400" />
           </button>
@@ -161,7 +161,7 @@ const FilterTable: FC<FilterTableProps> = ({ associations }) => {
             <FormFieldSelectSearch
               defaultSelectedId={selectedAssociationValue}
               dataList={associations}
-              nameInput="Associations"
+              nameInput={t("association")}
               onSelectChange={handleSelectAssociationChange}
             />
 

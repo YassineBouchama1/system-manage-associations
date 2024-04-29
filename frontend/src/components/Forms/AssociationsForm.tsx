@@ -68,8 +68,8 @@ const AssociationsForm: FC<AssociationsFormProps> = ({ illnesses }) => {
             id="role"
             name="role"
             type="text"
-            placeholder={t("role")}
-            title={t("role")}
+            placeholder={t("role_admin_association")}
+            title={t("role_admin_association")}
             disabled
           />
 
@@ -134,7 +134,6 @@ const AssociationsForm: FC<AssociationsFormProps> = ({ illnesses }) => {
           </div>
           {/* forms PERSONAL INFORMATION  */}
         </div>
-        
 
         {/* end forms  */}
         <div className="w-full my-6 flex justify-center ">

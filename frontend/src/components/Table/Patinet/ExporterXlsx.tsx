@@ -201,7 +201,7 @@ const t = useTranslations("ui");
                       value="all"
                       name="all"
                       onChange={handleSelectAll}
-                      className="mr-2 w-4 h-4 bg-gray-100 border-gray-300 rounded text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                      className="mr-2 w-4 h-4 bg-gray-100 rtl:ml-2 border-gray-300 rounded text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                     />
                     {t("all")}
                   </label>
@@ -250,7 +250,7 @@ const t = useTranslations("ui");
           </div>
         </div>
 
-        <div className="flex flex-col">
+        {/* <div className="flex flex-col">
           <label htmlFor="date" className="text-stone-600 text-sm font-medium">
             Birth Between
           </label>
@@ -260,7 +260,7 @@ const t = useTranslations("ui");
             name="birth"
             className="mt-2 block w-full rounded-md border border-gray-200 px-2 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
           />
-        </div>
+        </div> */}
 
         <div className="flex flex-col">
           <label

@@ -1,4 +1,5 @@
 'use client'
+import { useTranslations } from "next-intl";
 import React, { useState, useEffect } from "react";
 
 interface DataItem {
@@ -26,6 +27,8 @@ export default function FormFieldSelectSearch({
     defaultSelectedId || null
   );
   const [selectedValue, setSelectedValue] = useState<string | null>(null);
+
+const t = useTranslations('ui')
 
   useEffect(() => {
     if (defaultSelectedId) {
@@ -74,12 +77,12 @@ export default function FormFieldSelectSearch({
         item.name.toLowerCase().includes(filter.toLowerCase())
       );
     }
-    return [{ id: "All", name: "All" }, ...filteredList];
+    return [{ id: "All", name: t('all') }, ...filteredList];
   };
 
   return (
-    <div className="relative text-black my-6">
-      <label id="selectfield" className="mb-4 ">
+    <div className="relative text-black my-6 rtl:text-start">
+      <label id="selectfield" className="mb-4 rtl:text-start">
         {nameInput && nameInput}
       </label>
       <input
@@ -98,7 +101,7 @@ export default function FormFieldSelectSearch({
       >
         <button className="relative z-0 w-full py-2 pl-3 pr-10 text-left transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md cursor-default focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5">
           <span className="block truncate">
-            {selectedValue || "Please Select"}
+            {selectedValue || t("please_select")}
           </span>
           <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
             <svg

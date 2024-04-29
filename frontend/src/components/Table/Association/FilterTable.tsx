@@ -82,7 +82,7 @@ const FilterTable: FC<FilterTableProps> = ({ illnesses }) => {
       <div className="w-full md:w-1/2">
         <form className="flex items-center">
           <label htmlFor="simple-search" className="sr-only">
-            Search
+            {t("search")}
           </label>
           <div className="relative w-full">
             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -115,8 +115,8 @@ const FilterTable: FC<FilterTableProps> = ({ illnesses }) => {
             onClick={() => setIsOpen(true)}
             className="flex items-center justify-center flex-shrink-0 px-3 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg focus:outline-none hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
           >
-            <MoveUp className="w-4 h-4 mr-2" />
-            Export
+            <MoveUp className="w-4 h-4 mr-2  rtl:ml-2" />
+            {t("export")}
           </button>
           {isOpen && (
             <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
@@ -129,18 +129,19 @@ const FilterTable: FC<FilterTableProps> = ({ illnesses }) => {
             type="button"
             onClick={() => setToggleFilter(!toggleFilter)}
           >
-            <Filter className="h-4 w-4 mr-2 text-gray-400" />
-            Filter
+            <Filter className="h-4 w-4 mr-2 text-gray-400  rtl:ml-2" />
+            {t("filter")}
+
             <ChevronDown className="h-4 w-4 mr-2 text-gray-400" />
           </button>
           <div
             id="filterDropdown"
             className={`${
               toggleFilter && "hidden"
-            } scale-y-100 z-10 absolute top-14 w-48 p-3 bg-white rounded-lg shadow dark:bg-gray-700`}
+            } scale-y-100 z-10 absolute top-14 w-48 p-3 bg-white rounded-lg shadow `}
           >
-            <h6 className="mb-3 text-sm font-medium text-gray-900 dark:text-white">
-              Choose Filters
+            <h6 className="mb-3 text-sm font-medium text-gray-900 ">
+              {t("choose_filter")}
             </h6>
             <ul
               className="space-y-2 text-sm"
@@ -159,7 +160,7 @@ const FilterTable: FC<FilterTableProps> = ({ illnesses }) => {
                   htmlFor="apple"
                   className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100"
                 >
-                  Deleted
+                  {t("filter_deleted_items")}
                 </label>
               </li>
             </ul>
@@ -168,7 +169,7 @@ const FilterTable: FC<FilterTableProps> = ({ illnesses }) => {
             <FormFieldSelectSearch
               defaultSelectedId={selectedCity}
               dataList={cities}
-              nameInput="city"
+              nameInput={t("city")}
               onSelectChange={handleSelectCityChange}
             />
 
@@ -185,7 +186,7 @@ const FilterTable: FC<FilterTableProps> = ({ illnesses }) => {
                 onClick={() => handleClickBtnFilter()}
                 className="bg-theme-color w-auto px-2 rounded-md text-white"
               >
-                filter
+                {t("filter")}
               </button>
             </div>
           </div>
