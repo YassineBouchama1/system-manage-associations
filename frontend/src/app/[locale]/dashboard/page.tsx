@@ -5,6 +5,7 @@ import BarChart from "@/components/charts/patients/BarChart";
 import PieChart from "@/components/charts/cities/PieChart";
 import MapChart from "@/components/charts/cities/MapChart";
 import { patientsRegion } from "@/actions/dashboard/patientsRegion";
+import { getSession } from "@/lib/getSessions";
 
 const timeFrame = "last30days";
 
@@ -18,6 +19,8 @@ export default async function pageDashboard({
     timeFrame: searchParams.timeFrame?.toString() || timeFrame.toString(),
   };
 
+
+  const session = await getSession()
   const { success, error } = await fetchStatistics();
   const { success: chartData, error: errorChart } = await patientsCharts(
     combinedParams
@@ -41,7 +44,9 @@ export default async function pageDashboard({
 
         <div className=" flex lg:flex-row  flex-col gap-2">
           {chartData ? <BarChart chartData={chartData} /> : <h3>error</h3>}
-          <MapChart mapData={mapData} errorMap={error} />
+          {session?.role == 1 && (
+            <MapChart mapData={mapData} errorMap={error} />
+          )}
         </div>
       </main>
     </>

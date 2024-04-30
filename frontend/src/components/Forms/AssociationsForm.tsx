@@ -44,7 +44,7 @@ const AssociationsForm: FC<AssociationsFormProps> = ({ illnesses }) => {
         toast.error(`${key} ${result.errorZod[key]}`);
       });
     } else {
-      toast.success("Added New Assosiation Successfully ");
+      toast.success(t("new_association"));
       fromRef.current?.reset(); // reset form
       redirect("/dashboard/associations"); // redirect to list of associations
     }

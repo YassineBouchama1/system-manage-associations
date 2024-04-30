@@ -11,10 +11,14 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { getSessionClient } from "@/actions/auth/profile";
 import { SessionData } from "@/lib/optionsSessions";
+import { useTranslations } from "next-intl";
 
 interface TimeLineProps {}
 
 const TimeLine: FC<TimeLineProps> = () => {
+
+const t = useTranslations('ui')
+
   const [timeLInesData, setTimeLinesData] = useState<TimeLineType[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [session, setSession] = useState<null | SessionData>(null);
@@ -142,7 +146,7 @@ const TimeLine: FC<TimeLineProps> = () => {
                     <path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z" />
                     <path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z" />
                   </svg>{" "}
-                  Download FILE
+                  {t("download_file")}
                 </Link>
               )}
             </div>
@@ -152,41 +156,40 @@ const TimeLine: FC<TimeLineProps> = () => {
       </div>
       {/* form create new timeline  */}
       {session?.role == 2 && (
-
         <form
-        ref={fromRef}
-        action={onCreateTimeLIne}
-        className="relative  w-full mt-6  "
+          ref={fromRef}
+          action={onCreateTimeLIne}
+          className="relative  w-full mt-6  "
         >
-        <hr className="my-8 "></hr>
-        <div className="relative w-full min-w-[200px]">
-          <textarea
-            rows={8}
-            name="description"
-            className="peer h-full min-h-[100px] w-full !resize-none  rounded-[7px] border border-blue-gray-200  bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:resize-none disabled:border-0 disabled:bg-blue-gray-50"
-            placeholder=" "
-          ></textarea>
-          <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
-            Your Comment <span className="text-red-500">*</span>
-          </label>
-        </div>
-        <div className="flex w-full  flex-col md:flex-row items-center justify-between py-1.5 gap-4">
-          <input
-            type="file"
-            name="file"
-            className="w-full mx-2  md:w-1/2 text-gray-500 font-medium text-sm bg-gray-100 file:cursor-pointer cursor-pointer file:border-0 file:py-2 file:px-4 file:mr-4 file:bg-gray-800 file:hover:bg-gray-700 file:text-white rounded"
-          />
-
-          <div className="flex gap-2">
-            <SubmitButton
-              title="create"
-              loadingForm={"creating..."}
-              style="select-none rounded-md bg-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-              />
+          <hr className="my-8 "></hr>
+          <div className="relative w-full min-w-[200px]">
+            <textarea
+              rows={8}
+              name="description"
+              className="peer h-full min-h-[100px] w-full !resize-none  rounded-[7px] border border-blue-gray-200  bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:resize-none disabled:border-0 disabled:bg-blue-gray-50"
+              placeholder=" "
+            ></textarea>
+            <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+              {t("your_comment")} <span className="text-red-500">*</span>
+            </label>
           </div>
-        </div>
-      </form>
-            )}
+          <div className="flex w-full  flex-col md:flex-row items-center justify-between py-1.5 gap-4">
+            <input
+              type="file"
+              name="file"
+              className="w-full mx-2  md:w-1/2 text-gray-500 font-medium text-sm bg-gray-100 file:cursor-pointer cursor-pointer file:border-0 file:py-2 file:px-4 file:mr-4 file:bg-gray-800 file:hover:bg-gray-700 file:text-white rounded"
+            />
+
+            <div className="flex gap-2">
+              <SubmitButton
+                title="create"
+                loadingForm={"creating..."}
+                style="select-none rounded-md bg-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+              />
+            </div>
+          </div>
+        </form>
+      )}
 
       {/* form create new timeline  */}
     </div>

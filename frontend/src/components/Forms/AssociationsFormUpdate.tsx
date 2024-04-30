@@ -54,7 +54,7 @@ const AssociationsFormUpdate: FC<AssociationsFormUpdateProps> = ({
         toast.error(`${key} ${result.errorZod[key]}`);
       });
     } else {
-      toast.success("Assosiation Updated Successfully ");
+      toast.success(t("update_association"));
     }
   }
 

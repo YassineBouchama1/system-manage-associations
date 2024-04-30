@@ -51,7 +51,7 @@
   "ui": {
     "create": "إنشاء",
     "update": "تحديث",
-    "loaidng": "loading...",
+    "loading": "تحميل...",
     "role": "وظيفة",
     "restore": "استرجع",
     "email": "البريد الإلكتروني",
@@ -92,6 +92,7 @@
     "table_actions": "الإجراءات",
     "table_status": "الحالة",
     "status": "الحالة",
+    
     "table_ASSOCIATION": "جمعية",
     "association": "جمعية",
     "patients": "جمعية",
@@ -112,6 +113,12 @@
     "export_created_between": "تم الإنشاء بين",
     "export_columns": "الأعمدة",
     "all": "الجميع",
-    "please_select": "يرجى التحديد"
+    "please_select": "يرجى التحديد",
+    "timLines": "تاريخ المريض",
+    "download_file": "تحميل الملف",
+    "print": "طباعة",
+    "your_comment": "تعليقك",
+    "new_pateint": "تمت إضافة مريض جديد بنجاح",
+    "update_pateint": "تم تحديث الملف الشخصي للمريض بنجاح"
   }
 }

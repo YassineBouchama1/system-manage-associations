@@ -42,7 +42,7 @@ const PatientForms: FC<PatientFormsProps> = () => {
         toast.error(`${key} ${result.errorZod[key]}`);
       });
     } else {
-      toast.success("Added New Patient Successfully ");
+      toast.success(t("new_pateint"));
       fromRef.current?.reset(); // reset form
       redirect("/dashboard/patients"); // redirect to list of associations
     }

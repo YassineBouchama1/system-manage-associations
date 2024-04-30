@@ -47,7 +47,7 @@ const PatientsFormUpdate: FC<PatientFormsProps> = ({patient}) => {
         toast.error(`${key} ${result.errorZod[key]}`);
       });
     } else {
-      toast.success("patient Updated Successfully ");
+      toast.success(t("update_pateint"));
     }
   }
 

@@ -121,7 +121,7 @@ const BodyTable: FC<BodyTableProps> = ({ patient }) => {
               href={`/dashboard/patients/${patient.id}`}
               className="text-green-500"
             >
-              Edit
+              {t("edit")}
             </Link>
             <div className="h-full w-[1px] bg-black/30"></div>
 

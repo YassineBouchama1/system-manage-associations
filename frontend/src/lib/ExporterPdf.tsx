@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import * as React from "react";
 import { useReactToPrint } from "react-to-print";
 
@@ -10,6 +11,8 @@ interface PropsType {
 }
 
 export const ExporterPDF = ({ page }: PropsType) => {
+const t = useTranslations('ui')
+
   const componentRef: any = React.useRef<PrintContentRef>(null);
 
   const onBeforeGetContentResolve = React.useRef<(() => void) | null>(null);
@@ -67,13 +70,14 @@ export const ExporterPDF = ({ page }: PropsType) => {
     <div>
       {loading ? (
         <p className="indicator inline-block rounded text-blue-600  py-2 text-xs font-medium hover:text-blue-700  duration-150">
-          Loading...
+          {t("loading")}
         </p>
       ) : (
         <button
           onClick={handlePrint}
-          className="inline-block rounded text-blue-600  py-2 text-xs font-medium hover:text-blue-700  duration-150">
-          Print
+          className="inline-block rounded text-blue-600  py-2 text-xs font-medium hover:text-blue-700  duration-150"
+        >
+          {t("print")}
         </button>
       )}
 

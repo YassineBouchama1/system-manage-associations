@@ -117,7 +117,7 @@ const BodyTable: FC<BodyTableProps> = ({association}) => {
               href={`/dashboard/associations/${association.id}`}
               className="text-green-500"
             >
-              Edit
+              {t("table_edit")}
             </Link>
             <div className="h-full w-[1px] bg-black/30"></div>
 
