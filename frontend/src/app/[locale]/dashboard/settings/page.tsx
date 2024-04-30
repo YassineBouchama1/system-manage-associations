@@ -1,7 +1,7 @@
 import { delay } from "@/lib/delay";
 
 export default async function Home() {
-  await delay(1000);
+  await delay(2000);
 
   return (
    

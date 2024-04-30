@@ -4,7 +4,7 @@ import ChangePasswordForm from "@/components/auth/ChangePasswordForm";
 import { delay } from "@/lib/delay";
 
 export default async function Home() {
-  await delay(5000);
+  // await delay(5000);
 
   return (
     <section>
