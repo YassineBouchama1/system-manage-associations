@@ -1,5 +1,6 @@
 import { logout } from "@/actions/auth/profile";
 import SendEmailVerificationForm from "@/components/auth/SendEmailVerificationForm";
+import HeaderHome from "@/components/ui/HeaderHome";
 import { getSession } from "@/lib/getSessions";
 import { redirect } from "next/navigation";
 
@@ -18,6 +19,7 @@ export default async function Page() {
 
   return (
     <>
+      <HeaderHome />
       <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden py-6 sm:py-12 bg-white">
         <div className="max-w-xl px-5 text-center">
           <h2 className="mb-2 text-[42px] font-bold text-zinc-800">

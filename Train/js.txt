@@ -8,3 +8,22 @@ for(let i = num; i >= 1;i--){
 return result
 }
 console.log(per(5)) 
+
+
+
+const num = [2,5,1,20,10,1]
+ let max = num[0]
+ let min = num[0]
+for(let i = 0;i < num.length ; i++){
+ if(num[i] > max ){
+  max = num[i]
+ }
+ if(num[i] < min){
+  min = num[i]
+
+ }
+}
+
+// Log to console
+console.log(max)
+console.log(min)

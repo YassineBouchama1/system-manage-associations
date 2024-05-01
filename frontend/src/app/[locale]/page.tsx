@@ -5,53 +5,21 @@ import {  useLocale } from "next-intl";
 
 import Image from "next/image";
 import Link from "next/link";
-import { FlagIcon } from "lucide-react";
+import HeaderHome from "@/components/ui/HeaderHome";
+
 
 
 const DashboardPage = async () => {
     const t = await getTranslations("ui");
-const session = await getSession()
+// const session = await getSession()
 
 
-const correntlocale = useLocale();
+// const correntlocale = useLocale();
     //
   return (
     <div className="max-w-[1920px] mx-auto">
       <div className="bg-[#f8f9ff] font-[sans-serif] text-[#333] text-[15px]">
-        <header className="py-4 px-4 sm:px-10 z-50 min-h-[70px] shadow-md shadow-b">
-          <div className="relative flex  justify-between items-center gap-4">
-            <a>
-              <Image
-                src={correntlocale === "ar" ? "/moroccoAr.png" : "/morocco.png"}
-                alt="logo"
-                sizes="20"
-                width="20"
-                height="20"
-                className="h-16 w-auto"
-              />
-            </a>
-            <div>
-              <LocaleSwitcher />
-            </div>
-            <div className="flex ">
-              {session?.token ? (
-                <Link
-                  href={"/dashboard"}
-                  className="px-6 py-3 rounded-xl text-white bg-theme-color transition-all hover:opacity-85 duration-150"
-                >
-                  {t("dashboard")}
-                </Link>
-              ) : (
-                <Link
-                  href={"/login"}
-                  className="px-6 py-3 rounded-xl text-white bg-theme-color transition-all hover:opacity-85 duration-150"
-                >
-                  {t("login")}
-                </Link>
-              )}
-            </div>
-          </div>
-        </header>
+        <HeaderHome />
         <div className="relative bg-repeat">
           <div className="px-4 sm:px-10 ">
             <div className="relative mt-16 max-w-4xl mx-auto text-center relative z-10">

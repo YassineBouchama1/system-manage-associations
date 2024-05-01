@@ -39,7 +39,7 @@ export default async function pageDashboard({
   
   return (
     <>
-      <main className="h-full w-full ">
+      <main className="h-full w-full   bg-[url('/bgContent1.png')]  bg-repeat bg-auto md:bg-contain">
         <CardStatus itemCards={success} />
 
         <div className=" flex lg:flex-row  flex-col gap-2">

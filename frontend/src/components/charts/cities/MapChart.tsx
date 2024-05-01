@@ -233,7 +233,8 @@ const MapChart: FC<MapChartProps> = ({ mapData ,errorMap}) => {
           }
         )} */}
         <TileLayer
-          attribution="yassine" // url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution="yassine" 
+          // url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           url="https://{s}.basemaps.cartocdn.com/rastertiles/light_nolabels/{z}/{x}/{y}.png"
         />
       </MapContainer>

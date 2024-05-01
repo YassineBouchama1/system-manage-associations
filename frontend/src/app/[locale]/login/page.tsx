@@ -2,6 +2,7 @@ import LocaleSwitcher from "@/components/next-intl/LocaleSwitcher";
 import LoginForm from "@/components/auth/login-form";
 import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
+import HeaderHome from "@/components/ui/HeaderHome";
 
 
 
@@ -17,12 +18,12 @@ export default function Page() {
   const t = useTranslations("auth");
 
   return (
-    <section className="bg-gray-50 dark:bg-gray-900 h-screen">
-      <LocaleSwitcher />
+    <section className="bg-gray-50 dark:bg-gray-900 h-screen  bg-[url('/bgContent1.png')]  bg-repeat bg-auto md:bg-contain">
+      <HeaderHome />
 
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <a
-            href="#"
+          href="#"
           className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
         >
           {t("title")}

@@ -3,6 +3,7 @@ import LoginForm from "@/components/auth/login-form";
 import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import ForgotPasswordForm from "@/components/auth/ForgotPasswordForm";
+import HeaderHome from "@/components/ui/HeaderHome";
 
 export async function generateMetadata() {
   const t = await getTranslations("auth");
@@ -17,7 +18,7 @@ export default function Page() {
 
   return (
     <section className="bg-gray-50 dark:bg-gray-900 h-screen">
-      <LocaleSwitcher />
+      <HeaderHome/>
 
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <a
